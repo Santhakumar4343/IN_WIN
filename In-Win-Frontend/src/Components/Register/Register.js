@@ -34,6 +34,8 @@ const Register = () => {
 
     if (!values.userName) {
       error.userName = "User Name is required";
+    }else if(values.userName.length < 3){
+        error.userName="enter a valid user name"
     }
     if (!values.email) {
       error.email = "Email is required";
@@ -50,7 +52,7 @@ const Register = () => {
     if (!values.mobileNumber) {
       error.mobileNumber = "Mobile Number is required";
     } else if (!mobileValidation.test(values.mobileNumber)) {
-      error.mobileNumber = "This is not a valid Mobile Number!";
+      error.mobileNumber = "Enter a valid Mobile Number!";
     }
     return error;
   };
@@ -88,6 +90,7 @@ const Register = () => {
   return (
    
     <>
+    <div className="Register-Main">
         {!otpModalOpen && (
             <div className="register">
             <form>
@@ -148,6 +151,7 @@ const Register = () => {
               <button className="otp-button" onClick={verifyOtp}>Verify OTP</button>
             </div> 
           )}
+          </div>
           </>
   );
 };

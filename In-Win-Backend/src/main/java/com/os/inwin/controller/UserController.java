@@ -124,11 +124,18 @@ public class UserController {
 
 	@PostMapping("/login")
 	public ResponseEntity<User> login(@RequestParam String userName, @RequestParam String password) {
-		try {
-			User authenticatedUser = userService.login(userName, password);
-			return new ResponseEntity<>(authenticatedUser, HttpStatus.OK);
-		} catch (AuthException e) {
-			return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
-		}
+	    try {
+	        User authenticatedUser = userService.login(userName, password);
+	        return new ResponseEntity<>(authenticatedUser, HttpStatus.OK);
+	    } catch (AuthException e) {
+	        if (e.getMessage().equals("Invalid username")) {
+	            return new ResponseEntity<>(HttpStatus.NOT_FOUND); // Username not found
+	        } else {
+	            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED); // Incorrect password
+	        }
+	    }
 	}
+
+	
+
 }

@@ -308,3 +308,19 @@
 2024-02-16 12:17:16,456 [Worker-20: Launching In-Win-Backend - InWinBackendApplication] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 1 resource from src\main\resources to target\classes
 2024-02-16 12:17:16,464 [Worker-20: Launching In-Win-Backend - InWinBackendApplication] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 0 resource from src\main\resources to target\classes
 2024-02-16 12:17:16,468 [Worker-20: Launching In-Win-Backend - InWinBackendApplication] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - skip non existing resourceDirectory C:\Users\santh\OneDrive\Desktop\In-Win\In-Win-Backend\src\test\resources
+2024-02-16 14:54:13,143 [Worker-41: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 1 resource from src\main\resources to target\classes
+2024-02-16 14:54:13,177 [Worker-41: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 0 resource from src\main\resources to target\classes
+2024-02-16 14:54:13,181 [Worker-41: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - skip non existing resourceDirectory C:\Users\santh\OneDrive\Desktop\In-Win\In-Win-Backend\src\test\resources
+2024-02-16 14:55:01,312 [Worker-43: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 1 resource from src\main\resources to target\classes
+2024-02-16 14:55:01,318 [Worker-43: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 0 resource from src\main\resources to target\classes
+2024-02-16 14:55:01,322 [Worker-43: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - skip non existing resourceDirectory C:\Users\santh\OneDrive\Desktop\In-Win\In-Win-Backend\src\test\resources
+2024-02-16 14:55:04,003 [Worker-42: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 1 resource from src\main\resources to target\classes
+2024-02-16 14:55:04,012 [Worker-42: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 0 resource from src\main\resources to target\classes
+2024-02-16 14:55:04,019 [Worker-42: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - skip non existing resourceDirectory C:\Users\santh\OneDrive\Desktop\In-Win\In-Win-Backend\src\test\resources
+2024-02-16 15:02:39,024 [Worker-46: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 1 resource from src\main\resources to target\classes
+2024-02-16 15:02:39,029 [Worker-46: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 0 resource from src\main\resources to target\classes
+2024-02-16 15:02:39,032 [Worker-46: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - skip non existing resourceDirectory C:\Users\santh\OneDrive\Desktop\In-Win\In-Win-Backend\src\test\resources
+2024-02-16 15:03:11,085 [Worker-49: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 1 resource from src\main\resources to target\classes
+2024-02-16 15:03:11,090 [Worker-49: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 0 resource from src\main\resources to target\classes
+2024-02-16 15:03:11,093 [Worker-49: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - skip non existing resourceDirectory C:\Users\santh\OneDrive\Desktop\In-Win\In-Win-Backend\src\test\resources
+2024-02-16 15:03:25,956 [Worker-46: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 1 resource from src\main\resources to target\classes

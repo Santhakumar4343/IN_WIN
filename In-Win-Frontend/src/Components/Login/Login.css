@@ -7,6 +7,7 @@
     padding: 1rem;
     align-items: center;
     text-align: center;
+ 
 }
 
 .login > form input {
@@ -19,3 +20,11 @@
     padding: 12px;
     font-size: 16px;
 }
+
+.Login-Main {
+    display: flex;
+    width: 100vw;
+    height: 100vh;
+    justify-content: center;
+    align-items: center;
+    }

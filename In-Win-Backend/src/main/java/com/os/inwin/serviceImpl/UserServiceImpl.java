@@ -143,16 +143,29 @@ public class UserServiceImpl implements UserService {
 		}
 	}
 
+//	public User login(String userName, String password) throws AuthException {
+//	    // Authenticate the user
+//	    User user = userRepository.findByUserNameAndPassword(userName, password);
+//
+//	    if (user != null) {
+//	        return user;
+//	    } else {
+//	        throw new AuthException("Invalid login credentials");
+//	    }
+//	}
 	public User login(String userName, String password) throws AuthException {
-		// Authenticate the user
-		User user = userRepository.findByUserNameAndPassword(userName, password);
+	    // Check if the user exists in the database
+	    User user = userRepository.findByUserName(userName);
 
-		if (user != null) {
-
-			return user;
-		} else {
-			throw new AuthException("Invalid login credentials");
-		}
+	    if (user != null) {
+	        // Authenticate the user if found
+	        if (user.getPassword().equals(password)) {
+	            return user; // Authentication successful
+	        } else {
+	            throw new AuthException("Incorrect password");
+	        }
+	    } else {
+	        throw new AuthException("Invalid username");
+	    }
 	}
-
 }
