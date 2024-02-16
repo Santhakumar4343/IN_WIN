@@ -1,0 +1,63 @@
+package com.os.inwin.serviceImpl;
+
+
+import java.util.List;
+import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.os.inwin.entity.User;
+import com.os.inwin.repository.UserRepository;
+import com.os.inwin.service.UserService;
+
+@Service
+public class UserServiceImpl implements UserService {
+     @Autowired
+	 private UserRepository userRepository;
+     
+     
+     
+	@Override
+	public User createUser(User user) {
+		return userRepository.save(user);
+	}
+
+	@Override
+	public User getUser(long id) {
+		Optional<User> user=userRepository.findById(id);
+		return user.orElse(null);
+	}
+
+	@Override
+	public List<User> getAllUser() {
+		
+		return userRepository.findAll();
+	}
+
+	@Override
+	public User UpdateUser(long id, User user) {
+		Optional<User> optionalUser=userRepository.findById(id);
+		if(optionalUser.isPresent())
+		{
+			User existingUser=optionalUser.get();
+			existingUser.setUserName(user.getUserName());
+			existingUser.setEmail(user.getEmail());
+			existingUser.setPassword(user.getPassword());
+			existingUser.setMobileNumber(user.getMobileNumber());
+			existingUser.setUserType(user.getUserType());
+			existingUser.setCountry(user.getCountry());
+			existingUser.setCurrency(user.getCurrency());
+			  return userRepository.save(existingUser);
+			
+		}
+		return null;
+	}
+
+	@Override
+	public boolean deleteUser(long id ) {
+		userRepository.deleteById(id);
+		
+	}
+
+}

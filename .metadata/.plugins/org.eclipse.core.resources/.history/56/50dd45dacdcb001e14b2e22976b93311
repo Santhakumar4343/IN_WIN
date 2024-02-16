@@ -1,0 +1,29 @@
+package com.os.inwin.serviceImpl;
+
+import org.apache.catalina.User;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.os.inwin.repository.UserRepository;
+import com.os.inwin.service.UserService;
+
+@Service
+public class UserServiceImpl implements UserService {
+     @Autowired
+	 private UserRepository userRepository;
+     
+     
+     
+	@Override
+	public com.os.inwin.entity.User createUser(User user) {
+	
+		return null;
+	}
+
+	@Override
+	public com.os.inwin.entity.User getUser() {
+		
+		return null;
+	}
+
+}

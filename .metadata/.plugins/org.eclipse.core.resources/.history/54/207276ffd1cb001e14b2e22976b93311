@@ -1,0 +1,10 @@
+package com.os.inwin.service;
+
+import com.os.inwin.entity.User;
+
+public interface UserService {
+
+	User createUser(User user);
+	User getUser();
+	
+}

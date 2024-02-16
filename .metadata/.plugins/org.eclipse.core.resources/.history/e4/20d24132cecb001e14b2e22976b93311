@@ -1,0 +1,30 @@
+package com.os.inwin.serviceImpl;
+
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.os.inwin.entity.User;
+import com.os.inwin.repository.UserRepository;
+import com.os.inwin.service.UserService;
+
+@Service
+public class UserServiceImpl implements UserService {
+     @Autowired
+	 private UserRepository userRepository;
+     
+     
+     
+	@Override
+	public User createUser(User user) {
+	  
+		return userRepository.save(user);
+	}
+
+	@Override
+	public com.os.inwin.entity.User getUser() {
+		
+		return null;
+	}
+
+}

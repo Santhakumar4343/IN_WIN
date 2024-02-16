@@ -1,0 +1,5 @@
+package com.os.inwin.repository;
+
+public Interface UserRepository extends JpaRepo {
+
+}
