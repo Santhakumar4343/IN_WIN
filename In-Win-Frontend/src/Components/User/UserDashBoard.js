@@ -54,19 +54,19 @@ function UserDashboard() {
       <div className="nav-links" >
           <ul className="list-unstyled">
             <li  style={{marginBottom:"20px"}}>
-            <CandlestickChartIcon style={{color:"white",fontSize:"25px" ,marginLeft:"5px" ,margin:"2px"}}/>
-              <Link onClick={(e) => handleNavLinkClick("stocks", e)} style={{color:"white", fontSize:"30px",marginBottom:"100px",textDecoration: "none" }}>
+            <CandlestickChartIcon style={{color:"white",fontSize:"25px" ,marginLeft:"15px" ,margin:"2px"}}/>
+              <Link onClick={(e) => handleNavLinkClick("stocks", e)} style={{color:"white", fontSize:"30px",marginBottom:"100px",textDecoration: "none", }}>
                 Stocks
               </Link>
             </li>
             <li style={{marginBottom:"20px"}}>
-            <ViewAgendaSharpIcon style={{color:"white",fontSize:"22px" ,marginLeft:"5px" ,margin:"2px"}}/>
+            <ViewAgendaSharpIcon style={{color:"white",fontSize:"22px" ,marginLeft:"15px" ,margin:"2px"}}/>
               <Link onClick={(e) => handleNavLinkClick("gold", e)}style={{color:"white", fontSize:"30px",marginTop:"20px",textDecoration: "none" }}>
                 Gold
               </Link>
             </li>
             <li style={{marginBottom:"20px"}}>
-            <CorporateFareRoundedIcon style={{color:"white",fontSize:"25px" ,marginLeft:"5px" ,margin:"2px"}}/>
+            <CorporateFareRoundedIcon style={{color:"white",fontSize:"25px" ,marginLeft:"15px" ,margin:"2px"}}/>
               <Link onClick={(e) => handleNavLinkClick("realestate", e)} style={{color:"white", fontSize:"30px",marginTop:"20px",textDecoration: "none" }}>
                 Realestate
               </Link>

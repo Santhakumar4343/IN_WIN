@@ -4,8 +4,9 @@ import "../Login/Login.css";
 import axios from "axios";
 import { useNavigate, NavLink } from "react-router-dom";
 import { BASE_URl } from "../API/Api";
+import { CommentSharp } from "@mui/icons-material";
 
-const Login = ({ setUserState }) => {
+const Login = ({  }) => {
   const navigate = useNavigate();
   const [formErrors, setFormErrors] = useState({});
   const [isSubmit, setIsSubmit] = useState(false);
@@ -35,28 +36,33 @@ const Login = ({ setUserState }) => {
     return error;
   };
 
-  const loginHandler = (e) => {
+  const loginHandler =  (e) => {
     e.preventDefault();
     setFormErrors(validateForm(user));
     setIsSubmit(true);
     if (Object.keys(formErrors).length === 0) {
       axios
         .post(`${BASE_URl}/api/users/login?userName=${user.userName}&password=${user.password}`)
-        .then((res) => {
+        .then(async (res) => {
             if (res && res.status === 200) {
-                navigate("/userDashBoard");
+              const userData = res.data;
+             
+                    const userUsername = userData.userName;
+                    navigate("/userDashBoard", { state: { userData, userName: userUsername } });
+                console.log("fgjifdgjidfgjdflkgjdfgklfg",userUsername);
             }
         })
         .catch((error) => {
-          if (error.response.status === 401) {
-            setFormErrors({ password: "Incorrect password" });
-          } else if (error.response.status === 404) {
-            setFormErrors({ userName: "User name not found" });
+          if (error.response && error.response.status === 401) {
+              setFormErrors({ password: "Incorrect password" });
+          } else if (error.response && error.response.status === 404) {
+              setFormErrors({ userName: "User name not found" });
           } else {
-            console.error("Login error:", error);
-            setFormErrors({ userName: "Login failed" });
+              console.error("Login error:", error);
+              setFormErrors({ userName: "Login failed" });
           }
-        });
+      });
+      
     }
   };
   

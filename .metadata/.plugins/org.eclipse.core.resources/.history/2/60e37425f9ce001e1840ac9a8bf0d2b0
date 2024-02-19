@@ -1,0 +1,22 @@
+package com.os.inwin.serviceImpl;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.AutoConfigureOrder;
+import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
+
+@Service
+public class StockMarketApiService {
+    private static final String BASE_URL = "https://cloud.iexapis.com/stable";
+    private static final String API_TOKEN = "pk_924aab9929b042b0a63cfcd12f2b72fe"; 
+@Autowired
+    private  RestTemplate restTemplate;
+
+    
+
+    public double getCurrentPrice(String symbol) {
+        String apiUrl = BASE_URL + "/stock/" + symbol + "/quote/latestPrice?token=" + API_TOKEN;
+        return restTemplate.getForObject(apiUrl, Double.class);
+    }
+}
+
