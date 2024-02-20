@@ -1,0 +1,47 @@
+package com.os.inwin.serviceImpl;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
+
+import com.os.inwin.entity.PolygonApiResponse;
+import com.os.inwin.entity.Stock;
+import com.os.inwin.repository.StockRepository;
+
+@Service
+public class StockMarketApiService {
+    @Autowired
+    private RestTemplate restTemplate;
+
+    @Autowired
+    private StockRepository stockRepository;
+
+    private static final String BASE_URL = "https://api.polygon.io/v1/last/stocks/";
+    private static final String API_KEY = "nqqyw2hiPwvnaLpk8AARBygS3aEm9K1_"; // Replace with your actual Polygon.io API key
+
+    public double getCurrentPriceAndUpdate(String symbol) {
+        String apiUrl = BASE_URL + symbol + "?apiKey=" + API_KEY;
+
+        try {
+            // Make the API call
+            PolygonApiResponse response = restTemplate.getForObject(apiUrl, PolygonApiResponse.class);
+            if (response != null && response.getLast() != null) {
+                double currentPrice = response.getLast().getPrice();
+                // Update the stock price in the database
+                Stock stock = stockRepository.findBySymbol(symbol);
+                if (stock != null) {
+                    stock.setCurrentPrice(currentPrice);
+                    stockRepository.save(stock);
+                }
+                return currentPrice;
+            } else {
+                System.out.println("Error: Invalid API response or missing data for symbol " + symbol);
+            }
+        } catch (Exception e) {
+            System.out.println("Error fetching stock price for symbol " + symbol + ": " + e.getMessage());
+            e.printStackTrace(); // Print stack trace for detailed error analysis
+        }
+
+        return 0.0;
+    }
+}

@@ -1,0 +1,23 @@
+package com.os.inwin.entity;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+@JsonIgnoreProperties(ignoreUnknown = true)
+public class PolygonApiResponse {
+    private LastTrade last;
+
+    public LastTrade getLast() {
+        return last;
+    }
+
+    public void setLast(LastTrade last) {
+        this.last = last;
+    }
+
+    @Override
+    public String toString() {
+        return "PolygonApiResponse{" +
+                "last=" + last +
+                '}';
+    }
+}

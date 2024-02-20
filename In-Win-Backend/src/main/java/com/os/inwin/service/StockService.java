@@ -9,5 +9,6 @@ public interface StockService {
     Stock saveStock(Stock stock);
     void updateStockPrices();
     List<Stock> getStocksByUserName(String userName);
+    Stock updateStock(Long id,Stock stock);
 }
 

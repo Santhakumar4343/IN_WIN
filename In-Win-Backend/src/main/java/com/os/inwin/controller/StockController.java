@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -40,7 +41,13 @@ public class StockController {
         return new ResponseEntity<>("Stock prices updated successfully", HttpStatus.OK);
     }
     
-    
+    @PutMapping("/updateStock/{id}")
+    public ResponseEntity<String> updateStock(@PathVariable long id, @RequestBody Stock stock) {
+        Stock updatedStock = stockService.updateStock(id, stock);
+        return updatedStock != null ? new ResponseEntity<>("Stock updated successfully", HttpStatus.OK) :
+                new ResponseEntity<>("Stock not found", HttpStatus.NOT_FOUND);
+    }
+
     
     @GetMapping("/getStocksForUser/{userName}")
     public List<Stock> getStocksByUserName(@PathVariable("userName") String userName) {

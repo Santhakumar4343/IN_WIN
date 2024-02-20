@@ -10,5 +10,6 @@ import com.os.inwin.entity.Stock;
 @Repository
 public interface StockRepository extends JpaRepository<Stock, Long> {
 	List<Stock> findByUserName(String userName);
+	Stock findBySymbol(String symbol);
 }
 

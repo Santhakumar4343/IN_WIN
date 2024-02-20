@@ -1,6 +1,7 @@
 package com.os.inwin.serviceImpl;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -33,7 +34,7 @@ public class StockServiceImpl implements StockService {
     public void updateStockPrices() {
         List<Stock> stocks = stockRepository.findAll();
         for (Stock stock : stocks) {
-            double currentPrice = stockMarketApiService.getCurrentPrice(stock.getSymbol());
+            double currentPrice = stockMarketApiService.getCurrentPriceAndUpdate(stock.getSymbol());
             stock.setCurrentPrice(currentPrice);
             stock.setLastUpdateDate(LocalDate.now());
             stockRepository.save(stock);
@@ -44,6 +45,21 @@ public class StockServiceImpl implements StockService {
 	public List<Stock> getStocksByUserName(String userName) {
 		
 		return stockRepository.findByUserName(userName);
+	}
+
+	@Override
+	public Stock updateStock(Long id, Stock stock) {
+	    Optional<Stock> optionalStock = stockRepository.findById(id);
+	    if (optionalStock.isPresent()) {
+	        Stock existingStock = optionalStock.get();
+	        existingStock.setName(stock.getName());
+	        existingStock.setQuantity(stock.getQuantity());
+	        existingStock.setBuyDate(stock.getBuyDate());
+	        existingStock.setPurchasePrice(stock.getPurchasePrice());
+	       existingStock.setSymbol(stock.getSymbol());
+	        return stockRepository.save(existingStock);
+	    }
+	    return null;
 	}
 }
 

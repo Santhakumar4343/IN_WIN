@@ -6,14 +6,11 @@ public class GlobalQuote {
     @JsonProperty("05. price")
     private double price;
 
-	public double getPrice() {
-		return price;
-	}
+    public double getPrice() {
+        return price;
+    }
 
-	public void setPrice(double price) {
-		this.price = price;
-	}
-
-  
+    public void setPrice(double price) {
+        this.price = price;
+    }
 }
-

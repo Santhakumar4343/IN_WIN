@@ -1,0 +1,46 @@
+package com.os.inwin.serviceImpl;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
+
+import com.os.inwin.entity.AlphaVantageResponse;
+import com.os.inwin.entity.Stock; // Assuming Stock entity is defined in this package
+import com.os.inwin.repository.StockRepository; // Assuming StockRepository is defined in this package
+
+@Service
+public class StockMarketApiService {
+    @Autowired
+    private RestTemplate restTemplate;
+
+    @Autowired
+    private StockRepository stockRepository;
+
+    private static final String BASE_URL = "https://www.alphavantage.co";
+    private static final String API_KEY = "NKJ16P10309806JJ"; 
+
+    public double getCurrentPriceAndUpdate(String symbol) {
+        String apiUrl = BASE_URL + "/query?function=GLOBAL_QUOTE&symbol=" + symbol + "&apikey=" + API_KEY;
+        
+        try {
+            AlphaVantageResponse response = restTemplate.getForObject(apiUrl, AlphaVantageResponse.class);
+            if (response != null && response.getGlobalQuote() != null) {
+                double currentPrice = response.getGlobalQuote().getPrice();
+                Stock stock = stockRepository.findBySymbol(symbol);
+                if (stock != null) {
+                    stock.setCurrentPrice(currentPrice);
+                    stockRepository.save(stock);
+                }
+                return currentPrice;
+            } else {
+                System.out.println("Error: Invalid API response or missing data for symbol " + symbol);
+            }
+        } catch (Exception e) {
+            System.out.println("Error fetching stock price for symbol " + symbol + ": " + e.getMessage());
+            e.printStackTrace(); // Print stack trace for detailed error analysis
+        }
+        
+        return 0.0;
+    }
+
+}

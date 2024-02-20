@@ -4,7 +4,7 @@ import { Modal, Button, Form, Row, Col } from 'react-bootstrap';
 import moment from 'moment';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../Stocks/Stock.css';
-
+import EditIcon from '@mui/icons-material/Edit';
 import { useLocation } from "react-router-dom";
 import { BASE_URl } from '../API/Api';
 
@@ -60,8 +60,6 @@ function Stocks() {
           purchasePrice: '',
           buyDate: '',
           quantity: '',
-          currentPrice: '',
-          lastUpdateDate: ''
         });
         setShowModal(false);
       })
@@ -76,9 +74,9 @@ function Stocks() {
       <div className="row row-cols-1 row-cols-md-3 g-4 mt-2" >
       {stocks.map((stock, index) => (
         <div className="col-md-4 mb-3" key={stock.id}>
-          <div className="card h-100 d-flex flex-column border border-dark" style={{backgroundColor:"#0b0c0d"}}> 
+          <div className="card h-100 d-flex flex-column border border-dark" style={{backgroundColor:"green"}}> 
             <div className="card-body">
-              <h5 className="card-title text-center">{stock.name}</h5>
+              <h5 className="card-title text-center" style={{color:"white"}}>{stock.name}</h5>
               <p style={{color:"white"}}><strong >Symbol:</strong> {stock.symbol}</p>
               <p style={{color:"white"}}><strong>Purchase Price:</strong> {stock.purchasePrice}</p>
               <p style={{color:"white"}}><strong>Buy Date:</strong> {moment(stock.buyDate).format("DD-MM-YYYY")}</p>
@@ -86,8 +84,8 @@ function Stocks() {
               <p style={{color:"white"}}><strong>Current Price:</strong> {stock.currentPrice}</p>
               <p style={{color:"white"}}><strong>Last Update Date:</strong> {moment(stock.lastUpdateDate).format("DD-MM-YYYY")}</p>
             </div>
-            <div className="card-footer d-flex justify-content-center align-items-center border border-dark">
-            
+            <div className="card-footer d-flex justify-content-center align-items-center border border-dark ">
+            <EditIcon className='fs-4' onClick={() => {}}></EditIcon>
             </div>
           </div>
         </div>
@@ -169,7 +167,7 @@ function Stocks() {
                 />
               </Col>
             </Row>
-            <Row>
+            {/* <Row>
               <Col md={4}>
                 <Form.Label>Current Price</Form.Label>
               </Col>
@@ -196,7 +194,7 @@ function Stocks() {
                   onChange={handleInputChange}
                 />
               </Col>
-            </Row>
+            </Row> */}
           </Form>
         </Modal.Body>
         <Modal.Footer className='d-flex align-items-center justify-content-center'>

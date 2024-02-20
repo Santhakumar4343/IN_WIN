@@ -1,0 +1,13 @@
+package com.os.inwin.entity;
+
+public class GlobalQuote {
+    private double price;
+
+    public double getPrice() {
+        return price;
+    }
+
+    public void setPrice(double price) {
+        this.price = price;
+    }
+}
