@@ -10,5 +10,7 @@ public interface StockService {
     void updateStockPrices();
     List<Stock> getStocksByUserName(String userName);
     Stock updateStock(Long id,Stock stock);
+    boolean deleteStock(long id);
 }
+
 

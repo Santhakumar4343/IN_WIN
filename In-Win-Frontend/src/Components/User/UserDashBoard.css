@@ -5,11 +5,12 @@
   .nav-links {
     width: 20%;
     background-color: black;
-    height: auto;
+    height: 400vh;
   }
   
   .main-content {
     width: 100%;
-    background-color: rgb(168, 250, 250);
+    background-color: rgb(209, 255, 251);
+    height: 400vh;
   }
   

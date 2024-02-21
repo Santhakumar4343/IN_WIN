@@ -46,7 +46,6 @@ public class StockServiceImpl implements StockService {
 		
 		return stockRepository.findByUserName(userName);
 	}
-
 	@Override
 	public Stock updateStock(Long id, Stock stock) {
 	    Optional<Stock> optionalStock = stockRepository.findById(id);
@@ -61,5 +60,18 @@ public class StockServiceImpl implements StockService {
 	    }
 	    return null;
 	}
+
+	@Override
+	public boolean deleteStock(long id) {
+	    Optional<Stock> optionalStock = stockRepository.findById(id);
+	    if (optionalStock.isPresent()) {
+	        stockRepository.deleteById(id);
+	        return true; // Deletion successful
+	    } else {
+	        return false; // Stock with given ID not found
+	    }
+	}
+
+
 }
 

@@ -18,6 +18,7 @@ public class StockMarketApiService {
 
     private static final String BASE_URL = "https://www.alphavantage.co";
     private static final String API_KEY = "NKJ16P10309806JJ"; 
+    private static final double EXCHANGE_RATE = 82.8655956219; // Exchange rate from USD to INR
 
     public double getCurrentPriceAndUpdate(String symbol) {
         // Check if the symbol exists in your database
@@ -32,11 +33,14 @@ public class StockMarketApiService {
         AlphaVantageResponse response = restTemplate.getForObject(apiUrl, AlphaVantageResponse.class);
         if (response != null && response.getGlobalQuote() != null) {
             System.out.println(response.getGlobalQuote().getPrice());
+            // Convert the price from USD to INR
+            double priceInUSD = response.getGlobalQuote().getPrice();
+            double currentPriceInINR = priceInUSD * EXCHANGE_RATE;
+            
             // Update the current price in the database
-            double currentPrice = response.getGlobalQuote().getPrice();
-            stock.setCurrentPrice(currentPrice);
+            stock.setCurrentPrice(currentPriceInINR);
             stockRepository.save(stock);
-            return currentPrice;
+            return currentPriceInINR;
         } else {
             return 0.0;
         }

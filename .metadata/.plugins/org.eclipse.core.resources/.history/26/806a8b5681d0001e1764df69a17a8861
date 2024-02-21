@@ -1,0 +1,128 @@
+//package com.os.inwin.serviceImpl;
+//
+//import org.springframework.beans.factory.annotation.Autowired;
+//import org.springframework.stereotype.Service;
+//import org.springframework.web.client.RestTemplate;
+//
+//import com.os.inwin.entity.AlphaVantageResponse;
+//import com.os.inwin.entity.Stock; 
+//import com.os.inwin.repository.StockRepository; 
+//
+//@Service
+//public class StockMarketApiService {
+//    @Autowired
+//    private RestTemplate restTemplate;
+//
+//    @Autowired
+//    private StockRepository stockRepository;
+//
+//    private static final String BASE_URL = "https://www.alphavantage.co";
+//    private static final String API_KEY = "NKJ16P10309806JJ"; 
+//
+//    public double getCurrentPriceAndUpdate(String symbol) {
+//        // Check if the symbol exists in your database
+//        Stock stock = stockRepository.findBySymbol(symbol);
+//        if (stock == null) {
+//            System.out.println("Stock symbol not found in the database: " + symbol);
+//            return 0.0; // Return 0 or handle the case accordingly
+//        }
+//
+//        String apiUrl = BASE_URL + "/query?function=GLOBAL_QUOTE&symbol=" + symbol + "&apikey=" + API_KEY;
+//        System.out.println(symbol);
+//        AlphaVantageResponse response = restTemplate.getForObject(apiUrl, AlphaVantageResponse.class);
+//        if (response != null && response.getGlobalQuote() != null) {
+//            System.out.println(response.getGlobalQuote().getPrice());
+//            // Update the current price in the database
+//            double currentPrice = response.getGlobalQuote().getPrice();
+//            stock.setCurrentPrice(currentPrice);
+//            stockRepository.save(stock);
+//            return currentPrice;
+//        } else {
+//            return 0.0;
+//        }
+//    }
+//}
+
+
+
+
+
+
+
+
+
+package com.os.inwin.serviceImpl;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
+
+import com.os.inwin.entity.AlphaVantageResponse;
+import com.os.inwin.entity.ExchangeRateResponse;
+import com.os.inwin.entity.Stock;
+import com.os.inwin.repository.StockRepository; 
+
+@Service
+public class StockMarketApiService {
+    @Autowired
+    private RestTemplate restTemplate;
+
+    @Autowired
+    private StockRepository stockRepository;
+
+    // API endpoint for getting exchange rates
+    private static final String EXCHANGE_RATE_API = "https://api.currencyapi.com/v3/latest?apikey=cur_live_o7z2Rd9oo7wMgkz0KAwjuK6eUjrGqbF4590Tqouh";
+    // Currency code for Indian Rupees (INR)
+    private static final String INR_CURRENCY_CODE = "INR";
+
+    private static final String ALPHA_VANTAGE_BASE_URL = "https://www.alphavantage.co";
+    private static final String ALPHA_VANTAGE_API_KEY = "NKJ16P10309806JJ"; 
+
+    public double getCurrentPriceAndUpdate(String symbol) {
+        // Check if the symbol exists in your database
+        Stock stock = stockRepository.findBySymbol(symbol);
+        if (stock == null) {
+            System.out.println("Stock symbol not found in the database: " + symbol);
+            return 0.0; // Return 0 or handle the case accordingly
+        }
+
+        // Get the latest exchange rate for USD to INR
+        double exchangeRate = getExchangeRate();
+        if (exchangeRate == 0.0) {
+            System.out.println("Error: Exchange rate data is not available");
+            return 0.0; // Handle the case where exchange rate data is not available
+        }
+        
+        String apiUrl = ALPHA_VANTAGE_BASE_URL + "/query?function=GLOBAL_QUOTE&symbol=" + symbol + "&apikey=" + ALPHA_VANTAGE_API_KEY;
+        AlphaVantageResponse response = restTemplate.getForObject(apiUrl, AlphaVantageResponse.class);
+        if (response != null && response.getGlobalQuote() != null) {
+            // Update the current price in the database
+            double currentPriceUSD = response.getGlobalQuote().getPrice();
+            double currentPriceINR = currentPriceUSD * exchangeRate; // Convert USD to INR
+            stock.setCurrentPrice(currentPriceINR);
+            stockRepository.save(stock);
+            return currentPriceINR;
+        } else {
+            return 0.0;
+        }
+    }
+
+    // Method to fetch the latest exchange rate from USD to INR
+    private double getExchangeRate() {
+        // Fetch exchange rate from the API
+        ExchangeRateResponse exchangeRateResponse = restTemplate.getForObject(EXCHANGE_RATE_API, ExchangeRateResponse.class);
+        // Check if exchangeRateResponse is null or rates map is null
+        if (exchangeRateResponse == null || exchangeRateResponse.getRates() == null) {
+            System.out.println("Error: Exchange rate data is not available");
+            return 0.0; // Return 0 or handle the case accordingly
+        }
+        // Extract the exchange rate for USD to INR
+        Double exchangeRate = exchangeRateResponse.getRates().get(INR_CURRENCY_CODE);
+        if (exchangeRate == null) {
+            System.out.println("Error: Exchange rate for INR is not available");
+            return 0.0; // Return 0 or handle the case accordingly
+        }
+        return exchangeRate;
+    }
+}
+
