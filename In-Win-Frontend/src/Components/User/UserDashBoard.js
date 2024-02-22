@@ -74,38 +74,38 @@ function UserDashboard() {
           <ul className="list-unstyled">
             <li  style={{marginBottom:"20px"}}>
             <CandlestickChartIcon style={{color:"white",fontSize:"25px" ,marginLeft:"15px",marginBottom:"7px"}}/>
-              <Link onClick={(e) => handleNavLinkClick("stocks", e)} style={{color:"white", fontSize:"25px",marginTop:"20px",textDecoration: "none", }}>
+              <Link onClick={(e) => handleNavLinkClick("stocks", e)} style={{color:"white",marginLeft: "5px", fontSize:"25px",marginTop:"20px",textDecoration: "none", }}>
                 Stocks
               </Link>
             </li>
             <li style={{marginBottom:"20px"}}>
             <ViewAgendaSharpIcon style={{color:"white",fontSize:"22px" ,marginLeft:"15px" ,marginBottom:"8px"}}/>
-              <Link onClick={(e) => handleNavLinkClick("gold", e)}style={{color:"white", fontSize:"25px",marginTop:"20px",textDecoration: "none" }}>
+              <Link onClick={(e) => handleNavLinkClick("gold", e)}style={{color:"white", marginLeft: "10px",fontSize:"25px",marginTop:"20px",textDecoration: "none" }}>
                 Gold
               </Link>
             </li>
             <li style={{marginBottom:"20px"}}>
             <CorporateFareRoundedIcon style={{color:"white",fontSize:"25px" ,marginLeft:"15px" ,marginBottom:"8px"}}/>
-              <Link onClick={(e) => handleNavLinkClick("realestate", e)} style={{color:"white", fontSize:"25px",marginTop:"20px",textDecoration: "none" }}>
+              <Link onClick={(e) => handleNavLinkClick("realestate", e)} style={{color:"white",marginLeft: "10px", fontSize:"25px",marginTop:"20px",textDecoration: "none" }}>
                 Realestate
               </Link>
             </li>
             <li style={{marginBottom:"20px"}}>
             <HealthAndSafetyIcon style={{color:"white",fontSize:"25px" ,marginLeft:"15px" ,marginBottom:"8px"}}/>
-              <Link onClick={(e) => handleNavLinkClick("insurances", e)} style={{color:"white", fontSize:"25px",marginTop:"20px",textDecoration: "none" }}>
+              <Link onClick={(e) => handleNavLinkClick("insurances", e)} style={{color:"white", marginLeft: "10px",fontSize:"25px",marginTop:"20px",textDecoration: "none" }}>
                Insurances
               </Link>
             </li>
             <li style={{marginBottom:"20px"}}>
             <SavingsIcon style={{color:"white",fontSize:"25px" ,marginLeft:"15px" ,marginBottom:"8px"}}/>
-              <Link onClick={(e) => handleNavLinkClick("fixeddeposits", e)} style={{color:"white", fontSize:"25px",marginTop:"20px",textDecoration: "none" }}>
-               FixedDeposits
+              <Link onClick={(e) => handleNavLinkClick("fixeddeposits", e)} style={{color:"white",marginLeft: "10px", fontSize:"25px",marginTop:"20px",textDecoration: "none" }}>
+               Fixed Deposits
               </Link>
             </li>
             <li style={{marginBottom:"20px"}}>
             <MuseumIcon style={{color:"white",fontSize:"25px" ,marginLeft:"15px" ,marginBottom:"8px"}}/>
-              <Link onClick={(e) => handleNavLinkClick("antiquepieces", e)} style={{color:"white", fontSize:"25px",marginTop:"20px",textDecoration: "none" }}>
-               AntiquePieces
+              <Link onClick={(e) => handleNavLinkClick("antiquepieces", e)} style={{color:"white",marginLeft: "10px", fontSize:"25px",marginTop:"20px",textDecoration: "none" }}>
+               Antique Pieces
               </Link>
             </li>
           </ul>

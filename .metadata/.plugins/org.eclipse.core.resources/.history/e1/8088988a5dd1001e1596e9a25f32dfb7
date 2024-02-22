@@ -1,0 +1,20 @@
+package com.os.inwin.service;
+
+import java.util.List;
+
+import com.os.inwin.entity.Nominee;
+import com.os.inwin.entity.User;
+
+public interface NomineeService {
+
+	
+	Nominee createNominee(Nominee user);
+
+	Nominee getNominee(long id);
+
+	List<Nominee> getAllNominees();
+
+	Nominee UpdateNominee(long id, Nominee user);
+
+	void deleteNominee(long id);
+}
