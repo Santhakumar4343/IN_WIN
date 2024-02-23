@@ -96,13 +96,13 @@ public class NomineeServiceImpl implements NomineeService{
 		}
 	}
 
-	public void sendOtpToSuperUser(Nominee nominee) {
+	public void sendOtpToOwner(Nominee nominee) {
 		String ownerUsername = nominee.getOwner();
 	    User user = userRepository.findByUserName(ownerUsername);
 		// Generate a random 6-digit OTP and save it to the cache
 		String otp = generateOtpAndSendEmail(nominee);
 
-		System.err.println(user.getEmail()+"dfdsfdsf"+nominee.getUserName());
+		System.err.println(user.getEmail()+"--------------------"+nominee.getUserName());
 		sendOtpEmail(user.getEmail(), nominee.getUserName(), otp);
 	}
 

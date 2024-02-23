@@ -1,0 +1,54 @@
+package com.os.inwin.serviceImpl;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+
+import com.os.inwin.entity.Gold;
+import com.os.inwin.repository.GoldRepository;
+import com.os.inwin.service.GoldService;
+
+public class GoldServiceImpl implements GoldService{
+
+	
+	@Autowired
+	private GoldRepository goldRepository;
+	
+	
+	@Override
+	public List<Gold> getAllGolds() {
+		
+		return null;
+	}
+
+	@Override
+	public Gold saveGold(Gold gold) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void updateGoldPrices() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public List<Gold> getGoldByUserName(String userName) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Gold updateGold(Long id, Gold gold) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public boolean deleteGold(long id) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+}

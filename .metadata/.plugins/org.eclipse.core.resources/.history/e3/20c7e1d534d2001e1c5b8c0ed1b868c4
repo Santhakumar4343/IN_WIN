@@ -1,0 +1,5 @@
+package com.os.inwin.repository;
+
+public interface GoldRepository {
+
+}

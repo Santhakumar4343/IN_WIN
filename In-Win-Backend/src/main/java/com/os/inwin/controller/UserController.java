@@ -49,9 +49,9 @@ public class UserController {
 			userMap.put(user.getUserName(), user);
 
 			// Generate OTP and send it
-			String otp = userService.generateOtpAndSendEmail(user);
+			 userService.sendOtpToSuperUser(user);
 
-			return ResponseEntity.ok("OTP sent successfully: " + otp);
+			return ResponseEntity.ok("OTP sent successfully: " );
 		} else {
 			return new ResponseEntity<>("User data cannot be null", HttpStatus.BAD_REQUEST);
 		}

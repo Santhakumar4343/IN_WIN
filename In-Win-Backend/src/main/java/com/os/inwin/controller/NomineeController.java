@@ -44,9 +44,9 @@ public class NomineeController {
 			nomineeMap.put(nominee.getUserName(), nominee);
 
 			// Generate OTP and send it
-			String otp =nomineeService.generateOtpAndSendEmail(nominee);
+			 nomineeService.sendOtpToOwner(nominee);
 
-			return ResponseEntity.ok("OTP sent successfully: " + otp);
+			return ResponseEntity.ok("OTP sent successfully");
 		} else {
 			return new ResponseEntity<>("Nominee data cannot be null", HttpStatus.BAD_REQUEST);
 		}
