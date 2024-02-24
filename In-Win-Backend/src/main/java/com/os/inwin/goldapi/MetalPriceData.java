@@ -1,19 +1,17 @@
+
 package com.os.inwin.goldapi;
-
-
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class MetalPriceData {
     
-    @JsonProperty("gold")
-    private Metal gold;
+    @JsonProperty("rates")
+    private MetalRates rates;
 
-    public Metal getGold() {
-        return gold;
+    public MetalRates getRates() {
+        return rates;
     }
 
-    public void setGold(Metal gold) {
-        this.gold = gold;
+    public void setRates(MetalRates rates) {
+        this.rates = rates;
     }
 }
-

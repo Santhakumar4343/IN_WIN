@@ -2,12 +2,14 @@ package com.os.inwin.serviceImpl;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import com.os.inwin.entity.Gold;
+import com.os.inwin.entity.Stock;
 import com.os.inwin.goldapi.MetalPriceApiResponse;
 import com.os.inwin.repository.GoldRepository;
 import com.os.inwin.service.GoldService;
@@ -35,27 +37,39 @@ public class GoldServiceImpl implements GoldService{
 	}
 
 	@Override
-	public void updateGoldPrices() {
-		
-		
+	public void updateGoldPrices() {	
 	}
 
 	@Override
 	public List<Gold> getGoldByUserName(String userName) {
-		// TODO Auto-generated method stub
-		return null;
+		
+		return goldRepository.findByUserName(userName);
 	}
 
 	@Override
 	public Gold updateGold(Long id, Gold gold) {
-		// TODO Auto-generated method stub
-		return null;
+		 Optional<Gold> optionalGold = goldRepository.findById(id);
+		    if (optionalGold.isPresent()) {
+		        Gold existingGold= optionalGold.get();
+		        existingGold.setName(gold.getName());
+		        existingGold.setQuantity(gold.getQuantity());
+		        existingGold.setBuyDate(gold.getBuyDate());
+		        existingGold.setPurchasePrice(gold.getPurchasePrice());
+		        existingGold.setSymbol(gold.getSymbol());
+		        return goldRepository.save(existingGold);
+		    }
+		    return null;
 	}
 
 	@Override
 	public boolean deleteGold(long id) {
-		// TODO Auto-generated method stub
-		return false;
+		 Optional<Gold> optionalGold= goldRepository.findById(id);
+		    if (optionalGold.isPresent()) {
+		    	goldRepository.deleteById(id);
+		        return true; 
+		    } else {
+		        return false; 
+		    }
 	}
 
 	
