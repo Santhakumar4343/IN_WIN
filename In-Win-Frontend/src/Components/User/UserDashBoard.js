@@ -132,6 +132,8 @@ function UserDashboard() {
             >
               <MenuItem value={"USD"}>USD</MenuItem>
               <MenuItem value={"INR"}>INR</MenuItem>
+              {/* <MenuItem value={"EUR"}>EUR</MenuItem>
+              <MenuItem value={"GBP"}>GBP</MenuItem> */}
             </Select>
           </div>
           {renderContent()}

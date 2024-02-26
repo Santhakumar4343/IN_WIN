@@ -33,3 +33,60 @@ export default CurrencyContext;
 export const CurrencyState = () => {
     return useContext(Currency);
 }
+// import React, { createContext, useContext, useEffect, useState } from 'react';
+
+// const Currency = createContext();
+
+// function CurrencyContext({ children }) {
+//     const [currency, setCurrency] = useState("INR");
+//     const [exchangeRate, setExchangeRate] = useState(82); // Default exchange rate for INR to USD
+
+//     useEffect(() => {
+//         const fetchExchangeRate = async () => {
+//             let newExchangeRate = 1;
+
+//             switch (currency) {
+//                 case 'USD':
+//                     newExchangeRate = await fetchExchangeRateFromAPI('USD');
+//                     break;
+//                 case 'EUR':
+//                     newExchangeRate = await fetchExchangeRateFromAPI('EUR');
+//                     break;
+//                 case 'GBP':
+//                     newExchangeRate = await fetchExchangeRateFromAPI('GBP');
+//                     break;
+//                 // Add cases for other currencies as needed
+//                 default:
+//                     newExchangeRate = 1;
+//                     break;
+//             }
+
+//             setExchangeRate(newExchangeRate);
+//         };
+
+//         fetchExchangeRate();
+//     }, [currency]);
+
+//     const fetchExchangeRateFromAPI = async (baseCurrency) => {
+//         try {
+//             const response = await fetch(`https://api.exchangerate-api.com/v4/latest/${baseCurrency}`);
+//             const data = await response.json();
+//             return data.rates.INR; // Assuming you want the exchange rate to INR for simplicity
+//         } catch (error) {
+//             console.error("Error fetching exchange rate:", error);
+//             return 1; // Default to 1 if there's an error
+//         }
+//     };
+
+//     return (
+//         <Currency.Provider value={{ currency, setCurrency, exchangeRate }}>
+//             {children}
+//         </Currency.Provider>
+//     );
+// }
+
+// export default CurrencyContext;
+
+// export const CurrencyState = () => {
+//     return useContext(Currency);
+// };
