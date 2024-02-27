@@ -183,7 +183,7 @@ function Insurance() {
       </div>
       <Modal show={showModal} onHide={handleCloseModal} backdrop="static" keyboard={false}>
         <Modal.Header closeButton>
-          <Modal.Title>{newInsuranceData.id ? 'Edit' : 'Add'} insurance</Modal.Title>
+          <Modal.Title>{newInsuranceData.id ? 'Edit' : 'Add'} Insurance</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <Form>

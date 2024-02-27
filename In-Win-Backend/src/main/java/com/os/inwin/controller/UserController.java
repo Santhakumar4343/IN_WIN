@@ -104,7 +104,7 @@ public class UserController {
 
 	@PutMapping("/updateUser/{id}")
 	public ResponseEntity<String> updateUser(@PathVariable long id, @RequestBody User user) {
-		User updateUser = userService.UpdateUser(id, user);
+		User updateUser = userService.updateUser(id, user);
 
 		return updateUser != null ? new ResponseEntity<>("User Updated Successfully", HttpStatus.OK)
 				: new ResponseEntity<>(HttpStatus.BAD_REQUEST);

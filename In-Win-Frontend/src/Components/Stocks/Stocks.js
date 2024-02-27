@@ -8,7 +8,7 @@ import '../Stocks/Stock.css';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import { useLocation } from "react-router-dom";
-
+import StockImage from  "../../../src/assets/stockmarket.jpg";
 import { BASE_URl } from '../API/Api';
 import { CurrencyState } from '../../CurrencyContext';
 
@@ -168,7 +168,7 @@ const renderPrice = (price) => {
       <div className="row row-cols-1 row-cols-md-3 g-4 mt-2">
         {stocks.map((stock, index) => (
           <div className="col-md-4 mb-3" key={stock.id}>
-            <div className="card h-100 d-flex flex-column border border-dark" style={{ backgroundColor: index < titleColors.length ? titleColors[index] : titleColors[index % titleColors.length] }}>
+            <div className="card h-100 d-flex flex-column border border-dark" style={{ backgroundImage: `url(${StockImage})`, backgroundSize: 'cover' }}>
               <div className="card-body">
                 <h5 className="card-title text-center" style={{color:"white"}}>{stock.name}</h5>
                 <p style={{color:"white"}}><strong >Symbol:</strong> {stock.symbol}</p>
@@ -179,8 +179,8 @@ const renderPrice = (price) => {
                 <p style={{color:"white"}}><strong>Last Update Date:</strong> {moment(stock.lastUpdateDate).format("DD-MM-YYYY")}</p>
               </div>
               <div className="card-footer d-flex justify-content-center align-items-center border border-dark ">
-                <EditIcon className='fs-4 m-2' onClick={() => {handleEdit(stock)}}></EditIcon>
-                <DeleteForeverIcon className='fs-4' onClick={() => {handleDeleteStock(stock.id)}}></DeleteForeverIcon>
+                <EditIcon className='fs-4 m-2' style={{color:"white"}}  onClick={() => {handleEdit(stock)}}></EditIcon>
+                <DeleteForeverIcon className='fs-4' style={{color:"white"}} onClick={() => {handleDeleteStock(stock.id)}}></DeleteForeverIcon>
               </div>
             </div>
           </div>

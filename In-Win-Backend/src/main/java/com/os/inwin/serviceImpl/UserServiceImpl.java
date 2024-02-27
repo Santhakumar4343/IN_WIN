@@ -44,23 +44,65 @@ public class UserServiceImpl implements UserService {
 		return userRepository.findAll();
 	}
 
+//	@Override
+//	public User UpdateUser(long id, User user) {
+//		Optional<User> optionalUser = userRepository.findById(id);
+//		if (optionalUser.isPresent()) {
+//			User existingUser = optionalUser.get();
+//			existingUser.setUserName(user.getUserName());
+//			existingUser.setEmail(user.getEmail());
+//			existingUser.setPassword(user.getPassword());
+//			existingUser.setMobileNumber(user.getMobileNumber());
+//			existingUser.setUserType(user.getUserType());
+//			existingUser.setCountry(user.getCountry());
+//			existingUser.setCurrency(user.getCurrency());
+//			return userRepository.save(existingUser);
+//
+//		}
+//		return null;
+//	}
+	
 	@Override
-	public User UpdateUser(long id, User user) {
-		Optional<User> optionalUser = userRepository.findById(id);
-		if (optionalUser.isPresent()) {
-			User existingUser = optionalUser.get();
-			existingUser.setUserName(user.getUserName());
-			existingUser.setEmail(user.getEmail());
-			existingUser.setPassword(user.getPassword());
-			existingUser.setMobileNumber(user.getMobileNumber());
-			existingUser.setUserType(user.getUserType());
-			existingUser.setCountry(user.getCountry());
-			existingUser.setCurrency(user.getCurrency());
-			return userRepository.save(existingUser);
-
-		}
-		return null;
+	public User updateUser(long id, User user) {
+	    Optional<User> optionalUser = userRepository.findById(id);
+	    if (optionalUser.isPresent()) {
+	        User existingUser = optionalUser.get();
+	        existingUser.setUserName(user.getUserName());
+	        existingUser.setEmail(user.getEmail());
+	        existingUser.setPassword(user.getPassword());
+	        existingUser.setMobileNumber(user.getMobileNumber());
+	        existingUser.setGender(user.getGender());
+	        existingUser.setFatherName(user.getFatherName());
+	        existingUser.setDob(user.getDob());
+	        existingUser.setBloodGroup(user.getBloodGroup());
+	        existingUser.setPanNumber(user.getPanNumber());
+	        existingUser.setAadhar(user.getAadhar());
+	        existingUser.setVoterId(user.getVoterId());
+	        existingUser.setDrivingLicense(user.getDrivingLicense());
+	        existingUser.setPresentAddress(user.getPresentAddress());
+	        existingUser.setPermanentAddress(user.getPermanentAddress());
+	        existingUser.setCtc(user.getCtc());
+	        existingUser.setYearlyBonus(user.getYearlyBonus());
+	        existingUser.setPfUAN(user.getPfUAN());
+	        existingUser.setPfStartDate(user.getPfStartDate());
+	        existingUser.setPfTotalPaid(user.getPfTotalPaid());
+	        existingUser.setMonthlyEMI(user.getMonthlyEMI());
+	        existingUser.setOccupation(user.getOccupation());
+	        existingUser.setDesignation(user.getDesignation());
+	        existingUser.setCompanyAddress(user.getCompanyAddress());
+	        existingUser.setEmpId(user.getEmpId());
+	        existingUser.setCompanyContact(user.getCompanyContact());
+	        existingUser.setCompanyName(user.getCompanyName());
+	        existingUser.setCompanyPhoneNumber(user.getCompanyPhoneNumber());
+	        existingUser.setCompanyEmail(user.getCompanyEmail());
+	        existingUser.setCompanyLandline(user.getCompanyLandline());
+	        existingUser.setEmergencyContact(user.getEmergencyContact());
+	        
+	        return userRepository.save(existingUser);
+	    }
+	    return null;
 	}
+
 
 	@Override
 	public void deleteUser(long id) {
