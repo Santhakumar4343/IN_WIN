@@ -47,15 +47,13 @@ function CurrencyContext({ children }) {
 
             switch (currency) {
                 case 'USD':
-                    newExchangeRate = await fetchExchangeRateFromAPI('USD');
-                    break;
                 case 'EUR':
-                    newExchangeRate = await fetchExchangeRateFromAPI('EUR');
-                    break;
                 case 'GBP':
-                    newExchangeRate = await fetchExchangeRateFromAPI('GBP');
+                case 'AED': 
+                case 'AUD': 
+                    newExchangeRate = await fetchExchangeRateFromAPI(currency);
                     break;
-                // Add cases for other currencies as needed
+               
                 default:
                     newExchangeRate = 1;
                     break;
@@ -90,3 +88,4 @@ export default CurrencyContext;
 export const CurrencyState = () => {
     return useContext(Currency);
 };
+

@@ -102,9 +102,16 @@ public class UserController {
 		}
 	}
 
-	@PutMapping("/updateUser/{id}")
-	public ResponseEntity<String> updateUser(@PathVariable long id, @RequestBody User user) {
-		User updateUser = userService.updateUser(id, user);
+	@PutMapping("/updateUser-personal/{id}")
+	public ResponseEntity<String> updateUserPersonalDetails(@PathVariable long id, @RequestBody User user) {
+		User updateUser = userService.updateUserPersonalDetails(id, user);
+
+		return updateUser != null ? new ResponseEntity<>("User Updated Successfully", HttpStatus.OK)
+				: new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+	}
+	@PutMapping("/updateUser-professional/{id}")
+	public ResponseEntity<String> updateUserProfessionalDetails(@PathVariable long id, @RequestBody User user) {
+		User updateUser = userService.updateUserProfessionalDetails(id, user);
 
 		return updateUser != null ? new ResponseEntity<>("User Updated Successfully", HttpStatus.OK)
 				: new ResponseEntity<>(HttpStatus.BAD_REQUEST);

@@ -7,7 +7,7 @@ import com.os.inwin.entity.Loan;
 public interface LoanService {
     Loan saveLoan(Loan loan);
     Loan updateLoan(Long id, Loan loan);
-    void deleteLoan(Long id);
-    Loan getLoansByUser(Long id);
+    boolean deleteLoan(Long id);
+    public List<Loan >getLoansByUser(String userName);
     List<Loan> getAllLoans();
 }

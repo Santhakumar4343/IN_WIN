@@ -1,15 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <qualifiedTypeNameHistroy>
-    <fullyQualifiedTypeName name="jakarta.persistence.GeneratedValue"/>
-    <fullyQualifiedTypeName name="jakarta.persistence.GenerationType"/>
-    <fullyQualifiedTypeName name="lombok.Data"/>
-    <fullyQualifiedTypeName name="lombok.AllArgsConstructor"/>
-    <fullyQualifiedTypeName name="lombok.NoArgsConstructor"/>
-    <fullyQualifiedTypeName name="lombok.Builder"/>
-    <fullyQualifiedTypeName name="lombok.Setter"/>
-    <fullyQualifiedTypeName name="lombok.Getter"/>
     <fullyQualifiedTypeName name="java.lang.String"/>
-    <fullyQualifiedTypeName name="jakarta.persistence.Id"/>
     <fullyQualifiedTypeName name="org.springframework.web.client.RestTemplate"/>
     <fullyQualifiedTypeName name="jakarta.persistence.CascadeType"/>
     <fullyQualifiedTypeName name="com.os.inwin.repository.StockRepository"/>
@@ -43,21 +34,30 @@
     <fullyQualifiedTypeName name="com.os.inwin.repository.InsuranceRepository"/>
     <fullyQualifiedTypeName name="com.os.inwin.serviceImpl.InsuranceServiceImpl"/>
     <fullyQualifiedTypeName name="com.os.inwin.entity.Insurance"/>
-    <fullyQualifiedTypeName name="org.springframework.data.jpa.repository.JpaRepository"/>
-    <fullyQualifiedTypeName name="java.util.List"/>
     <fullyQualifiedTypeName name="com.os.inwin.repository.FixedDepositsRepository"/>
     <fullyQualifiedTypeName name="com.os.inwin.service.FixedDepositsService"/>
     <fullyQualifiedTypeName name="com.os.inwin.serviceImpl.FixedDepositsServiceImpl"/>
     <fullyQualifiedTypeName name="com.os.inwin.entity.FixedDeposits"/>
-    <fullyQualifiedTypeName name="jakarta.persistence.Entity"/>
     <fullyQualifiedTypeName name="com.os.inwin.service.AntiquePiecesService"/>
     <fullyQualifiedTypeName name="com.os.inwin.repository.AntiquePiecesRepository"/>
+    <fullyQualifiedTypeName name="com.os.inwin.serviceImpl.AntiquePiecesServiceImpl"/>
+    <fullyQualifiedTypeName name="com.os.inwin.entity.AntiquePieces"/>
+    <fullyQualifiedTypeName name="jakarta.persistence.GeneratedValue"/>
+    <fullyQualifiedTypeName name="jakarta.persistence.GenerationType"/>
+    <fullyQualifiedTypeName name="org.springframework.data.jpa.repository.JpaRepository"/>
     <fullyQualifiedTypeName name="org.springframework.stereotype.Service"/>
-    <fullyQualifiedTypeName name="java.time.LocalDate"/>
+    <fullyQualifiedTypeName name="com.os.inwin.repository.VehicleRepository"/>
+    <fullyQualifiedTypeName name="com.os.inwin.service.VehicleService"/>
     <fullyQualifiedTypeName name="java.util.Optional"/>
     <fullyQualifiedTypeName name="org.springframework.web.bind.annotation.RestController"/>
     <fullyQualifiedTypeName name="org.springframework.web.bind.annotation.RequestMapping"/>
+    <fullyQualifiedTypeName name="com.os.inwin.serviceImpl.VehicleServiceImpl"/>
+    <fullyQualifiedTypeName name="com.os.inwin.entity.Vehicle"/>
+    <fullyQualifiedTypeName name="jakarta.persistence.Entity"/>
+    <fullyQualifiedTypeName name="jakarta.persistence.Id"/>
+    <fullyQualifiedTypeName name="java.util.List"/>
+    <fullyQualifiedTypeName name="com.os.inwin.service.LoanService"/>
+    <fullyQualifiedTypeName name="java.time.LocalDate"/>
     <fullyQualifiedTypeName name="org.springframework.beans.factory.annotation.Autowired"/>
-    <fullyQualifiedTypeName name="com.os.inwin.serviceImpl.AntiquePiecesServiceImpl"/>
-    <fullyQualifiedTypeName name="com.os.inwin.entity.AntiquePieces"/>
+    <fullyQualifiedTypeName name="com.os.inwin.repository.LoanRepository"/>
 </qualifiedTypeNameHistroy>

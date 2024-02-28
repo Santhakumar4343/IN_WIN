@@ -161,7 +161,7 @@ function UserDashboard() {
         </ul>
       </div>
       <div className="main-content" style={{ padding: "20px" }}>
-      <h5 className="text-center" style={{color:"black", fontWeight:"20px", }}>ONiE Soft In-Win</h5>
+      <h5 className="text-center" style={{color:"black", fontWeight:"20px", }}> In-Win : ONiE Soft Wealth Management System</h5>
         <div className="d-flex justify-content-end">
           {/* <Dropdown style={{color:"black"}}>
               <Dropdown.Toggle  id="userDropdown">
@@ -182,10 +182,12 @@ function UserDashboard() {
             className="border border-dark"
             onChange={(e) => setCurrency(e.target.value)}
           >
-            <MenuItem value={"USD"}>USD</MenuItem>
-            <MenuItem value={"INR"}>INR</MenuItem>
+             <MenuItem value={"AED"}>AED</MenuItem>
+            <MenuItem value={"AUD"}>AUD</MenuItem>
             <MenuItem value={"EUR"}>EUR</MenuItem>
             <MenuItem value={"GBP"}>GBP</MenuItem>
+            <MenuItem value={"INR"}>INR</MenuItem>
+            <MenuItem value={"USD"}>USD</MenuItem>
           </Select>
         </div>
         {renderContent()}

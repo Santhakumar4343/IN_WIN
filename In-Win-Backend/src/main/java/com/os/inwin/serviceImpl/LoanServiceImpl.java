@@ -2,6 +2,7 @@ package com.os.inwin.serviceImpl;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -9,11 +10,13 @@ import org.springframework.stereotype.Service;
 import com.os.inwin.entity.Loan;
 import com.os.inwin.repository.LoanRepository;
 import com.os.inwin.service.LoanService;
+
 @Service
 public class LoanServiceImpl implements LoanService {
 
 	@Autowired
 	private LoanRepository loanRepository;
+
 	@Override
 	public Loan saveLoan(Loan loan) {
 		loan.setLastUpdateDate(LocalDate.now());
@@ -22,26 +25,45 @@ public class LoanServiceImpl implements LoanService {
 
 	@Override
 	public Loan updateLoan(Long id, Loan loan) {
-		
+		Optional<Loan> optionalLoan = loanRepository.findById(id);
+		if (optionalLoan.isPresent()) {
+			Loan existingLoan = optionalLoan.get();
+			existingLoan.setBankName(loan.getBankName());
+			existingLoan.setLoanType(loan.getLoanType());
+			existingLoan.setLoanName(loan.getLoanName());
+			existingLoan.setTenureInYears(loan.getTenureInYears());
+			existingLoan.setLoanAmount(loan.getLoanAmount());
+			existingLoan.setRateOfInterest(loan.getRateOfInterest());
+			existingLoan.setMonthlyEMI(loan.getMonthlyEMI());
+			existingLoan.setBuyDate(loan.getBuyDate());
+			existingLoan.setLastUpdateDate(LocalDate.now());
+			return loanRepository.save(existingLoan);
+
+		}
 		return null;
 	}
 
 	@Override
-	public void deleteLoan(Long id) {
-		// TODO Auto-generated method stub
-		
+	public boolean deleteLoan(Long id) {
+		Optional<Loan> optionalLoan = loanRepository.findById(id);
+		if (optionalLoan.isPresent()) {
+			loanRepository.deleteById(id);
+			return true;
+		} else
+			return false;
+
 	}
 
 	@Override
-	public Loan getLoansByUser(Long id) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<Loan >getLoansByUser(String  userName) {
+		
+		return loanRepository.findByUserName(userName);
 	}
 
 	@Override
 	public List<Loan> getAllLoans() {
-		// TODO Auto-generated method stub
-		return null;
+		
+		return loanRepository.findAll();
 	}
 
 }

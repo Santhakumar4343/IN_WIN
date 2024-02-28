@@ -63,7 +63,7 @@ public class UserServiceImpl implements UserService {
 //	}
 	
 	@Override
-	public User updateUser(long id, User user) {
+	public User updateUserPersonalDetails(long id, User user) {
 	    Optional<User> optionalUser = userRepository.findById(id);
 	    if (optionalUser.isPresent()) {
 	        User existingUser = optionalUser.get();
@@ -81,6 +81,17 @@ public class UserServiceImpl implements UserService {
 	        existingUser.setDrivingLicense(user.getDrivingLicense());
 	        existingUser.setPresentAddress(user.getPresentAddress());
 	        existingUser.setPermanentAddress(user.getPermanentAddress());
+	        existingUser.setEmergencyContact(user.getEmergencyContact());
+	        return userRepository.save(existingUser);
+	    }
+	    return null;
+	}
+
+	@Override
+	public User updateUserProfessionalDetails(long id, User user) {
+	    Optional<User> optionalUser = userRepository.findById(id);
+	    if (optionalUser.isPresent()) {
+	        User existingUser = optionalUser.get();
 	        existingUser.setCtc(user.getCtc());
 	        existingUser.setYearlyBonus(user.getYearlyBonus());
 	        existingUser.setPfUAN(user.getPfUAN());
