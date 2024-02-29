@@ -18,7 +18,7 @@ function Loans() {
   const [showModal, setShowModal] = useState(false);
   const [loan, setLoan] = useState([]);
   const [selectedLoan, setSelectedLoan] = useState(null);
-  const { exchangeRate } = CurrencyState();
+  const { exchangeRate,currency } = CurrencyState();
   console.log(exchangeRate)
   const titleColors = ["#42ff75", "#3ba3ed", "#fc47ed", "#e82e44", "#f5c802", "#f2a04e"];
   const handleEdit = (loan) => {
@@ -180,9 +180,9 @@ function Loans() {
                 <p style={{ color: "white" }}><strong>Bank Name:</strong>{loan.bankName}</p>
                 <p style={{ color: "white" }}><strong>Rate Of Interest:</strong>{loan.rateOfInterest} <strong>%</strong></p>
                 <p style={{ color: "white" }}><strong>Tenure In Years:</strong>{loan.tenureInYears}</p>
-                <p style={{ color: "white" }}><strong>Loan Amount:</strong> {renderPrice(loan.loanAmount)} {loan.currency}</p>
+                <p style={{ color: "white" }}><strong>Loan Amount:</strong> {renderPrice(loan.loanAmount)} {currency}</p>
                 <p style={{ color: "white" }}><strong>Take Date:</strong> {moment(loan.buyDate).format("DD-MM-YYYY")}</p>
-                <p style={{ color: "white" }}><strong>Monthly EMI:</strong> {renderPrice(loan.monthlyEMI)} {loan.currency}</p>
+                <p style={{ color: "white" }}><strong>Monthly EMI:</strong> {renderPrice(loan.monthlyEMI)} {currency}</p>
                 <p style={{ color: "white" }}><strong>Last Update Date:</strong> {moment(loan.lastUpdateDate).format("DD-MM-YYYY")}</p>
               </div>
               <div className="card-footer d-flex justify-content-center align-items-center border border-dark ">

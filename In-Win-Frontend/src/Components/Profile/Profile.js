@@ -15,6 +15,10 @@ function Profile() {
     const { state: { userData } = {} } = location;
     const [showModal, setShowModal] = useState(false);
     const [showProfessionalModal, setShowProfessionalModal] = useState(false);
+    const { exchangeRate,currency } = CurrencyState(); 
+    const renderPrice = (price) => {
+        return (price / exchangeRate).toFixed(2);
+      };
     const [editedUserData, setEditedUserData] = useState({
         userName: userData ? userData.userName : "",
         email: userData ? userData.email : "",
@@ -33,29 +37,29 @@ function Profile() {
     });
 
     const [editedProfessionalData, setEditedProfessionalData] = useState({
-      ctc: userData ? userData.ctc : "",
-      yearlyBonus: userData ? userData.yearlyBonus : "",
-      pfUAN: userData ? userData.pfUAN : "",
-      pfStartDate: userData ? userData.pfStartDate : "",
-      pfTotalPaid: userData ? userData.pfTotalPaid : "",
-      monthlyEMI: userData ? userData.monthlyEMI : "",
-      occupation: userData ? userData.occupation : "",
-      designation: userData ? userData.designation : "",
-      companyAddress: userData ? userData.companyAddress : "",
-      empId: userData ? userData.empId : "",
-      companyContact: userData ? userData.companyContact : "",
-      companyName: userData ? userData.companyName : "",
-      companyPhoneNumber: userData ? userData.companyPhoneNumber : "",
-      companyEmail: userData ? userData.companyEmail : "",
-      companyLandline: userData ? userData.companyLandline : "",
-      emergencyContact: userData ? userData.emergencyContact : ""
-  });
-  const handleEditProfessional = () => {
-    setShowProfessionalModal(true);
-};
-const handleCloseProfessionalModal = () => {
-  setShowProfessionalModal(false);
-};
+        ctc: userData ? userData.ctc : "",
+        yearlyBonus: userData ? userData.yearlyBonus : "",
+        pfUAN: userData ? userData.pfUAN : "",
+        pfStartDate: userData ? userData.pfStartDate : "",
+        pfTotalPaid: userData ? userData.pfTotalPaid : "",
+        monthlyEMI: userData ? userData.monthlyEMI : "",
+        occupation: userData ? userData.occupation : "",
+        designation: userData ? userData.designation : "",
+        companyAddress: userData ? userData.companyAddress : "",
+        empId: userData ? userData.empId : "",
+        companyContact: userData ? userData.companyContact : "",
+        companyName: userData ? userData.companyName : "",
+        companyPhoneNumber: userData ? userData.companyPhoneNumber : "",
+        companyEmail: userData ? userData.companyEmail : "",
+        companyLandline: userData ? userData.companyLandline : "",
+        emergencyContact: userData ? userData.emergencyContact : ""
+    });
+    const handleEditProfessional = () => {
+        setShowProfessionalModal(true);
+    };
+    const handleCloseProfessionalModal = () => {
+        setShowProfessionalModal(false);
+    };
 
     const handleEdit = () => {
         setShowModal(true);
@@ -69,54 +73,167 @@ const handleCloseProfessionalModal = () => {
         }));
     };
     const handleInputChangeProfessional = (e) => {
-      const { name, value } = e.target;
-      setEditedProfessionalData(prevData => ({
-          ...prevData,
-          [name]: value
-      }));
-  };
+        const { name, value } = e.target;
+        setEditedProfessionalData(prevData => ({
+            ...prevData,
+            [name]: value
+        }));
+    };
 
     const handleCloseModal = () => {
         setShowModal(false);
     };
 
+    
+
     const handleSaveUserDetails = () => {
-      axios.put(`${BASE_URl}/api/users/updateUser-personal/${userData.id}`, editedUserData)
-      .then(response => {
-          console.log('User details updated successfully:', response.data);
-          Swal.fire({
-              icon: 'success',
-              title: 'User Details Updated',
-              showConfirmButton: false,
-              timer: 1500
-          });
-          setShowModal(false);
-      })
-      .catch(error => {
-          console.error('Error updating user details:', error);
-      });
+        axios.put(`${BASE_URl}/api/users/updateUser-personal/${userData.id}`, editedUserData)
+            .then(response => {
+                console.log('User details updated successfully:', response.data);
+                Swal.fire({
+                    icon: 'success',
+                    title: 'User Details Updated',
+                    showConfirmButton: false,
+                    timer: 1500
+                });
+                setShowModal(false);
+            })
+            .catch(error => {
+                console.error('Error updating user details:', error);
+            });
     };
     const handleSaveProfessionalDetails = () => {
-      axios.put(`${BASE_URl}/api/users/updateUser-professional/${userData.id}`, editedProfessionalData)
-      .then(response => {
-          console.log('User details updated successfully:', response.data);
-          Swal.fire({
-              icon: 'success',
-              title: 'User Details Updated',
-              showConfirmButton: false,
-              timer: 1500
-          });
-          setShowModal(false);
-      })
-      .catch(error => {
-          console.error('Error updating user details:', error);
-      });
+        axios.put(`${BASE_URl}/api/users/updateUser-professional/${userData.id}`, editedProfessionalData)
+            .then(response => {
+                console.log('User details updated successfully:', response.data);
+                Swal.fire({
+                    icon: 'success',
+                    title: 'User Details Updated',
+                    showConfirmButton: false,
+                    timer: 1500
+                });
+                setShowModal(false);
+            })
+            .catch(error => {
+                console.error('Error updating user details:', error);
+            });
     };
 
     return (
         <div>
-            <Button variant="primary" onClick={handleEdit}>Edit Profile</Button>
-            <Button variant="primary" onClick={handleEditProfessional}>Edit Professional Details</Button>
+            <Button variant="primary" onClick={handleEdit}>Edit Personal Details</Button>
+            <Button variant="primary" className='m-1 mb-2' onClick={handleEditProfessional}>Edit Professional Details</Button>
+            <h5 >Personal Details</h5>
+            <table class="table table-striped mt-3" style={{borderRadius:"10px"}}>
+                <thead>
+                </thead>
+                <tbody  >
+                 
+                    <tr className='border border-dark'>
+                        <th scope="row" className='border border-dark'>User Name</th>
+                        <td className='border border-dark'>{userData.userName}</td>
+                        <th className='border border-dark'>Email</th>
+                        <td className='border border-dark'>{userData.email}</td>
+                        <th className='border border-dark'>Password</th>
+                        <td className='border border-dark'>{userData.password}</td>
+                  
+                    </tr>
+                    <tr className='border border-dark'>
+                        <th scope="row" className='border border-dark'>Mobile Number </th>
+                        <td className='border border-dark'>{userData.mobileNumber}</td>
+                        <th className='border border-dark'>Gender</th>
+                        <td className='border border-dark'>{userData.gender}</td>
+                        <th className='border border-dark'>Father Name</th>
+                        <td className='border border-dark'>{userData.fatherName}</td>
+                  
+                    </tr>
+                    <tr className='border border-dark'>
+                        <th scope="row" className='border border-dark'> D-O-B </th>
+                        <td className='border border-dark'>{userData.dob}</td>
+                        <th className='border border-dark'>PAN Number</th>
+                        <td className='border border-dark'>{userData.panNumber}</td>
+                        <th className='border border-dark'> Aadhar Number</th>
+                        <td className='border border-dark'>{userData.aadhar}</td>
+                  
+                    </tr>
+                    <tr className='border border-dark'>
+                        <th scope="row" className='border border-dark'>Voter ID</th>
+                        <td className='border border-dark'>{userData.voterId}</td>
+                        <th className='border border-dark'>Driving License</th>
+                        <td className='border border-dark'>{userData.drivingLicense}</td>
+                        <th className='border border-dark'> Blood Group </th>
+                        <td className='border border-dark'>{userData.bloodGroup}</td>
+                  
+                    </tr>
+                    <tr className='border border-dark'>
+                        <th scope="row" className='border border-dark'>Father Name</th>
+                        <td className='border border-dark'>{userData.fatherName}</td>
+                        <th className='border border-dark'> Present Address</th>
+                        <td className='border border-dark'>{userData.presentAddress}</td>
+                        <th className='border border-dark'> Permanent Address </th>
+                        <td className='border border-dark'>{userData.permanentAddress}</td>
+                  
+                    </tr>
+                   
+                </tbody>
+            </table>
+            <h5 >Professional Details</h5>
+            <table class="table table-striped mt-3" style={{borderRadius:"10px"}}>
+                <thead>
+                </thead>
+                <tbody  >
+                 
+                    <tr className='border border-dark'>
+                        <th scope="row" className='border border-dark'>Company Name</th>
+                        <td className='border border-dark'>{userData.companyName}</td>
+            
+                        <th className='border border-dark'>Designation</th>
+                        <td className='border border-dark'>{userData.designation}</td>
+                        <th scope="row" className='border border-dark'>Occupation  </th>
+                        <td className='border border-dark'>{userData.occupation}</td>
+                    </tr>
+                    <tr className='border border-dark'>
+                    <th scope="row" className='border border-dark'>Employee ID  </th>
+                        <td className='border border-dark'>{userData.empId}</td>
+                        <th className='border border-dark'>CTC</th>
+                        <td className='border border-dark'>{renderPrice(userData.ctc)} {currency}</td>
+                        <th className='border border-dark'>UAN Number</th>
+                        <td className='border border-dark'>{userData.pfUAN}</td>
+                       
+                  
+                    </tr>
+                    <tr className='border border-dark'>
+                        <th scope="row" className='border border-dark'> PF Start Date </th>
+                        <td className='border border-dark'>{userData.pfStartDate}</td>
+                        <th className='border border-dark'>PF Total Paid </th>
+                        <td className='border border-dark'>{renderPrice(userData.pfTotalPaid)} {currency}</td>
+                        <th className='border border-dark'>  Monthly EMI</th>
+                        <td className='border border-dark'>{renderPrice(userData.monthlyEMI)}{currency}</td>
+                  
+                    </tr>
+                    <tr className='border border-dark'>
+                        <th scope="row" className='border border-dark'>Yearly Bonus</th>
+                        <td className='border border-dark'>{renderPrice(userData.yearlyBonus)}{currency}</td>
+                        <th scope="row" className='border border-dark'>Company Email</th>
+                        <td className='border border-dark'>{userData.companyEmail}</td>
+                        <th className='border border-dark'>Company Contact</th>
+                        <td className='border border-dark'>{userData.companyContact}</td>
+                  
+                    </tr>
+                    <tr className='border border-dark'>
+                       
+                        <th className='border border-dark'> Company Landline </th>
+                        <td className='border border-dark'>{userData.companyLandline}</td>
+                        <th scope="row" className='border border-dark'>companyAddress</th>
+                        <td className='border border-dark'>{userData.companyAddress}</td>
+                        <th className='border border-dark'>Emergency Contact</th>
+                        <td className='border border-dark'>{userData.emergencyContact}</td>
+                      
+                    </tr>
+                  
+                </tbody>
+            </table>
+            
             <Modal show={showModal} onHide={handleCloseModal} backdrop="static" keyboard={false}>
                 <Modal.Header closeButton>
                     <Modal.Title>Edit Profile</Modal.Title>
@@ -131,6 +248,7 @@ const handleCloseProfessionalModal = () => {
                                 <Form.Control
                                     type="text"
                                     name="userName"
+                                    className='border border-dark mb-2'
                                     value={editedUserData.userName}
                                     onChange={handleInputChange}
                                 />
@@ -144,6 +262,7 @@ const handleCloseProfessionalModal = () => {
                                 <Form.Control
                                     type="email"
                                     name="email"
+                                    className='border border-dark mb-2'
                                     value={editedUserData.email}
                                     onChange={handleInputChange}
                                 />
@@ -157,6 +276,7 @@ const handleCloseProfessionalModal = () => {
                                 <Form.Control
                                     type="password"
                                     name="password"
+                                    className='border border-dark mb-2'
                                     value={editedUserData.password}
                                     onChange={handleInputChange}
                                 />
@@ -170,6 +290,7 @@ const handleCloseProfessionalModal = () => {
                                 <Form.Control
                                     type="text"
                                     name="mobileNumber"
+                                    className='border border-dark mb-2'
                                     value={editedUserData.mobileNumber}
                                     onChange={handleInputChange}
                                 />
@@ -183,6 +304,7 @@ const handleCloseProfessionalModal = () => {
                                 <Form.Control
                                     as="select"
                                     name="gender"
+                                    className='border border-dark mb-2'
                                     value={editedUserData.gender}
                                     onChange={handleInputChange}
                                 >
@@ -201,6 +323,7 @@ const handleCloseProfessionalModal = () => {
                                 <Form.Control
                                     type="text"
                                     name="fatherName"
+                                    className='border border-dark mb-2'
                                     value={editedUserData.fatherName}
                                     onChange={handleInputChange}
                                 />
@@ -214,6 +337,7 @@ const handleCloseProfessionalModal = () => {
                                 <Form.Control
                                     type="date"
                                     name="dob"
+                                    className='border border-dark mb-2'
                                     value={editedUserData.dob}
                                     onChange={handleInputChange}
                                 />
@@ -227,6 +351,7 @@ const handleCloseProfessionalModal = () => {
                                 <Form.Control
                                     type="text"
                                     name="bloodGroup"
+                                    className='border border-dark mb-2'
                                     value={editedUserData.bloodGroup}
                                     onChange={handleInputChange}
                                 />
@@ -240,6 +365,7 @@ const handleCloseProfessionalModal = () => {
                                 <Form.Control
                                     type="text"
                                     name="panNumber"
+                                    className='border border-dark mb-2'
                                     value={editedUserData.panNumber}
                                     onChange={handleInputChange}
                                 />
@@ -253,6 +379,7 @@ const handleCloseProfessionalModal = () => {
                                 <Form.Control
                                     type="text"
                                     name="aadhar"
+                                    className='border border-dark mb-2'
                                     value={editedUserData.aadhar}
                                     onChange={handleInputChange}
                                 />
@@ -266,6 +393,7 @@ const handleCloseProfessionalModal = () => {
                                 <Form.Control
                                     type="text"
                                     name="voterId"
+                                    className='border border-dark mb-2'
                                     value={editedUserData.voterId}
                                     onChange={handleInputChange}
                                 />
@@ -279,6 +407,7 @@ const handleCloseProfessionalModal = () => {
                                 <Form.Control
                                     type="text"
                                     name="drivingLicense"
+                                    className='border border-dark mb-2'
                                     value={editedUserData.drivingLicense}
                                     onChange={handleInputChange}
                                 />
@@ -293,6 +422,7 @@ const handleCloseProfessionalModal = () => {
                                     as="textarea"
                                     rows={3}
                                     name="presentAddress"
+                                    className='border border-dark mb-2'
                                     value={editedUserData.presentAddress}
                                     onChange={handleInputChange}
                                 />
@@ -307,6 +437,7 @@ const handleCloseProfessionalModal = () => {
                                     as="textarea"
                                     rows={3}
                                     name="permanentAddress"
+                                    className='border border-dark mb-2'
                                     value={editedUserData.permanentAddress}
                                     onChange={handleInputChange}
                                 />
@@ -314,232 +445,248 @@ const handleCloseProfessionalModal = () => {
                         </Row>
                     </Form>
                 </Modal.Body>
-                <Modal.Footer>
+                <Modal.Footer  className='d-flex justify-content-center align-items-center'>
                     <Button variant="secondary" onClick={handleCloseModal}>Close</Button>
                     <Button variant="primary" onClick={handleSaveUserDetails}>Save Changes</Button>
                 </Modal.Footer>
             </Modal>
             <Modal show={showProfessionalModal} onHide={handleCloseProfessionalModal} backdrop="static" keyboard={false}>
-            <Modal.Header closeButton>
-                <Modal.Title>Edit Professional Details</Modal.Title>
-            </Modal.Header>
-            <Modal.Body>
-                <Form>
-                    <Row>
-                        <Col md={4}>
-                            <Form.Label>CTC</Form.Label>
-                        </Col>
-                        <Col md={8}>
-                            <Form.Control
-                                type="text"
-                                name="ctc"
-                                value={editedProfessionalData.ctc}
-                                onChange={handleInputChangeProfessional}
-                            />
-                        </Col>
-                    </Row>
-                    <Row>
-                        <Col md={4}>
-                            <Form.Label>Yearly Bonus</Form.Label>
-                        </Col>
-                        <Col md={8}>
-                            <Form.Control
-                                type="text"
-                                name="yearlyBonus"
-                                value={editedProfessionalData.yearlyBonus}
-                                onChange={handleInputChangeProfessional}
-                            />
-                        </Col>
-                    </Row>
-                    <Row>
-                        <Col md={4}>
-                            <Form.Label>PF UAN</Form.Label>
-                        </Col>
-                        <Col md={8}>
-                            <Form.Control
-                                type="text"
-                                name="pfUAN"
-                                value={editedProfessionalData.pfUAN}
-                                onChange={handleInputChangeProfessional}
-                            />
-                        </Col>
-                    </Row>
-                    <Row>
-                        <Col md={4}>
-                            <Form.Label>PF Start Date</Form.Label>
-                        </Col>
-                        <Col md={8}>
-                            <Form.Control
-                                type="date"
-                                name="pfStartDate"
-                                value={editedProfessionalData.pfStartDate}
-                                onChange={handleInputChangeProfessional}
-                            />
-                        </Col>
-                    </Row>
-                    <Row>
-                        <Col md={4}>
-                            <Form.Label>PF Total Paid</Form.Label>
-                        </Col>
-                        <Col md={8}>
-                            <Form.Control
-                                type="text"
-                                name="pfTotalPaid"
-                                value={editedProfessionalData.pfTotalPaid}
-                                onChange={handleInputChangeProfessional}
-                            />
-                        </Col>
-                    </Row>
-                    <Row>
-                        <Col md={4}>
-                            <Form.Label>Monthly EMI</Form.Label>
-                        </Col>
-                        <Col md={8}>
-                            <Form.Control
-                                type="text"
-                                name="monthlyEMI"
-                                value={editedProfessionalData.monthlyEMI}
-                                onChange={handleInputChangeProfessional}
-                            />
-                        </Col>
-                    </Row>
-                    <Row>
-                        <Col md={4}>
-                            <Form.Label>Occupation</Form.Label>
-                        </Col>
-                        <Col md={8}>
-                            <Form.Control
-                                type="text"
-                                name="occupation"
-                                value={editedProfessionalData.occupation}
-                                onChange={handleInputChangeProfessional}
-                            />
-                        </Col>
-                    </Row>
-                    <Row>
-                        <Col md={4}>
-                            <Form.Label>Designation</Form.Label>
-                        </Col>
-                        <Col md={8}>
-                            <Form.Control
-                                type="text"
-                                name="designation"
-                                value={editedProfessionalData.designation}
-                                onChange={handleInputChangeProfessional}
-                            />
-                        </Col>
-                    </Row>
-                    <Row>
-                        <Col md={4}>
-                            <Form.Label>Company Address</Form.Label>
-                        </Col>
-                        <Col md={8}>
-                            <Form.Control
-                                type="text"
-                                name="companyAddress"
-                                value={editedProfessionalData.companyAddress}
-                                onChange={handleInputChangeProfessional}
-                            />
-                        </Col>
-                    </Row>
-                    <Row>
-                        <Col md={4}>
-                            <Form.Label>Employee ID</Form.Label>
-                        </Col>
-                        <Col md={8}>
-                            <Form.Control
-                                type="text"
-                                name="empId"
-                                value={editedProfessionalData.empId}
-                                onChange={handleInputChangeProfessional}
-                            />
-                        </Col>
-                    </Row>
-                    <Row>
-                        <Col md={4}>
-                            <Form.Label>Company Contact</Form.Label>
-                        </Col>
-                        <Col md={8}>
-                            <Form.Control
-                                type="text"
-                                name="companyContact"
-                                value={editedProfessionalData.companyContact}
-                                onChange={handleInputChangeProfessional}
-                            />
-                        </Col>
-                    </Row>
-                    <Row>
-                        <Col md={4}>
-                            <Form.Label>Company Name</Form.Label>
-                        </Col>
-                        <Col md={8}>
-                            <Form.Control
-                                type="text"
-                                name="companyName"
-                                value={editedProfessionalData.companyName}
-                                onChange={handleInputChangeProfessional}
-                            />
-                        </Col>
-                    </Row>
-                    <Row>
-                        <Col md={4}>
-                            <Form.Label>Company Phone Number</Form.Label>
-                        </Col>
-                        <Col md={8}>
-                            <Form.Control
-                                type="text"
-                                name="companyPhoneNumber"
-                                value={editedProfessionalData.companyPhoneNumber}
-                                onChange={handleInputChangeProfessional}
-                            />
-                        </Col>
-                    </Row>
-                    <Row>
-                        <Col md={4}>
-                            <Form.Label>Company Email</Form.Label>
-                        </Col>
-                        <Col md={8}>
-                            <Form.Control
-                                type="text"
-                                name="companyEmail"
-                                value={editedProfessionalData.companyEmail}
-                                onChange={handleInputChangeProfessional}
-                            />
-                        </Col>
-                    </Row>
-                    <Row>
-                        <Col md={4}>
-                            <Form.Label>Company Landline</Form.Label>
-                        </Col>
-                        <Col md={8}>
-                            <Form.Control
-                                type="text"
-                                name="companyLandline"
-                                value={editedProfessionalData.companyLandline}
-                                onChange={handleInputChangeProfessional}
-                            />
-                        </Col>
-                    </Row>
-                    <Row>
-                        <Col md={4}>
-                            <Form.Label>Emergency Contact</Form.Label>
-                        </Col>
-                        <Col md={8}>
-                            <Form.Control
-                                type="text"
-                                name="emergencyContact"
-                                value={editedProfessionalData.emergencyContact}
-                                onChange={handleInputChangeProfessional}
-                            />
-                        </Col>
-                    </Row>
-                </Form>
-            </Modal.Body>
-            <Modal.Footer>
-                <Button variant="secondary" onClick={handleCloseModal}>Close</Button>
-                <Button variant="primary" onClick={handleSaveProfessionalDetails}>Save Changes</Button>
-            </Modal.Footer>
-        </Modal>
+                <Modal.Header closeButton>
+                    <Modal.Title>Edit Professional Details</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    <Form>
+                        <Row>
+                            <Col md={4}>
+                                <Form.Label>CTC</Form.Label>
+                            </Col>
+                            <Col md={8}>
+                                <Form.Control
+                                    type="text"
+                                    name="ctc"
+                                    className='border border-dark mb-2'
+                                    value={editedProfessionalData.ctc}
+                                    onChange={handleInputChangeProfessional}
+                                />
+                            </Col>
+                        </Row>
+                        <Row>
+                            <Col md={4}>
+                                <Form.Label>Yearly Bonus</Form.Label>
+                            </Col>
+                            <Col md={8}>
+                                <Form.Control
+                                    type="text"
+                                    name="yearlyBonus"
+                                    className='border border-dark mb-2'
+                                    value={editedProfessionalData.yearlyBonus}
+                                    onChange={handleInputChangeProfessional}
+                                />
+                            </Col>
+                        </Row>
+                        <Row>
+                            <Col md={4}>
+                                <Form.Label>PF UAN</Form.Label>
+                            </Col>
+                            <Col md={8}>
+                                <Form.Control
+                                    type="text"
+                                    name="pfUAN"
+                                    className='border border-dark mb-2'
+                                    value={editedProfessionalData.pfUAN}
+                                    onChange={handleInputChangeProfessional}
+                                />
+                            </Col>
+                        </Row>
+                        <Row>
+                            <Col md={4}>
+                                <Form.Label>PF Start Date</Form.Label>
+                            </Col>
+                            <Col md={8}>
+                                <Form.Control
+                                    type="date"
+                                    name="pfStartDate"
+                                    className='border border-dark mb-2'
+                                    value={editedProfessionalData.pfStartDate}
+                                    onChange={handleInputChangeProfessional}
+                                />
+                            </Col>
+                        </Row>
+                        <Row>
+                            <Col md={4}>
+                                <Form.Label>PF Total Paid</Form.Label>
+                            </Col>
+                            <Col md={8}>
+                                <Form.Control
+                                    type="text"
+                                    name="pfTotalPaid"
+                                    className='border border-dark mb-2'
+                                    value={editedProfessionalData.pfTotalPaid}
+                                    onChange={handleInputChangeProfessional}
+                                />
+                            </Col>
+                        </Row>
+                        <Row>
+                            <Col md={4}>
+                                <Form.Label>Monthly EMI</Form.Label>
+                            </Col>
+                            <Col md={8}>
+                                <Form.Control
+                                    type="text"
+                                    name="monthlyEMI"
+                                    className='border border-dark mb-2'
+                                    value={editedProfessionalData.monthlyEMI}
+                                    onChange={handleInputChangeProfessional}
+                                />
+                            </Col>
+                        </Row>
+                        <Row>
+                            <Col md={4}>
+                                <Form.Label>Occupation</Form.Label>
+                            </Col>
+                            <Col md={8}>
+                                <Form.Control
+                                    type="text"
+                                    name="occupation"
+                                    className='border border-dark mb-2'
+                                    value={editedProfessionalData.occupation}
+                                    onChange={handleInputChangeProfessional}
+                                />
+                            </Col>
+                        </Row>
+                        <Row>
+                            <Col md={4}>
+                                <Form.Label>Designation</Form.Label>
+                            </Col>
+                            <Col md={8}>
+                                <Form.Control
+                                    type="text"
+                                    name="designation"
+                                    className='border border-dark mb-2'
+                                    value={editedProfessionalData.designation}
+                                    onChange={handleInputChangeProfessional}
+                                />
+                            </Col>
+                        </Row>
+                        <Row>
+                            <Col md={4}>
+                                <Form.Label>Company Address</Form.Label>
+                            </Col>
+                            <Col md={8}>
+                                <Form.Control
+                                    type="text"
+                                    name="companyAddress"
+                                    className='border border-dark mb-2'
+                                    value={editedProfessionalData.companyAddress}
+                                    onChange={handleInputChangeProfessional}
+                                />
+                            </Col>
+                        </Row>
+                        <Row>
+                            <Col md={4}>
+                                <Form.Label>Employee ID</Form.Label>
+                            </Col>
+                            <Col md={8}>
+                                <Form.Control
+                                    type="text"
+                                    name="empId"
+                                    className='border border-dark mb-2'
+                                    value={editedProfessionalData.empId}
+                                    onChange={handleInputChangeProfessional}
+                                />
+                            </Col>
+                        </Row>
+                        <Row>
+                            <Col md={4}>
+                                <Form.Label>Company Contact</Form.Label>
+                            </Col>
+                            <Col md={8}>
+                                <Form.Control
+                                    type="text"
+                                    name="companyContact"
+                                    className='border border-dark mb-2'
+                                    value={editedProfessionalData.companyContact}
+                                    onChange={handleInputChangeProfessional}
+                                />
+                            </Col>
+                        </Row>
+                        <Row>
+                            <Col md={4}>
+                                <Form.Label>Company Name</Form.Label>
+                            </Col>
+                            <Col md={8}>
+                                <Form.Control
+                                    type="text"
+                                    name="companyName"
+                                    className='border border-dark mb-2'
+                                    value={editedProfessionalData.companyName}
+                                    onChange={handleInputChangeProfessional}
+                                />
+                            </Col>
+                        </Row>
+                        <Row>
+                            <Col md={4}>
+                                <Form.Label>Company Phone Number</Form.Label>
+                            </Col>
+                            <Col md={8}>
+                                <Form.Control
+                                    type="text"
+                                    name="companyPhoneNumber"
+                                    className='border border-dark mb-2'
+                                    value={editedProfessionalData.companyPhoneNumber}
+                                    onChange={handleInputChangeProfessional}
+                                />
+                            </Col>
+                        </Row>
+                        <Row>
+                            <Col md={4}>
+                                <Form.Label>Company Email</Form.Label>
+                            </Col>
+                            <Col md={8}>
+                                <Form.Control
+                                    type="text"
+                                    name="companyEmail"
+                                    className='border border-dark mb-2'
+                                    value={editedProfessionalData.companyEmail}
+                                    onChange={handleInputChangeProfessional}
+                                />
+                            </Col>
+                        </Row>
+                        <Row>
+                            <Col md={4}>
+                                <Form.Label>Company Landline</Form.Label>
+                            </Col>
+                            <Col md={8}>
+                                <Form.Control
+                                    type="text"
+                                    name="companyLandline"
+                                    className='border border-dark mb-2'
+                                    value={editedProfessionalData.companyLandline}
+                                    onChange={handleInputChangeProfessional}
+                                />
+                            </Col>
+                        </Row>
+                        <Row>
+                            <Col md={4}>
+                                <Form.Label>Emergency Contact</Form.Label>
+                            </Col>
+                            <Col md={8}>
+                                <Form.Control
+                                    type="text"
+                                    name="emergencyContact"
+                                    className='border border-dark mb-2'
+                                    value={editedProfessionalData.emergencyContact}
+                                    onChange={handleInputChangeProfessional}
+                                />
+                            </Col>
+                        </Row>
+                    </Form>
+                </Modal.Body>
+                <Modal.Footer className='d-flex justify-content-center align-items-center'>
+                    <Button variant="secondary" onClick={handleCloseProfessionalModal}>Close</Button>
+                    <Button variant="primary" onClick={handleSaveProfessionalDetails}>Save Changes</Button>
+                </Modal.Footer>
+            </Modal>
         </div>
     );
 }

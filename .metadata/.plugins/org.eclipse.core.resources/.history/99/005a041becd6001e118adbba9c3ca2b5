@@ -1,0 +1,15 @@
+
+package com.os.inwin.goldapi;
+
+public class GoldPriceResponse {
+    
+	private double perGramPrice;
+
+    public GoldPriceResponse(double pergramgoldprice) {
+        this.perGramPrice = pergramgoldprice;
+    }
+
+    public double getPergramgoldprice() {
+        return perGramPrice;
+    }
+}

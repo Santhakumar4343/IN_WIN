@@ -18,7 +18,7 @@ function FixedDeposits() {
   const [showModal, setShowModal] = useState(false);
   const [fixedDeposit, setFixedDeposit] = useState([]);
   const [selectedFixedDeposit, setSelectedFixedDeposit] = useState(null);
-  const { exchangeRate } = CurrencyState();
+  const { exchangeRate ,currency} = CurrencyState();
   console.log(exchangeRate)
   const titleColors = ["#42ff75", "#3ba3ed", "#fc47ed", "#e82e44", "#f5c802", "#f2a04e"];
   const handleEdit = (fixedDeposit) => {
@@ -174,7 +174,7 @@ function FixedDeposits() {
                 <p style={{ color: "white" }}><strong>BankName:</strong> {fixedDeposit.bankName}</p>
                 <p style={{ color: "white" }}><strong>Years:</strong> {fixedDeposit.years}</p>
                 <p style={{ color: "white" }}><strong>Fixed Date:</strong> {moment(fixedDeposit.fixedDate).format("DD-MM-YYYY")}</p>
-                <p style={{ color: "white" }}><strong>Total Amount:</strong> {renderPrice(fixedDeposit.totalAmount)} {fixedDeposit.currency}</p>
+                <p style={{ color: "white" }}><strong>Total Amount:</strong> {renderPrice(fixedDeposit.totalAmount)} {currency}</p>
                 <p style={{ color: "white" }}><strong>Last Update Date:</strong> {moment(fixedDeposit.lastUpdateDate).format("DD-MM-YYYY")}</p>
               </div>
               <div className="card-footer d-flex justify-content-center align-items-center border border-dark ">

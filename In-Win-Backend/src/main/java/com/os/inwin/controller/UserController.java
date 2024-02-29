@@ -49,9 +49,9 @@ public class UserController {
 			userMap.put(user.getUserName(), user);
 
 			// Generate OTP and send it
-			 userService.sendOtpToSuperUser(user);
+			userService.sendOtpToSuperUser(user);
 
-			return ResponseEntity.ok("OTP sent successfully: " );
+			return ResponseEntity.ok("OTP sent successfully: ");
 		} else {
 			return new ResponseEntity<>("User data cannot be null", HttpStatus.BAD_REQUEST);
 		}
@@ -109,6 +109,7 @@ public class UserController {
 		return updateUser != null ? new ResponseEntity<>("User Updated Successfully", HttpStatus.OK)
 				: new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 	}
+
 	@PutMapping("/updateUser-professional/{id}")
 	public ResponseEntity<String> updateUserProfessionalDetails(@PathVariable long id, @RequestBody User user) {
 		User updateUser = userService.updateUserProfessionalDetails(id, user);
@@ -131,18 +132,16 @@ public class UserController {
 
 	@PostMapping("/login")
 	public ResponseEntity<User> login(@RequestParam String userName, @RequestParam String password) {
-	    try {
-	        User authenticatedUser = userService.login(userName, password);
-	        return new ResponseEntity<>(authenticatedUser, HttpStatus.OK);
-	    } catch (AuthException e) {
-	        if (e.getMessage().equals("Invalid username")) {
-	            return new ResponseEntity<>(HttpStatus.NOT_FOUND); // Username not found
-	        } else {
-	            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED); // Incorrect password
-	        }
-	    }
+		try {
+			User authenticatedUser = userService.login(userName, password);
+			return new ResponseEntity<>(authenticatedUser, HttpStatus.OK);
+		} catch (AuthException e) {
+			if (e.getMessage().equals("Invalid username")) {
+				return new ResponseEntity<>(HttpStatus.NOT_FOUND); // Username not found
+			} else {
+				return new ResponseEntity<>(HttpStatus.UNAUTHORIZED); // Incorrect password
+			}
+		}
 	}
-
-	
 
 }

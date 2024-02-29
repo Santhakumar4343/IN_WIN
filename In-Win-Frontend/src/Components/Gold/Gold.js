@@ -11,14 +11,14 @@ import { useLocation } from "react-router-dom";
 
 import { BASE_URl } from '../API/Api';
 import { CurrencyState } from '../../CurrencyContext';
-import GoldImage from  "../../../src/assets/gold1.jpg";
+import GoldImage from  "../../../src/assets/GoldBakcGround.jpg";
 function Gold() {
   const location = useLocation();
   const { state: { userData } = {} } = location;
   const [showModal, setShowModal] = useState(false);
   const [gold, setGold] = useState([]);
   const [selectedGold, setSelectedGold] = useState(null);
-  const { exchangeRate } = CurrencyState(); 
+  const { exchangeRate ,currency} = CurrencyState(); 
   const titleColors = ["#42ff75", "#3ba3ed", "#fc47ed", "#e82e44", "#f5c802","#f2a04e"];
  
   const populateModal = () => {
@@ -160,6 +160,21 @@ function Gold() {
     setSelectedGold(goldItem);
     setShowModal(true);
   };
+  const [goldPrice, setGoldPrice] = useState(null);
+
+  useEffect(() => {
+      fetchGoldPrice();
+  }, []);
+
+  const fetchGoldPrice = async () => {
+      try {
+          const response = await axios.get(`${BASE_URl}/api/gold/gold-price`);
+          const { pergramgoldprice } = response.data;
+          setGoldPrice(pergramgoldprice);
+      } catch (error) {
+          console.error('Error fetching gold price:', error);
+      }
+  };
   
   return (
     <div>
@@ -171,10 +186,10 @@ function Gold() {
               <div className="card-body">
                 <h5 className="card-title text-center" style={{color:"black"}}>{goldItem.name}</h5>
                 <p style={{color:"black"}}><strong >Symbol:</strong> {goldItem.symbol}</p>
-                <p style={{color:"black"}}><strong>Purchase Price:</strong> {renderPrice(goldItem.purchasePrice)} {goldItem.currency}</p>
+                <p style={{color:"black"}}><strong>Purchase Price:</strong> {renderPrice(goldItem.purchasePrice)} {currency}</p>
                 <p style={{color:"black"}}><strong>Buy Date:</strong> {moment(goldItem.buyDate).format("DD-MM-YYYY")}</p>
                 <p style={{color:"black"}}><strong>Quantity:</strong> {goldItem.quantity}</p>
-                <p style={{color:"black"}}><strong>Current Price:</strong> {renderPrice(goldItem.currentPrice)} {goldItem.currency}</p>
+                <p style={{color:"black"}}><strong>Current Price:</strong> {renderPrice(goldPrice)} {currency}  <strong>/gram</strong></p>
                 <p style={{color:"black"}}><strong>Last Update Date:</strong> {moment(goldItem.lastUpdateDate).format("DD-MM-YYYY")}</p>
               </div>
               <div className="card-footer d-flex justify-content-center align-items-center border border-dark ">

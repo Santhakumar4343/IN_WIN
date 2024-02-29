@@ -1,20 +1,22 @@
 package com.os.inwin.serviceImpl;
 
+import java.io.IOException;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.RestTemplate;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.os.inwin.entity.Gold;
-import com.os.inwin.entity.Stock;
-import com.os.inwin.goldapi.MetalPriceApiResponse;
+import com.os.inwin.goldapi.GoldPriceResponse;
 import com.os.inwin.repository.GoldRepository;
 import com.os.inwin.service.GoldService;
-
-import lombok.Value;
 
 @Service
 public class GoldServiceImpl implements GoldService{
@@ -71,7 +73,35 @@ public class GoldServiceImpl implements GoldService{
 		        return false; 
 		    }
 	}
+	 public String getGoldPricePerGramInHyderabad() {
+	        String url = "http://www.goldpriceindia.com/gold-price-hyderabad.php";
+	        try {
+	            // Fetch the HTML content of the URL
+	            Document doc = Jsoup.connect(url).get();
+	            // Extract the table containing gold prices
+	            Element table = doc.select("table").get(0); // Assuming the first table on the page contains the prices
+	            // Extract the rows of the table
+	            Elements rows = table.select("tr");
+	            // Find the row containing the gold price per gram
+	            Element row = null;
+	            for (Element r : rows) {
+	                if (r.text().contains("1 gram")) {
+	                    row = r;
+	                    break;
+	                }
+	            }
+	            // Extract the columns of the row
+	            Elements columns = row.select("td");
+	            // Extract the price from the second column (index 1)
+	            String priceString = columns.get(1).text().replaceAll("[^\\d.]+", "");
+	            double price = Double.parseDouble(priceString);
+	            // Create a JSON object
+	            ObjectMapper mapper = new ObjectMapper();
+	            return mapper.writeValueAsString(new GoldPriceResponse(price));
+	        } catch (IOException e) {
+	            throw new RuntimeException("Error fetching gold price", e);
+	        }
+	    }
 
-	
 	
 }

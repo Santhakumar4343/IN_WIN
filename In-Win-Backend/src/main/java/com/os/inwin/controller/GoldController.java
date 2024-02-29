@@ -28,7 +28,10 @@ public class GoldController {
 	
   @Autowired
    private GoldServiceImpl goldService;
-   
+  @GetMapping("/gold-price")
+  public String getGoldPrice() {
+      return goldService.getGoldPricePerGramInHyderabad();
+  }
   @GetMapping
   public ResponseEntity<List<Gold>> getAllGolds() {
       List<Gold> golds = goldService.getAllGolds();

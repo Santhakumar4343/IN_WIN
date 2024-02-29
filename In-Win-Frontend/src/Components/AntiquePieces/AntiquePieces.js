@@ -18,7 +18,7 @@ function AntiquePieces() {
   const [showModal, setShowModal] = useState(false);
   const [antiquePiece, setAntiquePiece] = useState([]);
   const [selectedAntiquePiece, setSelectedAntiquePiece] = useState(null);
-  const { exchangeRate } = CurrencyState();
+  const { exchangeRate,currency } = CurrencyState();
   console.log(exchangeRate)
   const titleColors = ["#42ff75", "#3ba3ed", "#fc47ed", "#e82e44", "#f5c802", "#f2a04e"];
   const handleEdit = (antiquePiece) => {
@@ -172,7 +172,7 @@ function AntiquePieces() {
     
                 <p style={{ color: "white" }}><strong>Years old:</strong> {antiquePiece.years}</p>
                 <p style={{ color: "white" }}><strong>Buy Date:</strong> {moment(antiquePiece.buyDate).format("DD-MM-YYYY")}</p>
-                <p style={{ color: "white" }}><strong>Price:</strong> {renderPrice(antiquePiece.price)} {antiquePiece.currency}</p>
+                <p style={{ color: "white" }}><strong>Price:</strong> {renderPrice(antiquePiece.price)} {currency}</p>
                 <p style={{ color: "white" }}><strong>Last Update Date:</strong> {moment(antiquePiece.lastUpdateDate).format("DD-MM-YYYY")}</p>
               </div>
               <div className="card-footer d-flex justify-content-center align-items-center border border-dark ">

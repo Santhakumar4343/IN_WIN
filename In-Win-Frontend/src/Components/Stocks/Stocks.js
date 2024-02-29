@@ -18,7 +18,7 @@ function Stocks() {
   const [showModal, setShowModal] = useState(false);
   const [stocks, setStocks] = useState([]);
   const [selectedStock, setSelectedStock] = useState(null);
-  const { exchangeRate } = CurrencyState(); 
+  const { exchangeRate,currency } = CurrencyState(); 
   console.log(exchangeRate)
   const titleColors = ["#42ff75", "#3ba3ed", "#fc47ed", "#e82e44", "#f5c802","#f2a04e"];
   const handleEdit = (stock) => {
@@ -172,10 +172,10 @@ const renderPrice = (price) => {
               <div className="card-body">
                 <h5 className="card-title text-center" style={{color:"white"}}>{stock.name}</h5>
                 <p style={{color:"white"}}><strong >Symbol:</strong> {stock.symbol}</p>
-                <p style={{color:"white"}}><strong>Purchase Price:</strong> {renderPrice(stock.purchasePrice)} {stock.currency}</p>
+                <p style={{color:"white"}}><strong>Purchase Price:</strong> {renderPrice(stock.purchasePrice)} {currency}</p>
                 <p style={{color:"white"}}><strong>Buy Date:</strong> {moment(stock.buyDate).format("DD-MM-YYYY")}</p>
                 <p style={{color:"white"}}><strong>Quantity:</strong> {stock.quantity}</p>
-                <p style={{color:"white"}}><strong>Current Price:</strong> {renderPrice(stock.currentPrice)} {stock.currency}</p>
+                <p style={{color:"white"}}><strong>Current Price:</strong> {renderPrice(stock.currentPrice)} {currency}</p>
                 <p style={{color:"white"}}><strong>Last Update Date:</strong> {moment(stock.lastUpdateDate).format("DD-MM-YYYY")}</p>
               </div>
               <div className="card-footer d-flex justify-content-center align-items-center border border-dark ">

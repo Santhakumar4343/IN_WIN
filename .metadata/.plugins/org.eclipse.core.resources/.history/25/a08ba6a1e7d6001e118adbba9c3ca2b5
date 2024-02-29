@@ -1,0 +1,69 @@
+package com.os.inwin.serviceImpl;
+
+import java.time.LocalDate;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
+
+import com.os.inwin.entity.Gold;
+import com.os.inwin.repository.GoldRepository;
+
+@Service
+public class GoldPriceService {
+    @Autowired
+    private RestTemplate restTemplate;
+
+    @Autowired
+    private GoldRepository goldRepository;
+
+    public void updateAllGoldPrices() {
+        Iterable<Gold> allGolds = goldRepository.findAll();
+        for (Gold gold : allGolds) {
+            double currentGoldPricePerGramInUSD = getCurrentGoldPricePerGramInUSD(gold.getCurrencyCode());
+            double currentGoldPricePerGramInINR = convertToINR(currentGoldPricePerGramInUSD);
+            gold.setCurrentPrice(currentGoldPricePerGramInINR);
+            gold.setLastUpdateDate(LocalDate.now());
+            goldRepository.save(gold);
+        }
+    }
+
+    private double getCurrentGoldPricePerGramInUSD(String currencyCode) {
+        String apiUrl = "http://goldpricez.com/api/rates/currency/" + currencyCode + "/measure/gram";
+        String apiKey = ""; // Your API key
+
+        try {
+            ResponseEntity<String> responseEntity = restTemplate.getForEntity(apiUrl, String.class);
+            if (responseEntity.getStatusCode().is2xxSuccessful() && responseEntity.getBody() != null) {
+                // Parse the response to extract the gold price per gram in USD
+                String responseBody = responseEntity.getBody();
+                double goldPricePerGramInUSD = parseResponse(responseBody);
+                System.out.println("Current Gold Price per Gram in USD for " + currencyCode + ": " + goldPricePerGramInUSD);
+                return goldPricePerGramInUSD;
+            } else {
+                // Log error response status code
+                System.err.println("Failed to fetch gold price. Status code: " + responseEntity.getStatusCodeValue());
+                return 0.0;
+            }
+        } catch (Exception e) {
+            // Log exception
+            System.err.println("Failed to fetch gold price: " + e.getMessage());
+            return 0.0;
+        }
+    }
+
+    private double parseResponse(String responseBody) {
+        // Parse the JSON response to extract the gold price per gram in USD
+        // Implement your parsing logic here
+        // For simplicity, let's assume the response is in the format "{\"gram_in_usd\":39.753924}"
+        // You can use libraries like Jackson or Gson for parsing JSON
+        // For demonstration purposes, let's return a dummy value
+        return 39.753924;
+    }
+
+    private double convertToINR(double priceUSD) {
+        // Conversion logic remains the same
+        return priceUSD * 82.8655956219; // Assuming the exchange rate is fixed at 82.8655956219
+    }
+}

@@ -28,7 +28,10 @@ public class User {
 	    private String drivingLicense;
 	    private String presentAddress;
 	    private String permanentAddress;
-	    private double ctc; // Monthly salary
+	    
+	    
+	    
+	    private double ctc; 
 	    private double yearlyBonus;
 	    private String pfUAN;
 	    private LocalDate pfStartDate;

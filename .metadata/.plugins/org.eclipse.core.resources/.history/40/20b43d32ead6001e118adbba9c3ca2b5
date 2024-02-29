@@ -1,0 +1,96 @@
+package com.os.inwin.serviceImpl;
+
+import java.io.IOException;
+import java.time.LocalDate;
+import java.util.List;
+import java.util.Optional;
+
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.os.inwin.entity.Gold;
+import com.os.inwin.repository.GoldRepository;
+import com.os.inwin.service.GoldService;
+
+@Service
+public class GoldServiceImpl implements GoldService{
+
+	
+	@Autowired
+	private GoldRepository goldRepository;
+	
+	
+	@Override
+	public List<Gold> getAllGolds() {
+		
+		return goldRepository.findAll();
+	}
+
+	@Override
+	public Gold saveGold(Gold gold) {
+		gold.setLastUpdateDate(LocalDate.now());
+	        return  goldRepository.save(gold);
+	}
+
+	@Override
+	public void updateGoldPrices() {	
+	}
+
+	@Override
+	public List<Gold> getGoldByUserName(String userName) {
+		
+		return goldRepository.findByUserName(userName);
+	}
+
+	@Override
+	public Gold updateGold(Long id, Gold gold) {
+		 Optional<Gold> optionalGold = goldRepository.findById(id);
+		    if (optionalGold.isPresent()) {
+		        Gold existingGold= optionalGold.get();
+		        existingGold.setName(gold.getName());
+		        existingGold.setQuantity(gold.getQuantity());
+		        existingGold.setBuyDate(gold.getBuyDate());
+		        existingGold.setPurchasePrice(gold.getPurchasePrice());
+		        existingGold.setSymbol(gold.getSymbol());
+		        return goldRepository.save(existingGold);
+		    }
+		    return null;
+	}
+
+	@Override
+	public boolean deleteGold(long id) {
+		 Optional<Gold> optionalGold= goldRepository.findById(id);
+		    if (optionalGold.isPresent()) {
+		    	goldRepository.deleteById(id);
+		        return true; 
+		    } else {
+		        return false; 
+		    }
+	}
+	 public double getGoldPricePerGramInHyderabad() {
+	        String city = "hyderabad";
+	        String url = "http://www.goldpriceindia.com/gold-price-" + city + ".php";
+	        try {
+	            // Fetch the HTML content of the URL
+	            Document doc = Jsoup.connect(url).get();
+	            // Extract the element with class "prc"
+	            Element prcElement = doc.selectFirst(".prc");
+	            // Extract the text content of the element
+	            String goldRate = prcElement.text();
+	            // Extract the price per gram (assuming it's in the format "Price Per Gram: Rs. 5,000")
+	            String[] parts = goldRate.split(":");
+	            if (parts.length >= 2) {
+	                String pricePerGramString = parts[1].trim().replaceAll("[^\\d.]+", "");
+	                return Double.parseDouble(pricePerGramString);
+	            } else {
+	                throw new RuntimeException("Unable to parse gold price per gram");
+	            }
+	        } catch (IOException e) {
+	            throw new RuntimeException("Error fetching gold price", e);
+	        }
+	    }
+	
+}

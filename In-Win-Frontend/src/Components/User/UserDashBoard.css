@@ -1,16 +1,19 @@
 .dashboard-container {
-    display: flex;
-  }
+  display: flex;
+}
+
+.nav-links {
+  width: 20%;
+  background-color: black;
+  height: 400vh;
+ 
+}
+
+.main-content {
+  width: 100%;
+  background-color: rgb(209, 255, 251);
+  height: 400vh;
   
-  .nav-links {
-    width: 20%;
-    background-color: black;
-    height: 400vh;
-  }
-  
-  .main-content {
-    width: 100%;
-    background-color: rgb(209, 255, 251);
-    height: 400vh;
-  }
-  
+}
+
+

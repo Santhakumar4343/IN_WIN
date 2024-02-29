@@ -18,7 +18,7 @@ function Realestate() {
   const [showModal, setShowModal] = useState(false);
   const [realestate, setRealestate] = useState([]);
   const [selectedRealestate, setSelectedRealestate] = useState(null);
-  const { exchangeRate } = CurrencyState();
+  const { exchangeRate,currency } = CurrencyState();
   console.log(exchangeRate)
   const titleColors = ["#42ff75", "#3ba3ed", "#fc47ed", "#e82e44", "#f5c802", "#f2a04e"];
   const handleEdit = (realestate) => {
@@ -171,10 +171,10 @@ function Realestate() {
             <div className="card h-100 d-flex flex-column border border-dark" style={{ backgroundColor: index < titleColors.length ? titleColors[index] : titleColors[index % titleColors.length] }}>
               <div className="card-body">
                 <h5 className="card-title text-center" style={{ color: "white" }}>{realestate.name}</h5>
-                <p style={{ color: "white" }}><strong>Purchase Price:</strong> {renderPrice(realestate.purchasePrice)} {realestate.currency}</p>
+                <p style={{ color: "white" }}><strong>Purchase Price:</strong> {renderPrice(realestate.purchasePrice)} {currency}</p>
                 <p style={{ color: "white" }}><strong>Buy Date:</strong> {moment(realestate.buyDate).format("DD-MM-YYYY")}</p>
                 <p style={{ color: "white" }}><strong>Quantity:</strong> {realestate.quantity}</p>
-                <p style={{ color: "white" }}><strong>Current Price:</strong> {renderPrice(realestate.currentPrice)} {realestate.currency}</p>
+                <p style={{ color: "white" }}><strong>Current Price:</strong> {renderPrice(realestate.currentPrice)} {currency}</p>
                 <p style={{ color: "white" }}><strong>Last Update Date:</strong> {moment(realestate.lastUpdateDate).format("DD-MM-YYYY")}</p>
               </div>
               <div className="card-footer d-flex justify-content-center align-items-center border border-dark ">

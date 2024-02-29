@@ -18,7 +18,7 @@ function Insurance() {
   const [showModal, setShowModal] = useState(false);
   const [insurance, setInsurance] = useState([]);
   const [selectedInsurance, setSelectedInsurance] = useState(null);
-  const { exchangeRate } = CurrencyState();
+  const { exchangeRate ,currency} = CurrencyState();
   console.log(exchangeRate)
   const titleColors = ["#42ff75", "#3ba3ed", "#fc47ed", "#e82e44", "#f5c802", "#f2a04e"];
   const handleEdit = (insurance) => {
@@ -168,9 +168,9 @@ function Insurance() {
             <div className="card h-100 d-flex flex-column border border-dark" style={{ backgroundColor: index < titleColors.length ? titleColors[index] : titleColors[index % titleColors.length] }}>
               <div className="card-body">
                 <h5 className="card-title text-center" style={{ color: "white" }}>{insurance.name}</h5>
-                <p style={{ color: "white" }}><strong>Premium:</strong> {renderPrice(insurance.premium)} {insurance.currency}</p>
+                <p style={{ color: "white" }}><strong>Premium:</strong> {renderPrice(insurance.premium)} {currency}</p>
                 <p style={{ color: "white" }}><strong>Buy Date:</strong> {moment(insurance.buyDate).format("DD-MM-YYYY")}</p>
-                <p style={{ color: "white" }}><strong>Total Price:</strong> {renderPrice(insurance.totalAmount)} {insurance.currency}</p>
+                <p style={{ color: "white" }}><strong>Total Price:</strong> {renderPrice(insurance.totalAmount)} {currency}</p>
                 <p style={{ color: "white" }}><strong>Last Update Date:</strong> {moment(insurance.lastUpdateDate).format("DD-MM-YYYY")}</p>
               </div>
               <div className="card-footer d-flex justify-content-center align-items-center border border-dark ">

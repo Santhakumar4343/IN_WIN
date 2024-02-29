@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.os.inwin.entity.Stock;
+import com.os.inwin.repository.StockRepository;
 import com.os.inwin.service.StockService;
 
 import lombok.Delegate;
@@ -25,7 +26,23 @@ public class StockController {
 
     @Autowired
     private StockService stockService;
+  @Autowired
+  private StockRepository stockRepository;
+    @GetMapping("/totalStocksPrice")
+    public double getTotalCurrentValue() {
+        return calculateTotalCurrentValue();
+    }
 
+    private double calculateTotalCurrentValue() {
+        Iterable<Stock> stocks = stockRepository.findAll();
+        double totalValue = 0.0;
+
+        for (Stock stock : stocks) {
+            totalValue += stock.getCurrentPrice() * stock.getQuantity();
+        }
+
+        return totalValue;
+    }
     @GetMapping
     public ResponseEntity<List<Stock>> getAllStocks() {
         List<Stock> stocks = stockService.getAllStocks();
