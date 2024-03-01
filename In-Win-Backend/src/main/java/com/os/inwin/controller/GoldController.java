@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.os.inwin.entity.Gold;
 import com.os.inwin.entity.Stock;
+import com.os.inwin.goldapi.GoldPriceResponse;
 import com.os.inwin.serviceImpl.GoldPriceService;
 import com.os.inwin.serviceImpl.GoldServiceImpl;
 
@@ -29,7 +30,7 @@ public class GoldController {
   @Autowired
    private GoldServiceImpl goldService;
   @GetMapping("/gold-price")
-  public String getGoldPrice() {
+  public GoldPriceResponse getGoldPrice() {
       return goldService.getGoldPricePerGramInHyderabad();
   }
   @GetMapping

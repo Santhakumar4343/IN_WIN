@@ -1,0 +1,131 @@
+package com.os.inwin.serviceImpl;
+
+import java.io.IOException;
+import java.time.LocalDate;
+import java.util.List;
+import java.util.Optional;
+
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.os.inwin.entity.Gold;
+import com.os.inwin.goldapi.GoldPriceResponse;
+import com.os.inwin.repository.GoldRepository;
+import com.os.inwin.service.GoldService;
+
+@Service
+public class GoldServiceImpl implements GoldService{
+
+	
+	@Autowired
+	private GoldRepository goldRepository;
+	
+	
+	@Override
+	public List<Gold> getAllGolds() {
+		
+		return goldRepository.findAll();
+	}
+
+	@Override
+	public Gold saveGold(Gold gold) {
+		gold.setLastUpdateDate(LocalDate.now());
+	        return  goldRepository.save(gold);
+	}
+
+	@Override
+	public void updateGoldPrices() {	
+	}
+
+	@Override
+	public List<Gold> getGoldByUserName(String userName) {
+		
+		return goldRepository.findByUserName(userName);
+	}
+
+	@Override
+	public Gold updateGold(Long id, Gold gold) {
+		 Optional<Gold> optionalGold = goldRepository.findById(id);
+		    if (optionalGold.isPresent()) {
+		        Gold existingGold= optionalGold.get();
+		        existingGold.setName(gold.getName());
+		        existingGold.setQuantity(gold.getQuantity());
+		        existingGold.setBuyDate(gold.getBuyDate());
+		        existingGold.setPurchasePrice(gold.getPurchasePrice());
+		        existingGold.setSymbol(gold.getSymbol());
+		        return goldRepository.save(existingGold);
+		    }
+		    return null;
+	}
+
+	@Override
+	public boolean deleteGold(long id) {
+		 Optional<Gold> optionalGold= goldRepository.findById(id);
+		    if (optionalGold.isPresent()) {
+		    	goldRepository.deleteById(id);
+		        return true; 
+		    } else {
+		        return false; 
+		    }
+	}
+
+	
+	
+
+	 public String getGoldPricePerGramInHyderabad() {
+	        String url = "http://www.goldpriceindia.com/gold-price-hyderabad.php";
+	        try {
+	            // Fetch the HTML content of the URL
+	            Document doc = Jsoup.connect(url).get();
+	            // Extract the table containing gold prices
+	            Element table = doc.select("table").first(); // Assuming the first table on the page contains the prices
+	            if (table == null) {
+	                throw new RuntimeException("No table found on the webpage.");
+	            }
+	            // Extract the rows of the table
+	            Elements rows = table.select("tr");
+	            // Create GoldPriceResponse objects to store the prices
+	            GoldPriceResponse[] responses = new GoldPriceResponse[rows.size() - 1]; // Subtracting 1 for the header row
+	            // Skip the header row
+	            for (int i = 1; i < rows.size(); i++) {
+	                Element row = rows.get(i);
+	                Elements columns = row.select("td");
+	                // Ensure the row has enough columns
+	                if (columns.size() >= 3) {
+	                    // Extract weight and prices
+	                    String weight = columns.get(0).text().trim();
+	                    double price24K = parsePrice(columns.get(1).text());
+	                    double price22K = parsePrice(columns.get(2).text());
+	                    // Create GoldPriceResponse object
+	                    responses[i - 1] = new GoldPriceResponse(price24K, price22K);
+	                } else {
+	                    throw new RuntimeException("Insufficient columns in the row.");
+	                }
+	            }
+	            // Convert the GoldPriceResponse objects to JSON
+	            ObjectMapper mapper = new ObjectMapper();
+	            return mapper.writeValueAsString(responses);
+	        } catch (IOException e) {
+	            throw new RuntimeException("Error fetching gold price", e);
+	        }
+	    }
+
+	    private double parsePrice(String priceString) {
+	        String cleanPrice = priceString.replaceAll("[^\\d.]+", "");
+	        return Double.parseDouble(cleanPrice);
+	    }
+
+	   
+	
+	}
+
+	
+
+
+	
+

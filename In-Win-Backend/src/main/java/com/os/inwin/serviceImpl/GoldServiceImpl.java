@@ -73,35 +73,41 @@ public class GoldServiceImpl implements GoldService{
 		        return false; 
 		    }
 	}
-	 public String getGoldPricePerGramInHyderabad() {
-	        String url = "http://www.goldpriceindia.com/gold-price-hyderabad.php";
-	        try {
-	            // Fetch the HTML content of the URL
-	            Document doc = Jsoup.connect(url).get();
-	            // Extract the table containing gold prices
-	            Element table = doc.select("table").get(0); // Assuming the first table on the page contains the prices
-	            // Extract the rows of the table
-	            Elements rows = table.select("tr");
-	            // Find the row containing the gold price per gram
-	            Element row = null;
-	            for (Element r : rows) {
-	                if (r.text().contains("1 gram")) {
-	                    row = r;
-	                    break;
-	                }
-	            }
-	            // Extract the columns of the row
-	            Elements columns = row.select("td");
-	            // Extract the price from the second column (index 1)
-	            String priceString = columns.get(1).text().replaceAll("[^\\d.]+", "");
-	            double price = Double.parseDouble(priceString);
-	            // Create a JSON object
-	            ObjectMapper mapper = new ObjectMapper();
-	            return mapper.writeValueAsString(new GoldPriceResponse(price));
-	        } catch (IOException e) {
-	            throw new RuntimeException("Error fetching gold price", e);
-	        }
-	    }
+	public GoldPriceResponse getGoldPricePerGramInHyderabad() {
+        String url = "http://www.goldpriceindia.com/gold-price-hyderabad.php";
+        try {
+            // Fetch the HTML content of the URL
+            Document doc = Jsoup.connect(url).get();
+            // Extract the table containing gold prices
+            Element table = doc.select("table").first(); // Assuming the first table on the page contains the prices
+            // Extract the rows of the table
+            Elements rows = table.select("tr");
+            // Find the row containing the gold price per gram
+            Element row = null;
+            for (Element r : rows) {
+                if (r.text().contains("1 gram")) {
+                    row = r;
+                    break;
+                }
+            }
+            // Ensure the row is found
+            if (row == null) {
+                throw new RuntimeException("Row containing gold price per gram not found.");
+            }
+            // Extract the prices from the second and third columns for 24K and 22K
+            Elements columns = row.select("td");
+            double price24K = parsePrice(columns.get(1).text());
+            double price22K = parsePrice(columns.get(2).text());
+            // Create a GoldPriceResponse object
+            return new GoldPriceResponse(price24K, price22K);
+        } catch (IOException e) {
+            throw new RuntimeException("Error fetching gold price", e);
+        }
+    }
 
+    private double parsePrice(String priceString) {
+        String cleanPrice = priceString.replaceAll("[^\\d.]+", "");
+        return Double.parseDouble(cleanPrice);
+    }
 	
 }

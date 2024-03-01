@@ -70,7 +70,6 @@ function Gold() {
   const renderPrice = (price) => {
     return (price / exchangeRate).toFixed(2);
   };
-
   const handleCloseModal = () => {
     setShowModal(false);
   };
@@ -160,22 +159,26 @@ function Gold() {
     setSelectedGold(goldItem);
     setShowModal(true);
   };
-  const [goldPrice, setGoldPrice] = useState(null);
+ 
 
   useEffect(() => {
       fetchGoldPrice();
   }, []);
 
-  const fetchGoldPrice = async () => {
-      try {
-          const response = await axios.get(`${BASE_URl}/api/gold/gold-price`);
-          const { pergramgoldprice } = response.data;
-          setGoldPrice(pergramgoldprice);
-      } catch (error) {
-          console.error('Error fetching gold price:', error);
-      }
-  };
-  
+  const [goldPrice, setGoldPrice] = useState({ perGramPrice24K: 0, perGramPrice22K: 0 });
+
+const fetchGoldPrice = async () => {
+    try {
+        const response = await axios.get(`${BASE_URl}/api/gold/gold-price`);
+        const { perGramPrice24K, perGramPrice22K } = response.data; 
+        
+        // Store both prices separately in the state
+        setGoldPrice({ perGramPrice24K, perGramPrice22K });
+    } catch (error) {
+        console.error('Error fetching gold price:', error);
+    }
+};
+
   return (
     <div>
       <Button variant="primary" onClick={() => setShowModal(true)}>Add Gold</Button>
@@ -186,11 +189,16 @@ function Gold() {
               <div className="card-body">
                 <h5 className="card-title text-center" style={{color:"black"}}>{goldItem.name}</h5>
                 <p style={{color:"black"}}><strong >Symbol:</strong> {goldItem.symbol}</p>
+                <p style={{color:"black"}}><strong >Carat:</strong> {goldItem.carat}</p>
                 <p style={{color:"black"}}><strong>Purchase Price:</strong> {renderPrice(goldItem.purchasePrice)} {currency}</p>
                 <p style={{color:"black"}}><strong>Buy Date:</strong> {moment(goldItem.buyDate).format("DD-MM-YYYY")}</p>
                 <p style={{color:"black"}}><strong>Quantity:</strong> {goldItem.quantity}</p>
-                <p style={{color:"black"}}><strong>Current Price:</strong> {renderPrice(goldPrice)} {currency}  <strong>/gram</strong></p>
+                <p style={{color:"black"}}>
+                <strong>Current Price:</strong> 
+                {goldPrice  && goldItem.carat == 22 ? renderPrice(goldPrice.perGramPrice22K) : renderPrice(goldPrice.perGramPrice24K)} {currency}  <strong>/gram</strong>
+            </p>
                 <p style={{color:"black"}}><strong>Last Update Date:</strong> {moment(goldItem.lastUpdateDate).format("DD-MM-YYYY")}</p>
+             
               </div>
               <div className="card-footer d-flex justify-content-center align-items-center border border-dark ">
                 <EditIcon className='fs-4 m-2' onClick={() => {handleEdit(goldItem)}}></EditIcon>
@@ -272,6 +280,7 @@ function Gold() {
               <Col md={8}>
                 <Form.Control
                   type="number"
+                  placeholder='In grams'
                   name="quantity"
                   className='border border-dark mb-2'
                   value={newGoldData.quantity}
