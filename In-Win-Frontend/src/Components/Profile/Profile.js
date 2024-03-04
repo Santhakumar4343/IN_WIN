@@ -9,8 +9,12 @@ import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import { useLocation } from "react-router-dom";
 import { BASE_URl } from '../API/Api';
 import { CurrencyState } from '../../CurrencyContext';
+import LogoutIcon from '@mui/icons-material/Logout';
+import { useNavigate } from "react-router-dom";
+
 
 function Profile() {
+    const Navigate = useNavigate();
     const location = useLocation();
     const { state: { userData } = {} } = location;
     const [showModal, setShowModal] = useState(false);
@@ -118,11 +122,30 @@ function Profile() {
                 console.error('Error updating user details:', error);
             });
     };
+    const handleLogout = () => {
+        Swal.fire({
+          title: 'Are you sure?',
+          text: 'You will be logged out.',
+          icon: 'warning',
+          showCancelButton: true,
+          confirmButtonColor: '#3085d6',
+          cancelButtonColor: '#d33',
+          confirmButtonText: 'Yes, logout'
+        }).then((result) => {
+          if (result.isConfirmed) {
+            window.history.replaceState(null, '', '/');
+            Navigate('/');
+          }
+        });
+      }
+      
+
 
     return (
         <div>
             <Button variant="primary" onClick={handleEdit}>Edit Personal Details</Button>
             <Button variant="primary" className='m-1 mb-2' onClick={handleEditProfessional}>Edit Professional Details</Button>
+            <LogoutIcon variant="primary" style={{marginLeft:"600px",fontSize:"36px"}}  onClick={handleLogout}>Edit Personal Details</LogoutIcon>
             <h5 >Personal Details</h5>
             <table class="table table-striped mt-3" style={{borderRadius:"10px"}}>
                 <thead>

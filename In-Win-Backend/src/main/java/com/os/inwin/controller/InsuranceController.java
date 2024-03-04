@@ -1,8 +1,11 @@
 package com.os.inwin.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -24,11 +27,21 @@ public class InsuranceController {
 	@Autowired
 	private InsuranceServiceImpl insuranceServiceImpl;
 
+	@GetMapping("/totalPermiumPrice/{userName}")
+    public Map<String ,Double> getTotalCurrentValue(@PathVariable String userName) {
+		double totalPrice=  insuranceServiceImpl.calculateTotalPremiumPrices(userName);
+		Map<String,Double> response=new HashMap<>();
+        response.put("totalPrice", totalPrice);
+        return response;
+    }
 	@GetMapping("/getAllInsurances")
 	public ResponseEntity<List<Insurance>> getAllInsurances() {
 		List<Insurance> insurance = insuranceServiceImpl.getAllInsurances();
 		return new ResponseEntity<>(insurance, HttpStatus.OK);
 	}
+	
+	
+
 
 	@PostMapping("/save")
 	public ResponseEntity<Insurance> saveRealestate(@RequestBody Insurance insurance) {

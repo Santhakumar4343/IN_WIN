@@ -15,6 +15,18 @@ public class AntiquePiecesServiceImpl implements AntiquePiecesService{
 
 	@Autowired
 	private AntiquePiecesRepository antiquePiecesRepository;
+	
+	
+	public double calculateTotalCurrentValue(String userName) {
+        Iterable<AntiquePieces> antiquePieces = antiquePiecesRepository.findByUserName(userName);
+        double totalValue = 0.0;
+
+        for (AntiquePieces antiquePiece : antiquePieces) {
+            totalValue += antiquePiece.getPrice();
+        }
+
+        return totalValue;
+    }
 	@Override
 	public List<AntiquePieces> getAllAntiquePieces() {
 	

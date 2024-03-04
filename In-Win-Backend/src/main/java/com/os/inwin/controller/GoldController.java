@@ -1,6 +1,8 @@
 package com.os.inwin.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -15,7 +17,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.os.inwin.entity.Gold;
-import com.os.inwin.entity.Stock;
 import com.os.inwin.goldapi.GoldPriceResponse;
 import com.os.inwin.serviceImpl.GoldPriceService;
 import com.os.inwin.serviceImpl.GoldServiceImpl;
@@ -29,6 +30,17 @@ public class GoldController {
 	
   @Autowired
    private GoldServiceImpl goldService;
+  
+  
+  @GetMapping("/totalGoldPrice/{userName}")
+  public Map<String, Double> getTotalGoldPrice(@PathVariable String userName) {
+      double totalPrice = goldService.calculateTotalCurrentValue(userName);
+      Map<String, Double> response = new HashMap<>();
+      response.put("totalPrice", totalPrice);
+      return response;
+  }
+
+  
   @GetMapping("/gold-price")
   public GoldPriceResponse getGoldPrice() {
       return goldService.getGoldPricePerGramInHyderabad();

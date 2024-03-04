@@ -16,6 +16,18 @@ public class RealestateServiceImpl implements RealestateService {
 	@Autowired
 	private RealestateRepository realestateRepository;
 
+	 
+
+	    public double calculateTotalCurrentValue(String userName) {
+	        Iterable<Realestate> realestates = realestateRepository.findByUserName(userName);
+	        double totalValue = 0.0;
+
+	        for (Realestate realestate : realestates) {
+	            totalValue += realestate.getCurrentPrice() * realestate.getQuantity();
+	        }
+
+	        return totalValue;
+	    }
 	@Override
 	public List<Realestate> getAllRealestate() {
 		return realestateRepository.findAll();

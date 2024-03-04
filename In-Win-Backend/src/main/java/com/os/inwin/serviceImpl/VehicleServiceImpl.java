@@ -16,7 +16,17 @@ public class VehicleServiceImpl implements VehicleService {
 
 	@Autowired
 	private VehicleRepository vehicleRepository;
+	
+	public double calculateTotalCurrentValue(String userName) {
+        Iterable<Vehicle> vehicles = vehicleRepository.findByUserName(userName);
+        double totalValue = 0.0;
 
+        for (Vehicle vehicle : vehicles) {
+            totalValue += vehicle.getPurchasePrice() * vehicle.getQuantity();
+        }
+
+        return totalValue;
+    }
 	@Override
 	public List<Vehicle> getAllVehicles() {
 

@@ -185,7 +185,7 @@ const fetchGoldPrice = async () => {
       <div className="row row-cols-1 row-cols-md-3 g-4 mt-2">
         {gold.map((goldItem, index) => (
           <div className="col-md-4 mb-3" key={goldItem.id}>
-            <div className="card h-100 d-flex flex-column border border-dark" style={{ backgroundImage: `url(${GoldImage})`, backgroundSize: 'cover' }}>
+            <div className="card h-100 d-flex flex-column border border-dark" style={{ backgroundColor: index < titleColors.length ? titleColors[index] : titleColors[index % titleColors.length] }}>
               <div className="card-body">
                 <h5 className="card-title text-center" style={{color:"black"}}>{goldItem.name}</h5>
                 <p style={{color:"black"}}><strong >Symbol:</strong> {goldItem.symbol}</p>

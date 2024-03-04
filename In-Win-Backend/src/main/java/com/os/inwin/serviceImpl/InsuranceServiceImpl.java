@@ -1,6 +1,7 @@
 package com.os.inwin.serviceImpl;
 
 import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.List;
 import java.util.Optional;
 
@@ -14,6 +15,34 @@ import com.os.inwin.service.InsuranceService;
 public class InsuranceServiceImpl implements InsuranceService{
 @Autowired
 	private InsuranceRepository insuranceRepository;
+
+
+
+public double calculateTotalPremiumPrices(String userName) {
+    Iterable<Insurance> insurances = insuranceRepository.findByUserName(userName);
+    double totalValue = 0.0;
+
+    LocalDate currentDate = LocalDate.now();
+
+    for (Insurance insurance : insurances) {
+        LocalDate buyDate = insurance.getBuyDate();
+        long monthsDifference = ChronoUnit.MONTHS.between(buyDate, currentDate);
+        System.out.println("Buy Date: " + buyDate);
+        System.out.println("Current Date: " + currentDate);
+        System.out.println("Months Difference: " + monthsDifference);
+        
+        double premiumPerMonth = insurance.getPremium();
+        double totalPremiumForInsurance = premiumPerMonth * monthsDifference ;
+        totalValue += totalPremiumForInsurance;
+    }
+
+    return totalValue;
+}
+
+
+
+
+
 	@Override
 	public List<Insurance> getAllInsurances() {
 		return insuranceRepository.findAll();

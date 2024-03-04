@@ -1,6 +1,8 @@
 package com.os.inwin.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -26,7 +28,14 @@ public class VehicleController {
 	@Autowired
 	private VehicleServiceImpl vechiService;
 	
-	
+	  @GetMapping("/totalVehiclesPrice/{userName}")
+	    public Map<String, Double> getTotalCurrentValue(@PathVariable String userName) {
+	        double totalPrice=vechiService.calculateTotalCurrentValue(userName);
+	        Map<String,Double> response=new HashMap<>();
+	        response.put("totalPrice", totalPrice);
+	        return response;
+	    }
+
 	@GetMapping("/getAllVehicles")
 	public ResponseEntity<List<Vehicle>> getAllVehicles() {
 		List<Vehicle> vehicle = vechiService.getAllVehicles();

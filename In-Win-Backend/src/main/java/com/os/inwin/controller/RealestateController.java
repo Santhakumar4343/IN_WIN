@@ -1,6 +1,8 @@
 package com.os.inwin.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -24,7 +26,15 @@ public class RealestateController {
 	@Autowired
 	private RealestateServiceImpl relRealestateService;
 	
-
+	@GetMapping("/totalRealestatePrice/{userName}")
+    public Map<String,Double> getTotalCurrentValue(@PathVariable String userName) {
+        double totalPrice= relRealestateService.calculateTotalCurrentValue(userName);
+        
+        Map <String,Double> response=new HashMap<>();
+        response.put("totalPrice", totalPrice);
+        return response;
+        
+    }
     @GetMapping
     public ResponseEntity<List<Realestate>> getAllRealestates() {
         List<Realestate> realestate = relRealestateService.getAllRealestate();

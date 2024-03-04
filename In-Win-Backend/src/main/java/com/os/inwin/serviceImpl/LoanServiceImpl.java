@@ -1,6 +1,7 @@
 package com.os.inwin.serviceImpl;
 
 import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.List;
 import java.util.Optional;
 
@@ -17,6 +18,34 @@ public class LoanServiceImpl implements LoanService {
 	@Autowired
 	private LoanRepository loanRepository;
 
+	public double calculateTotalCurrentValue(String userName) {
+	    Iterable<Loan> loans = loanRepository.findByUserName(userName);
+	    double totalValue = 0.0;
+
+	    LocalDate currentDate = LocalDate.now();
+
+	    for (Loan loan : loans) {
+	        LocalDate buyDate = loan.getBuyDate();
+	        int tenureInYears = loan.getTenureInYears();
+	        double monthlyEMI = loan.getMonthlyEMI();
+
+	       
+	        long monthsRemaining = ChronoUnit.MONTHS.between(currentDate, buyDate.plusYears(tenureInYears));
+	        System.out.println(monthsRemaining);
+	        if (monthsRemaining > 0) {
+	            
+	            totalValue += monthlyEMI * monthsRemaining;
+	        }
+	    }
+
+	    return totalValue;
+	}
+	
+	
+	
+	
+	
+	
 	@Override
 	public Loan saveLoan(Loan loan) {
 		loan.setLastUpdateDate(LocalDate.now());

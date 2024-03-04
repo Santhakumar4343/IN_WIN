@@ -71,7 +71,16 @@ public class StockServiceImpl implements StockService {
 	        return false; // Stock with given ID not found
 	    }
 	}
+	public double calculateTotalCurrentValue(String userName) {
+	    Iterable<Stock> stocks = stockRepository.findByUserName(userName);
+	    double totalValue = 0.0;
 
+	    for (Stock stock : stocks) {
+	        totalValue += stock.getCurrentPrice() * stock.getQuantity();
+	    }
+
+	    return totalValue;
+	}
 
 }
 

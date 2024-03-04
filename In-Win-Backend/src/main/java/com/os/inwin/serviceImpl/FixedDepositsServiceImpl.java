@@ -17,6 +17,17 @@ public class FixedDepositsServiceImpl implements FixedDepositsService {
 	@Autowired
 	private FixedDepositsRepository fixedDepositsRepository;
 
+	
+	 public double calculateTotalCurrentValue(String userName) {
+	        Iterable<FixedDeposits> fixedDeposits = fixedDepositsRepository.findByUserName(userName);
+	        double totalValue = 0.0;
+
+	        for (FixedDeposits fixedDeposit : fixedDeposits) {
+	            totalValue += fixedDeposit.getTotalAmount() ;
+	        }
+
+	        return totalValue;
+	    }
 	@Override
 	public List<FixedDeposits> getAllFixedDeposits() {
 

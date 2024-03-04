@@ -1,6 +1,8 @@
 package com.os.inwin.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -25,7 +27,14 @@ public class FixedDepositsController {
 	@Autowired
 	private FixedDepositsServiceImpl fixedDepositsService;
 	
-	
+
+	@GetMapping("/totalFDPrice/{userName}")
+    public Map<String,Double> getTotalCurrentValue(@PathVariable String userName) {
+        double totalPrice= fixedDepositsService.calculateTotalCurrentValue(userName);
+        Map<String,Double> response=new HashMap<>();
+        response.put("totalPrice", totalPrice);
+       return response;
+    }
 	@GetMapping("/getAllFixedDeposit")
 	public ResponseEntity<List<FixedDeposits>> getAllFixedDeposits() {
 		List<FixedDeposits> fixedDeposit = fixedDepositsService.getAllFixedDeposits();

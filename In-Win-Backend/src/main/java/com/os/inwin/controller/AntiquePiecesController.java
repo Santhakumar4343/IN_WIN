@@ -1,6 +1,8 @@
 package com.os.inwin.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -25,6 +27,15 @@ public class AntiquePiecesController {
 	@Autowired
 	private AntiquePiecesServiceImpl anitiAntiquePiecesService;
 	
+	  @GetMapping("/totalAPPrice/{userName}")
+	    public Map<String ,Double>otalCurrentValue(@PathVariable String userName) {
+	        double totalPrice= anitiAntiquePiecesService.calculateTotalCurrentValue(userName);
+	        Map<String,Double> response=new HashMap<>();
+	        response.put("totalPrice", totalPrice);
+	        return response;
+	        
+	    }
+
 	@GetMapping("/getAllAntiquePieces")
 	public ResponseEntity<List<AntiquePieces>> getAllAntiquePieces() {
 		List<AntiquePieces> antiquePieces = anitiAntiquePiecesService.getAllAntiquePieces();

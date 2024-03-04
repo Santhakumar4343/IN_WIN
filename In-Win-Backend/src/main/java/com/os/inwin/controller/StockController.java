@@ -1,6 +1,8 @@
 package com.os.inwin.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -12,37 +14,30 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.os.inwin.entity.Stock;
-import com.os.inwin.repository.StockRepository;
-import com.os.inwin.service.StockService;
-
-import lombok.Delegate;
+import com.os.inwin.serviceImpl.StockServiceImpl;
 
 @RestController
 @RequestMapping("/api/stocks")
 public class StockController {
 
     @Autowired
-    private StockService stockService;
-  @Autowired
-  private StockRepository stockRepository;
-    @GetMapping("/totalStocksPrice")
-    public double getTotalCurrentValue() {
-        return calculateTotalCurrentValue();
+    private StockServiceImpl stockService;
+
+ 
+   
+    @GetMapping("/totalStocksPrice/{userName}")
+    public Map<String, Double> getTotalCurrentValue(@PathVariable String userName) {
+        double totalPrice = stockService.calculateTotalCurrentValue(userName);
+        Map<String, Double> response = new HashMap<>();
+        response.put("totalPrice", totalPrice);
+        return response;
     }
 
-    private double calculateTotalCurrentValue() {
-        Iterable<Stock> stocks = stockRepository.findAll();
-        double totalValue = 0.0;
-
-        for (Stock stock : stocks) {
-            totalValue += stock.getCurrentPrice() * stock.getQuantity();
-        }
-
-        return totalValue;
-    }
+    
     @GetMapping
     public ResponseEntity<List<Stock>> getAllStocks() {
         List<Stock> stocks = stockService.getAllStocks();

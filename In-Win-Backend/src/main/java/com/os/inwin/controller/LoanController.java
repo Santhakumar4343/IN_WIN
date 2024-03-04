@@ -1,6 +1,8 @@
 package com.os.inwin.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -24,7 +26,15 @@ public class LoanController {
 	@Autowired
 	private LoanServiceImpl loanService;
 	
-	
+	  @GetMapping("/totalLoansAmount/{userName}")
+	    public Map<String ,Double> getTotalCurrentValue(@PathVariable String userName) {
+	        double totalPrice= loanService.calculateTotalCurrentValue(userName);
+	        
+	        Map<String,Double> response=new HashMap<>();
+	        response.put("totalPrice", totalPrice);
+	        return response;
+	    }
+
 	@PostMapping("/save")
 	public ResponseEntity<String> saveLoan(@RequestBody Loan loan){
 		
