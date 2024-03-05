@@ -34,7 +34,16 @@ public class NomineeController {
 	private final Map<String,Nominee> nomineeMap = new HashMap<>();
 	
 	
+@GetMapping("/getNomineesForOwner/{owner}")
+public  ResponseEntity<List<Nominee>> getNomineeForOwner(@PathVariable String owner){
 	
+	List<Nominee> allNominees=nomineeService.getAllNomineesByOwner(owner);
+	if(allNominees!=null) {
+		return new ResponseEntity<List<Nominee>> (allNominees,HttpStatus.OK);
+	}
+	else 
+		return new ResponseEntity<List<Nominee>> (HttpStatus.NOT_FOUND);
+}
 	
 	
 	@PostMapping("/send-otp")

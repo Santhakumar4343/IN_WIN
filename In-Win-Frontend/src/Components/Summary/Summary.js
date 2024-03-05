@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { BASE_URl } from '../API/Api';
 import { CurrencyState } from '../../CurrencyContext';
 import { useLocation } from "react-router-dom";
+import "../Summary/Summary.css";
 function Summary() {
   const location = useLocation();
   const { state: { userData } = {} } = location;
@@ -15,6 +16,9 @@ function Summary() {
   const [vehicles, setVehicles] = useState(null);
   const [insurances, setInsurances] = useState(null);
   const [totalPropertyValue, setTotalPropertyValue] = useState(0);
+  const [assets,setAssets]=useState(0);
+  const [liabilities,setLiabilities]=useState(0);
+  const [bills,setBills]=useState(0);
   const renderPrice = (price) => {
     return (price / exchangeRate).toFixed(2);
   };
@@ -22,12 +26,28 @@ function Summary() {
   //total 
   useEffect(() => {
     // Calculate total property value
-    const total = totalPrice + goldPrice + realestatePrice + antiquePieces + vehicles;
+    const totalAssets = totalPrice + goldPrice + realestatePrice + antiquePieces + vehicles;
+    const totalLiabilities=loans+insurances+bills;
+    setAssets(totalAssets);
+    setLiabilities(totalLiabilities);
     // Subtract loans and insurances
-    const totalMinusLoansAndInsurances = total - loans - insurances;
+    const totalMinusLoansAndInsurances = totalAssets - loans - insurances;
     setTotalPropertyValue(totalMinusLoansAndInsurances);
   }, [totalPrice, goldPrice, realestatePrice, antiquePieces, vehicles, loans, insurances]);
 
+
+
+   //for Bills
+   useEffect(() => {
+    fetch(`${BASE_URl}/api/monthlyExpenses/totalmonthlyExpenditurePrice/${userData.userName}`)
+      .then(response => response.json())
+      .then(data => {
+        setBills(data.totalPrice);
+      })
+      .catch(error => {
+        console.error('Error fetching total Bills price:', error);
+      });
+  }, []);
 
   //for Loans 
   useEffect(() => {
@@ -132,8 +152,34 @@ function Summary() {
   }, []);
 
   return (
-    <div>
-      <table class="    table table-striped mt-3"  >
+    <div className='container'>
+      <div className="row justify-content-center">
+    <div className="col">
+    <div className="table-responsive">
+      <h5 className='text-center'>Net Worth</h5>
+      <table class="    table-sm table  table-striped mt-3 custom-table"  >
+        <thead>
+        </thead>
+        <tbody  >
+          <tr className='border border-dark'>
+            <th scope="" className='border border-dark'>All Properties</th>
+            <th className='border border-dark'>Current Value In {currency}</th>
+          </tr>
+        
+          <tr className='border border-dark'>
+            <th className='border border-dark'>Total</th>
+            <td className={`border border-dark ${totalPropertyValue >= 0 ? 'text-success' : 'text-danger'}`}>{renderPrice(totalPropertyValue.toFixed(2))}       {currency}</td>
+
+          </tr>
+        </tbody>
+      </table>
+      </div>
+      </div>
+      </div>
+      <div className="row mt-3">
+    <div className="col">
+      <h5 className='text-center'>Assets</h5>
+      <table class="    table  table-striped mt-3 custom-table"  >
         <thead>
         </thead>
         <tbody  >
@@ -175,12 +221,44 @@ function Summary() {
             <td className='border border-dark'>{renderPrice(loans)}   </td>
           </tr>
           <tr className='border border-dark'>
-            <th className='border border-dark'>total</th>
-            <td className={`border border-dark ${totalPropertyValue >= 0 ? 'text-success' : 'text-danger'}`}>{renderPrice(totalPropertyValue.toFixed(2))}       {currency}</td>
+            <th className='border border-dark'>Total</th>
+            <td className={`border border-dark text-success`}>{renderPrice(assets.toFixed(2))}       {currency}</td>
 
           </tr>
         </tbody>
       </table>
+      </div>
+      <div className="col">
+        <h5 className='text-center'>Liabilities</h5>
+      <table class="    table  table-striped mt-3 custom-table"  >
+        <thead>
+        </thead>
+        <tbody  >
+          <tr className='border border-dark'>
+            <th scope="" className='border border-dark'>Property</th>
+            <th className='border border-dark'>Current Value In {currency}</th>
+          </tr>
+          <tr className='border border-dark'>
+            <th className='border border-dark'>Monthly Bills</th>
+            <td className='border border-dark'>{renderPrice(bills)}       </td>
+          </tr>
+          <tr className='border border-dark'>
+            <th className='border border-dark'>Insurance</th>
+            <td className='border border-dark'>{renderPrice(insurances)}       </td>
+          </tr>
+          <tr className='border border-dark'>
+            <th className='border border-dark'>Loans</th>
+            <td className='border border-dark'>{renderPrice(loans)}   </td>
+          </tr>
+          <tr className='border border-dark'>
+            <th className='border border-dark'>Total</th>
+            <td className={`border border-dark text-danger`}>{renderPrice(liabilities.toFixed(2))}       {currency}</td>
+
+          </tr>
+        </tbody>
+      </table>
+      </div>
+      </div>
     </div>
   );
 }

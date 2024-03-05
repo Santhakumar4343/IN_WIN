@@ -12,8 +12,9 @@ public interface NomineeService {
 	Nominee getNominee(long id);
 
 	List<Nominee> getAllNominees();
-
+	List<Nominee> getAllNomineesByOwner(String owner);
 	Nominee UpdateNominee(long id, Nominee nominee);
 
 	void deleteNominee(long id);
+
 }

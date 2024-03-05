@@ -27,13 +27,15 @@ import Loans from "../Loans/Loans.js";
 import BankACs from "../Bank ACs/BankACs.js";
 import Summary from "../Summary/Summary.js";
 import Profile from "../Profile/Profile.js";
+import MonthlyExpenditure from "../MonthlyExpenditure/MonthlyExpenditure.js"
+import HouseIcon from '@mui/icons-material/House';
 function UserDashboard() {
 
 
 
   const Navigate = useNavigate();
 
-  const [selectedNavLink, setSelectedNavLink] = useState("stocks");
+  const [selectedNavLink, setSelectedNavLink] = useState("summary");
   const [showModal, setShowModal] = useState(false);
 
 
@@ -77,6 +79,8 @@ function UserDashboard() {
         return <Summary />;
       case "profile":
         return <Profile />;
+        case "monthlyExpenditure":
+        return < MonthlyExpenditure/>;
 
       default:
         return null;
@@ -90,7 +94,19 @@ function UserDashboard() {
 
       <div className="nav-links container-fluid" >
         <ul className="list-unstyled">
-          <li style={{ marginBottom: "5px", marginTop: "20px" }}>
+        <li style={{ marginBottom: "5px" ,marginTop: "70px"}}>
+            <BalanceIcon style={{ color: "white", fontSize: "18px", marginLeft: "10px", marginBottom: "8px" }} />
+            <Link onClick={(e) => handleNavLinkClick("summary", e)} style={{ color: "white", marginLeft: "10px", fontSize: "20px", marginTop: "20px", textDecoration: "none" }}>
+              Summary
+            </Link>
+          </li>
+          <li style={{ marginBottom: "5px" }}>
+            <HouseIcon style={{ color: "white", fontSize: "18px", marginLeft: "10px", marginBottom: "8px" }} />
+            <Link onClick={(e) => handleNavLinkClick("monthlyExpenditure", e)} style={{ color: "white", marginLeft: "10px", fontSize: "20px", marginTop: "20px", textDecoration: "none" }}>
+            Monthly Bills
+            </Link>
+          </li>
+          <li style={{ marginBottom: "5px",  }}>
             <CandlestickChartIcon style={{ color: "white", fontSize: "18px", marginLeft: "10px", marginBottom: "7px" }} />
             <Link onClick={(e) => handleNavLinkClick("stocks", e)} style={{ color: "white", marginLeft: "5px", fontSize: "20px", marginTop: "20px", textDecoration: "none", }}>
               Stocks
@@ -146,12 +162,7 @@ function UserDashboard() {
               Bank A/Cs
             </Link>
           </li>
-          <li style={{ marginBottom: "5px" }}>
-            <BalanceIcon style={{ color: "white", fontSize: "18px", marginLeft: "10px", marginBottom: "8px" }} />
-            <Link onClick={(e) => handleNavLinkClick("summary", e)} style={{ color: "white", marginLeft: "10px", fontSize: "20px", marginTop: "20px", textDecoration: "none" }}>
-              Summary
-            </Link>
-          </li>
+         
           <li style={{ marginBottom: "5px" }}>
             <AccountCircleIcon style={{ color: "white", fontSize: "18px", marginLeft: "10px", marginBottom: "8px" }} />
             <Link onClick={(e) => handleNavLinkClick("profile", e)} style={{ color: "white", marginLeft: "10px", fontSize: "20px", marginTop: "20px", textDecoration: "none" }}>

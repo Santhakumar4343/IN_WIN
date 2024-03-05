@@ -169,6 +169,10 @@ public class NomineeServiceImpl implements NomineeService{
 	        throw new AuthException("Invalid username");
 	    }
 	}
+	@Override
+	public List<Nominee> getAllNomineesByOwner(String owner) {
+		return  nomineeRepository.findByOwner(owner);
+	}
 	
 	
 	

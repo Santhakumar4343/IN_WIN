@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Modal, Button, Form, Row, Col } from 'react-bootstrap';
 import moment from 'moment';
 import axios from 'axios';
@@ -140,7 +140,18 @@ function Profile() {
       }
       
 
+      const [nominees, setNominees] = useState([]);
 
+      useEffect(() => {
+        // Fetch data from the API when the component mounts
+        axios.get(`${BASE_URl}/api/nominees/getNomineesForOwner/${userData.userName}`)
+          .then(response => {
+            setNominees(response.data);
+          })
+          .catch(error => {
+            console.error('Error fetching nominees:', error);
+          });
+      }, []); 
     return (
         <div>
             <Button variant="primary" onClick={handleEdit}>Edit Personal Details</Button>
@@ -256,6 +267,30 @@ function Profile() {
                   
                 </tbody>
             </table>
+
+            <h5>Nominees</h5>
+      <table className="table table-striped">
+        <thead className='border border-dark'>
+          <tr>
+            <th className='border border-dark'> ID</th>
+            <th className='border border-dark'>User Name</th>
+            <th className='border border-dark'>Email</th>
+            <th className='border border-dark'>Mobile Number</th>
+            <th className='border border-dark'>User Type</th>
+          </tr>
+        </thead>
+        <tbody className='border border-dark'>
+          {nominees.map(nominee => (
+            <tr key={nominee.id}>
+              <td className='border border-dark'>{nominee.id}</td>
+              <td className='border border-dark'>{nominee.userName}</td>
+              <td className='border border-dark'>{nominee.email}</td>
+              <td className='border border-dark'>{nominee.mobileNumber}</td>
+              <td className='border border-dark'> {nominee.userType}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
             
             <Modal show={showModal} onHide={handleCloseModal} backdrop="static" keyboard={false}>
                 <Modal.Header closeButton>
