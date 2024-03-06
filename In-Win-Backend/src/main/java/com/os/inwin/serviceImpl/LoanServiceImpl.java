@@ -2,11 +2,14 @@ package com.os.inwin.serviceImpl;
 
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import com.os.inwin.entity.Loan;
 import com.os.inwin.repository.LoanRepository;
@@ -18,28 +21,34 @@ public class LoanServiceImpl implements LoanService {
 	@Autowired
 	private LoanRepository loanRepository;
 
-	public double calculateTotalCurrentValue(String userName) {
-	    Iterable<Loan> loans = loanRepository.findByUserName(userName);
-	    double totalValue = 0.0;
+	public Map<String ,Double> getTotalCurrentAndPaidValue(@PathVariable String userName) {
+	    double totalRemainingAmount = 0.0;
+	    double totalPaidAmount = 0.0;
 
+	    Iterable<Loan> loans = loanRepository.findByUserName(userName);
 	    LocalDate currentDate = LocalDate.now();
 
 	    for (Loan loan : loans) {
 	        LocalDate buyDate = loan.getBuyDate();
 	        int tenureInYears = loan.getTenureInYears();
 	        double monthlyEMI = loan.getMonthlyEMI();
+	        double totalLoanAmount = monthlyEMI * 12 * tenureInYears;
 
-	       
 	        long monthsRemaining = ChronoUnit.MONTHS.between(currentDate, buyDate.plusYears(tenureInYears));
-	        System.out.println(monthsRemaining);
 	        if (monthsRemaining > 0) {
-	            
-	            totalValue += monthlyEMI * monthsRemaining;
+	            totalRemainingAmount += monthlyEMI * monthsRemaining;
+	            totalPaidAmount += totalLoanAmount - totalRemainingAmount;
+	        } else {
+	            totalPaidAmount += totalLoanAmount;
 	        }
 	    }
 
-	    return totalValue;
+	    Map<String, Double> response = new HashMap<>();
+	    response.put("totalRemainingAmount", totalRemainingAmount);
+	    response.put("totalPaidAmount", totalPaidAmount);
+	    return response;
 	}
+
 	
 	
 	

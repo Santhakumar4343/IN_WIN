@@ -30,6 +30,17 @@ public class UserController {
 	private UserServiceImpl userService;
 	private final Map<String, User> userMap = new HashMap<>();
 
+	
+	@GetMapping("/totalPFAmount/{userName}")
+    public Map<String, Double> getTotalCurrentValue(@PathVariable String userName) {
+        double totalPF = userService.calculateTotalPFAmountForUser(userName);
+        Map<String, Double> response = new HashMap<>();
+        response.put("totalPf", totalPF);
+        return response;
+    }
+
+	
+	
 	@PostMapping("/save")
 	public ResponseEntity<String> createUser(@RequestBody User user) {
 

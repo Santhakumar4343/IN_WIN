@@ -1,5 +1,7 @@
 package com.os.inwin.serviceImpl;
 
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.List;
 import java.util.Map;
 import java.util.NoSuchElementException;
@@ -14,6 +16,7 @@ import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
+import com.os.inwin.entity.Loan;
 import com.os.inwin.entity.User;
 import com.os.inwin.repository.UserRepository;
 import com.os.inwin.service.UserService;
@@ -27,6 +30,35 @@ public class UserServiceImpl implements UserService {
 	@Autowired
 	private JavaMailSender javaMailSender;
 
+	
+	
+	
+	
+	
+	
+	
+	public double calculateTotalPFAmountForUser(String userName) {
+	    // Find the user by username
+	    User user = userRepository.findByUserName(userName);
+
+	    if (user == null) {
+	        // Handle the case where the user is not found
+	        return 0.0;
+	    }
+
+	    // Get the user's PF start date and amount
+	    LocalDate pfStartDate = user.getPfStartDate();
+	    double pfAmount = user.getPfTotalPaid();
+
+	    // Calculate the number of months from the start date to the current date
+	    LocalDate currentDate = LocalDate.now();
+	    long months = ChronoUnit.MONTHS.between(pfStartDate, currentDate);
+
+	    // Multiply the number of months by the PF amount
+	    double totalAmount = months * pfAmount;
+
+	    return totalAmount;
+	}
 	@Override
 	public User createUser(User user) {
 		return userRepository.save(user);

@@ -26,14 +26,11 @@ public class LoanController {
 	@Autowired
 	private LoanServiceImpl loanService;
 	
-	  @GetMapping("/totalLoansAmount/{userName}")
-	    public Map<String ,Double> getTotalCurrentValue(@PathVariable String userName) {
-	        double totalPrice= loanService.calculateTotalCurrentValue(userName);
-	        
-	        Map<String,Double> response=new HashMap<>();
-	        response.put("totalPrice", totalPrice);
-	        return response;
-	    }
+	@GetMapping("/loanStatus/{userName}")
+	public Map<String, Double> getLoanStatus(@PathVariable String userName) {
+	    return loanService.getTotalCurrentAndPaidValue(userName);
+	}
+
 
 	@PostMapping("/save")
 	public ResponseEntity<String> saveLoan(@RequestBody Loan loan){
