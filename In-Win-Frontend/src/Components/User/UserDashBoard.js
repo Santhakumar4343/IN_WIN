@@ -29,6 +29,7 @@ import Summary from "../Summary/Summary.js";
 import Profile from "../Profile/Profile.js";
 import MonthlyExpenditure from "../MonthlyExpenditure/MonthlyExpenditure.js"
 import HouseIcon from '@mui/icons-material/House';
+import Metal from "../Gold/Metal.js";
 function UserDashboard() {
 
 
@@ -59,8 +60,8 @@ function UserDashboard() {
     switch (selectedNavLink) {
       case "stocks":
         return <Stocks />;
-      case "gold":
-        return <Gold />;
+      case "metal":
+        return <Metal />;
       case "realestate":
         return <Realestate />;
       case "fixeddeposits":
@@ -114,8 +115,8 @@ function UserDashboard() {
           </li>
           <li style={{ marginBottom: "5px" }}>
             <ViewAgendaSharpIcon style={{ color: "white", fontSize: "18px", marginLeft: "10px", marginBottom: "8px" }} />
-            <Link onClick={(e) => handleNavLinkClick("gold", e)} style={{ color: "white", marginLeft: "10px", fontSize: "20px", marginTop: "20px", textDecoration: "none" }}>
-              Gold
+            <Link onClick={(e) => handleNavLinkClick("metal", e)} style={{ color: "white", marginLeft: "10px", fontSize: "20px", marginTop: "20px", textDecoration: "none" }}>
+             Metal
             </Link>
           </li>
           <li style={{ marginBottom: "5px" }}>

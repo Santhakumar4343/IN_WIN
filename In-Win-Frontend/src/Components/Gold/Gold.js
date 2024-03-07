@@ -182,7 +182,7 @@ const fetchGoldPrice = async () => {
   return (
     <div>
       <Button variant="primary" onClick={() => setShowModal(true)}>Add Gold</Button>
-      <div className="row row-cols-1 row-cols-md-3 g-4 mt-2">
+      <div className="row row-cols-1 row-cols-md-3 g-4 " style={{marginTop:"1px"}}>
         {gold.map((goldItem, index) => (
           <div className="col-md-4 mb-3" key={goldItem.id}>
             <div className="card h-100 d-flex flex-column border border-dark" style={{ backgroundColor: index < titleColors.length ? titleColors[index] : titleColors[index % titleColors.length] }}>

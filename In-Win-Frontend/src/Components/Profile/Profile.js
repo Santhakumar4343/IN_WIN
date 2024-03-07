@@ -239,7 +239,7 @@ function Profile() {
                     <tr className='border border-dark'>
                         <th scope="row" className='border border-dark'> PF Start Date </th>
                         <td className='border border-dark'>{userData.pfStartDate}</td>
-                        <th className='border border-dark'>PF Total Paid </th>
+                        <th className='border border-dark'>PF Amount </th>
                         <td className='border border-dark'>{renderPrice(userData.pfTotalPaid)} {currency}</td>
                         <th className='border border-dark'>  Monthly EMI</th>
                         <td className='border border-dark'>{renderPrice(userData.monthlyEMI)}{currency}</td>
@@ -572,7 +572,7 @@ function Profile() {
                         </Row>
                         <Row>
                             <Col md={4}>
-                                <Form.Label>PF Total Paid</Form.Label>
+                                <Form.Label>PF Amount</Form.Label>
                             </Col>
                             <Col md={8}>
                                 <Form.Control

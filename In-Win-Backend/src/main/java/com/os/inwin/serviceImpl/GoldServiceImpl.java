@@ -68,6 +68,7 @@ public class GoldServiceImpl implements GoldService{
 		        existingGold.setBuyDate(gold.getBuyDate());
 		        existingGold.setPurchasePrice(gold.getPurchasePrice());
 		        existingGold.setSymbol(gold.getSymbol());
+		        existingGold.setLastUpdateDate(LocalDate.now());
 		        return goldRepository.save(existingGold);
 		    }
 		    return null;
