@@ -1,13 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <section name="Workbench">
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
-		<item key="selection" value="insurance"/>
+		<item key="selection" value="platinum"/>
 		<item key="wrap" value="true"/>
 		<item key="casesensitive" value="true"/>
 		<item key="wholeword" value="false"/>
 		<item key="incremental" value="false"/>
 		<item key="isRegEx" value="false"/>
 		<list key="findhistory">
+			<item value="silver"/>
+			<item value="existingSilver"/>
+			<item value="optionalSilver"/>
 			<item value="user"/>
 			<item value="realestate"/>
 			<item value="stock"/>
@@ -15,6 +18,9 @@
 			<item value="run"/>
 		</list>
 		<list key="replacehistory">
+			<item value="platinum"/>
+			<item value="existingPlatinum"/>
+			<item value="optionalPlatinum"/>
 			<item value="insurance"/>
 			<item value="nsurance"/>
 			<item value="gold"/>

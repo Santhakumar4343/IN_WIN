@@ -64,6 +64,7 @@ public class GoldServiceImpl implements GoldService{
 		    if (optionalGold.isPresent()) {
 		        Gold existingGold= optionalGold.get();
 		        existingGold.setName(gold.getName());
+		        existingGold.setCarat(gold.getCarat());
 		        existingGold.setQuantity(gold.getQuantity());
 		        existingGold.setBuyDate(gold.getBuyDate());
 		        existingGold.setPurchasePrice(gold.getPurchasePrice());
