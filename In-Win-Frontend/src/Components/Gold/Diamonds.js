@@ -250,14 +250,21 @@ const fetchGoldPrice = async () => {
                 <Form.Label>Diamond Carat</Form.Label>
               </Col>
               <Col md={8}>
-                <Form.Control
+                <Form.Select
                   type="text"
                   name="carat"
                   placeholder='22,24'
                   className='border border-dark mb-2'
                   value={newDiamondData.carat}
                   onChange={handleInputChange}
-                />
+                  >
+                  <option value="">Select Carat</option>
+                        <option value="1">1 Carat</option>
+                        <option value="2">2 Carat </option>
+                        <option value="3">3 Carat </option>
+                        <option value="4">4 Carat </option>
+                        <option value="5">5 Carat</option>
+               </Form.Select> 
               </Col>
             </Row>
             <Row>

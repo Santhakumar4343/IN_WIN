@@ -1,13 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <section name="Workbench">
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
-		<item key="selection" value="platinum"/>
+		<item key="selection" value="diamond"/>
 		<item key="wrap" value="true"/>
 		<item key="casesensitive" value="true"/>
 		<item key="wholeword" value="false"/>
 		<item key="incremental" value="false"/>
 		<item key="isRegEx" value="false"/>
 		<list key="findhistory">
+			<item value="gold"/>
+			<item value="existingGold"/>
 			<item value="silver"/>
 			<item value="existingSilver"/>
 			<item value="optionalSilver"/>
@@ -18,6 +20,8 @@
 			<item value="run"/>
 		</list>
 		<list key="replacehistory">
+			<item value="diamond"/>
+			<item value="existingDiamond"/>
 			<item value="platinum"/>
 			<item value="existingPlatinum"/>
 			<item value="optionalPlatinum"/>

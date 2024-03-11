@@ -25,7 +25,11 @@ public class DiamondController {
 	@Autowired
 	private DiamondServiceImpl diamondService;
 
-	
+	 @GetMapping("/updateDiamondPrices")
+	    public String updateDiamondPrices() {
+		 diamondService.updateDiamondPrices();
+	        return "Diamond prices updated successfully!";
+	    }
 	
 	
 	 @GetMapping

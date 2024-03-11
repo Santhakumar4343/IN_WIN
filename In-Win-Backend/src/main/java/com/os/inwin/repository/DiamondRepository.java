@@ -10,4 +10,6 @@ public interface DiamondRepository extends JpaRepository<Diamond, Long>{
 	
 	List<Diamond> findByUserName(String userName);
 
+	List<Diamond> findByCarat(String carat);
+    
 }
