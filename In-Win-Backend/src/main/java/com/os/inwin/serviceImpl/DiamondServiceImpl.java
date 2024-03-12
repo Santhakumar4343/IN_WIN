@@ -1,23 +1,23 @@
 package com.os.inwin.serviceImpl;
 
+
+
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.time.LocalDate;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
-import org.jsoup.select.Elements;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.RestTemplate;
 
 import com.os.inwin.entity.Diamond;
-import com.os.inwin.entity.ExchangeRateApiResponse;
 import com.os.inwin.repository.DiamondRepository;
 import com.os.inwin.service.DiamondService;
 
@@ -74,92 +74,119 @@ public class DiamondServiceImpl implements DiamondService {
 		}
 	}
 
-	 public void updateDiamondPrices() {
-	        String url = "https://www.diamonds.pro/education/diamond-prices/";
-	        try {
-	            // Fetch the HTML content of the URL
-	            Document doc = Jsoup.connect(url).get();
-	            // Extract the table containing diamond prices
-	            Element table = doc.select("table").first(); // Assuming the first table on the page contains the prices
-	            // Extract the rows of the table
-	            Elements rows = table.select("tr");
-	            // Iterate through each row to extract diamond prices
-	            for (Element row : rows) {
-	                Elements columns = row.select("td");
-	                if (columns.size() >= 3) { // Ensure the row contains necessary data
-	                    String carat = columns.get(0).text().trim();
-	                    String totalPriceRange = columns.get(2).text().trim();
-	                   
-	                    // Extract the average price from the total price range
-	                    double price = extractAveragePrice(totalPriceRange);
-	                    // Update diamond price in the database for the given carat
-	                    
-	                    updateDiamondPrice(carat, price);
-	                }
+
+	
+	
+	
+	
+	
+	
+	public void updateDiamondPrices() {
+	    // Define the section headers and their associated shapes
+	    Map<String, String> sectionToShapeMapping = new HashMap<>();
+	    sectionToShapeMapping.put("Round Diamonds", "Round");
+	    sectionToShapeMapping.put("Oval Diamonds", "Oval");
+	    sectionToShapeMapping.put("Emerald Diamonds", "Emerald");
+
+	    // Iterate over the section headers and their associated prices
+	    for (Map.Entry<String, String> entry : sectionToShapeMapping.entrySet()) {
+	        String sectionHeader = entry.getKey();
+	        String shape = entry.getValue();
+	        // Get the prices for the current section
+	        Map<Double, Double> prices = getPricesForSection(sectionHeader);
+	        // Update diamond prices in the database
+	        updateDiamondPricesInDatabase(shape, prices);
+	    }
+	}
+
+	private Map<Double, Double> getPricesForSection(String sectionHeader) {
+	    // Implement logic to extract prices for the given section from the table structure
+	    // For this example, assume prices are retrieved from a database or hardcoded
+	    Map<Double, Double> prices = new HashMap<>();
+	    if (sectionHeader.equals("Round Diamonds")) {
+	        prices.put(0.5, 1219.0); // 0.5 ct.
+	        prices.put(1.0, 4816.0); // 1 ct.
+	        prices.put(2.0, 19051.0); // 2 ct.
+	    } else if (sectionHeader.equals("Oval Diamonds")) {
+	        prices.put(0.5, 1098.0); // 0.5 ct.
+	        prices.put(1.0, 3759.0); // 1 ct.
+	        prices.put(2.0, 17505.0); // 2 ct.
+	    } else if (sectionHeader.equals("Emerald Diamonds")) {
+	        prices.put(0.5, 1026.0); // 0.5 ct.
+	        prices.put(1.0, 3868.0); // 1 ct.
+	        prices.put(2.0, 16766.0); // 2 ct.
+	    }
+	    return prices;
+	}
+
+	private double fetchExchangeRateFromAPI(String baseCurrency) throws IOException {
+	    URL url = new URL("https://api.exchangerate-api.com/v4/latest/" + baseCurrency);
+	    HttpURLConnection con = null;
+	    try {
+	        con = (HttpURLConnection) url.openConnection();
+	        con.setRequestMethod("GET");
+
+	        try (BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()))) {
+	            String inputLine;
+	            StringBuilder response = new StringBuilder();
+	            while ((inputLine = in.readLine()) != null) {
+	                response.append(inputLine);
 	            }
-	        } catch (IOException e) {
-	            throw new RuntimeException("Error fetching diamond prices", e);
+
+	            // Parse JSON response to get exchange rate
+	            JSONObject jsonObject = new JSONObject(response.toString());
+	            JSONObject rates = jsonObject.getJSONObject("rates");
+	            return rates.getDouble("INR");
+	        }
+	    } finally {
+	        if (con != null) {
+	            con.disconnect();
 	        }
 	    }
+	}
 
-	    private double extractAveragePrice(String totalPriceRange) {
-	        // Extracting the average price from the total price range
-	        String[] prices = totalPriceRange.split("–");
-	        double lowerBound = Double.parseDouble(prices[0].replaceAll("[^\\d.]+", ""));
-	        double upperBound = Double.parseDouble(prices[1].replaceAll("[^\\d.]+", ""));
-	        
-	        return upperBound;
+	@Transactional
+	private void updateDiamondPricesInDatabase(String shape, Map<Double, Double> prices) {
+	    try {
+	        // Fetch exchange rate
+	        double exchangeRate = fetchExchangeRateFromAPI("USD");
+
+	        // Retrieve existing diamond entries from the database based on shape
+	        List<Diamond> diamonds = diamondRepository.findByShape(shape);
+	        if (diamonds.isEmpty()) {
+	            System.out.println("No diamonds found for shape: " + shape);
+	            return;
+	        }
+
+	        for (Diamond diamond : diamonds) {
+	            // Update prices based on carat and convert to INR
+	            String caratStr = diamond.getCarat();
+	            try {
+	                double carat = Double.parseDouble(caratStr);
+	                if (prices.containsKey(carat)) {
+	                    double priceInUSD = prices.get(carat);
+	                    double priceInINR = priceInUSD * exchangeRate;
+	                    diamond.setCurrentPrice(priceInINR);
+	                    diamond.setLastUpdateDate(LocalDate.now());
+	                    // Save the updated diamond entry
+	                    diamondRepository.save(diamond);
+	                } else {
+	                    System.out.println("No price found for carat " + carat + " and shape " + shape);
+	                }
+	            } catch (NumberFormatException e) {
+	                System.out.println("Error parsing carat value for diamond: " + diamond.getId());
+	            }
+	        }
+	    } catch (IOException e) {
+	        System.out.println("Error fetching exchange rate from API: " + e.getMessage());
 	    }
+	}
 
-	    
 
-	    
-//	    @Transactional
-//	    public void updateDiamondPrices(double price1, double price2, double price3, double price4, double price5) {
-//	        List<Diamond> diamonds = diamondRepository.findAll();
-//	        for (Diamond diamond : diamonds) {
-//	            String carat = diamond.getCarat();
-//	            double price;
-//	            // Assign the price based on the carat value
-//	            if (carat == "1.0") {
-//	                price = price1;
-//	            } else if (carat == "2.0") {
-//	                price = price2;
-//	            } else if (carat == "3.0") {
-//	                price = price3;
-//	            } else if (carat == "4.0") {
-//	                price = price4;
-//	            } else if (carat == "5.0") {
-//	                price = price5;
-//	            } else {
-//	                // Handle unknown carat values
-//	                continue;
-//	            }
-//	            // Update the diamond price and last update date
-//	            diamond.setCurrentPrice(price);
-//	            diamond.setLastUpdateDate(LocalDate.now());
-//	            diamondRepository.save(diamond);
-//	        }
-//	    }
-	    
-	    
-	    
-	    
-	    
-	    
-	    
-	    
-//	    @Transactional
-//	    public void updateDiamondPrice(String carat, double price) {
-//	        // Retrieve diamonds from the database based on the given carat
-//	        List<Diamond> diamonds = diamondRepository.findByCarat(carat);
-//	        // Update the current price and last update date for each diamond
-//	        for (Diamond diamond : diamonds) {
-//	        	System.out.println(price);
-//	            diamond.setCurrentPrice(price);
-//	            diamond.setLastUpdateDate(LocalDate.now());
-//	            diamondRepository.save(diamond);
-//	        }
-//	    }
-
+	
+	
+	
+	
+	
+	
 }

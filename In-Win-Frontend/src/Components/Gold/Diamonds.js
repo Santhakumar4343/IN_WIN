@@ -194,10 +194,7 @@ const fetchGoldPrice = async () => {
                 <p style={{color:"black"}}><strong>Purchase Price:</strong> {renderPrice(diamond.purchasePrice)} {currency}</p>
                 <p style={{color:"black"}}><strong>Buy Date:</strong> {moment(diamond.buyDate).format("DD-MM-YYYY")}</p>
                 <p style={{color:"black"}}><strong>Quantity:</strong> {diamond.quantity}</p>
-                <p style={{color:"black"}}>
-                <strong>Current Price:</strong> 
-                {goldPrice  && diamond.carat == 22 ? renderPrice(goldPrice.perGramPrice22K) : renderPrice(goldPrice.perGramPrice24K)} {currency}  <strong>/gram</strong>
-            </p>
+                <p style={{color:"black"}}><strong>Purchase Price:</strong> {renderPrice(diamond.currentPrice)} {currency} <strong>/carat</strong></p>
                 <p style={{color:"black"}}><strong>Last Update Date:</strong> {moment(diamond.lastUpdateDate).format("DD-MM-YYYY")}</p>
              
               </div>
@@ -235,14 +232,19 @@ const fetchGoldPrice = async () => {
                 <Form.Label>Diamond Shape</Form.Label>
               </Col>
               <Col md={8}>
-                <Form.Control
+                <Form.Select
                   type="text"
                   name="shape"
                   placeholder=''
                   className='border border-dark mb-2'
                   value={newDiamondData.shape}
                   onChange={handleInputChange}
-                />
+                >
+                  <option value="">Select Shape</option>
+                        <option value="Round">Round</option>
+                        <option value="Oval">Oval</option>
+                        <option value="Emerald">Emerald</option>
+                </Form.Select>
               </Col>
             </Row>
             <Row>
@@ -259,11 +261,10 @@ const fetchGoldPrice = async () => {
                   onChange={handleInputChange}
                   >
                   <option value="">Select Carat</option>
-                        <option value="1">1 Carat</option>
-                        <option value="2">2 Carat </option>
-                        <option value="3">3 Carat </option>
-                        <option value="4">4 Carat </option>
-                        <option value="5">5 Carat</option>
+                        <option value="0.5">0.5 Carat</option>
+                        <option value="1.0">1 Carat </option>
+                        <option value="2.0">2 Carat </option>
+                       
                </Form.Select> 
               </Col>
             </Row>
