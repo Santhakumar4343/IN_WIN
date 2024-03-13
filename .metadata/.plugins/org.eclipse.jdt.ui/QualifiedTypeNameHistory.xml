@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <qualifiedTypeNameHistroy>
-    <fullyQualifiedTypeName name="jakarta.persistence.GeneratedValue"/>
-    <fullyQualifiedTypeName name="jakarta.persistence.GenerationType"/>
     <fullyQualifiedTypeName name="com.os.inwin.repository.BankRepository"/>
     <fullyQualifiedTypeName name="com.os.inwin.service.BankService"/>
     <fullyQualifiedTypeName name="com.os.inwin.serviceImpl.BankServiceImpl"/>
@@ -35,9 +33,7 @@
     <fullyQualifiedTypeName name="com.os.inwin.serviceImpl.SilverServiceImpl"/>
     <fullyQualifiedTypeName name="com.os.inwin.entity.Silver"/>
     <fullyQualifiedTypeName name="com.os.inwin.entity.SilverPriceResponse"/>
-    <fullyQualifiedTypeName name="java.util.List"/>
     <fullyQualifiedTypeName name="com.os.inwin.service.PlatinumService"/>
-    <fullyQualifiedTypeName name="java.util.Optional"/>
     <fullyQualifiedTypeName name="com.os.inwin.controller.PlatinumController"/>
     <fullyQualifiedTypeName name="com.os.inwin.repository.PlatinumRepository"/>
     <fullyQualifiedTypeName name="com.os.inwin.serviceImpl.PlatinumServiceImpl"/>
@@ -54,10 +50,14 @@
     <fullyQualifiedTypeName name="org.springframework.beans.factory.annotation.Autowired"/>
     <fullyQualifiedTypeName name="com.os.inwin.serviceImpl.DiamondServiceImpl"/>
     <fullyQualifiedTypeName name="com.os.inwin.entity.Diamond"/>
+    <fullyQualifiedTypeName name="java.util.Arrays"/>
+    <fullyQualifiedTypeName name="java.util.Optional"/>
+    <fullyQualifiedTypeName name="java.net.URL"/>
+    <fullyQualifiedTypeName name="java.util.List"/>
+    <fullyQualifiedTypeName name="java.util.Map"/>
+    <fullyQualifiedTypeName name="jakarta.transaction.Transactional"/>
+    <fullyQualifiedTypeName name="org.json.JSONObject"/>
     <fullyQualifiedTypeName name="org.jsoup.nodes.Element"/>
     <fullyQualifiedTypeName name="org.jsoup.nodes.Document"/>
     <fullyQualifiedTypeName name="org.jsoup.select.Elements"/>
-    <fullyQualifiedTypeName name="java.util.Map"/>
-    <fullyQualifiedTypeName name="jakarta.transaction.Transactional"/>
-    <fullyQualifiedTypeName name="java.util.Arrays"/>
 </qualifiedTypeNameHistroy>

@@ -1,5 +1,6 @@
 package com.os.inwin.controller;
 
+import java.io.IOException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +27,7 @@ public class DiamondController {
 	private DiamondServiceImpl diamondService;
 
 	 @GetMapping("/updateDiamondPrices")
-	    public String updateDiamondPrices() {
+	    public String updateDiamondPrices() throws IOException {
 		 diamondService.updateDiamondPrices();
 	        return "Diamond prices updated successfully!";
 	    }

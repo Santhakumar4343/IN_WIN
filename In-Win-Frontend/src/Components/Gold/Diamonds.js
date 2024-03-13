@@ -194,7 +194,7 @@ const fetchGoldPrice = async () => {
                 <p style={{color:"black"}}><strong>Purchase Price:</strong> {renderPrice(diamond.purchasePrice)} {currency}</p>
                 <p style={{color:"black"}}><strong>Buy Date:</strong> {moment(diamond.buyDate).format("DD-MM-YYYY")}</p>
                 <p style={{color:"black"}}><strong>Quantity:</strong> {diamond.quantity}</p>
-                <p style={{color:"black"}}><strong>Purchase Price:</strong> {renderPrice(diamond.currentPrice)} {currency} <strong>/carat</strong></p>
+                <p style={{color:"black"}}><strong>Current Price:</strong> {renderPrice(diamond.currentPrice)} {currency} <strong>/carat</strong></p>
                 <p style={{color:"black"}}><strong>Last Update Date:</strong> {moment(diamond.lastUpdateDate).format("DD-MM-YYYY")}</p>
              
               </div>
