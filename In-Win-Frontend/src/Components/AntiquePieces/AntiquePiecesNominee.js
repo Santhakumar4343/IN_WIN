@@ -58,7 +58,7 @@ function AntiquePiecesNominee() {
     }
   }, [userData]);
   const fetchInsurance = () => {
-    axios.get(`${BASE_URl}/api/antiquePieces/getAntiquePiecesForUser/${userData.userName}`)
+    axios.get(`${BASE_URl}/api/antiquePieces/getAntiquePiecesForUser/${userData.owner}`)
       .then(response => {
         setAntiquePiece(response.data);
       })
@@ -162,7 +162,6 @@ function AntiquePiecesNominee() {
 
   return (
     <div>
-      <Button variant="primary" onClick={() => setShowModal(true)}>Add Antique Piece</Button>
       <div className="row row-cols-1 row-cols-md-3 g-4 mt-2">
         {antiquePiece.map((antiquePiece, index) => (
           <div className="col-md-4 mb-3" key={antiquePiece.id}>
@@ -175,10 +174,10 @@ function AntiquePiecesNominee() {
                 <p style={{ color: "white" }}><strong>Price:</strong> {renderPrice(antiquePiece.price)} {currency}</p>
                 <p style={{ color: "white" }}><strong>Last Update Date:</strong> {moment(antiquePiece.lastUpdateDate).format("DD-MM-YYYY")}</p>
               </div>
-              <div className="card-footer d-flex justify-content-center align-items-center border border-dark ">
+              {/* <div className="card-footer d-flex justify-content-center align-items-center border border-dark ">
                 <EditIcon className='fs-4 m-2' onClick={() => { handleEdit(antiquePiece) }}></EditIcon>
                 <DeleteForeverIcon className='fs-4' onClick={() => { handleDeleteStock(antiquePiece.id) }}></DeleteForeverIcon>
-              </div>
+              </div> */}
             </div>
           </div>
         ))}

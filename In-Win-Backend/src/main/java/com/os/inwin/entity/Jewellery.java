@@ -15,6 +15,8 @@ public class Jewellery {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 	private String name;
+	private String metal;
+	private String stone;
 	private String goldCarat;
 	private int goldQuantity;
 	private double goldCurrentPrice;
@@ -22,7 +24,10 @@ public class Jewellery {
 	private String diamondCarat;
 	private int diamondQuantity;
 	private double diamondCurrentPrice;
-	
+	private double silverCurrentPrice;
+	private double platinumCurrentPrice;
+	private int silverQuantity;
+	private int platinumQuantity;
 	private double purchasePrice;
 	private LocalDate buyDate;
 	private LocalDate lastUpdateDate;
@@ -37,12 +42,15 @@ public class Jewellery {
 
 
 
-	public Jewellery(long id, String name, String goldCarat, int goldQuantity, double goldCurrentPrice,
-			String diamondShape, String diamondCarat, int diamondQuantity, double diamondCurrentPrice,
-			double purchasePrice, LocalDate buyDate, LocalDate lastUpdateDate, String userName) {
+	public Jewellery(long id, String name, String metal, String stone, String goldCarat, int goldQuantity,
+			double goldCurrentPrice, String diamondShape, String diamondCarat, int diamondQuantity,
+			double diamondCurrentPrice, double silverCurrentPrice, double platinumCurrentPrice, int silverQuantity,
+			int platinumQuantity, double purchasePrice, LocalDate buyDate, LocalDate lastUpdateDate, String userName) {
 		super();
 		this.id = id;
 		this.name = name;
+		this.metal = metal;
+		this.stone = stone;
 		this.goldCarat = goldCarat;
 		this.goldQuantity = goldQuantity;
 		this.goldCurrentPrice = goldCurrentPrice;
@@ -50,6 +58,10 @@ public class Jewellery {
 		this.diamondCarat = diamondCarat;
 		this.diamondQuantity = diamondQuantity;
 		this.diamondCurrentPrice = diamondCurrentPrice;
+		this.silverCurrentPrice = silverCurrentPrice;
+		this.platinumCurrentPrice = platinumCurrentPrice;
+		this.silverQuantity = silverQuantity;
+		this.platinumQuantity = platinumQuantity;
 		this.purchasePrice = purchasePrice;
 		this.buyDate = buyDate;
 		this.lastUpdateDate = lastUpdateDate;
@@ -78,6 +90,30 @@ public class Jewellery {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+
+
+	public String getMetal() {
+		return metal;
+	}
+
+
+
+	public void setMetal(String metal) {
+		this.metal = metal;
+	}
+
+
+
+	public String getStone() {
+		return stone;
+	}
+
+
+
+	public void setStone(String stone) {
+		this.stone = stone;
 	}
 
 
@@ -166,6 +202,54 @@ public class Jewellery {
 
 
 
+	public double getSilverCurrentPrice() {
+		return silverCurrentPrice;
+	}
+
+
+
+	public void setSilverCurrentPrice(double silverCurrentPrice) {
+		this.silverCurrentPrice = silverCurrentPrice;
+	}
+
+
+
+	public double getPlatinumCurrentPrice() {
+		return platinumCurrentPrice;
+	}
+
+
+
+	public void setPlatinumCurrentPrice(double platinumCurrentPrice) {
+		this.platinumCurrentPrice = platinumCurrentPrice;
+	}
+
+
+
+	public int getSilverQuantity() {
+		return silverQuantity;
+	}
+
+
+
+	public void setSilverQuantity(int silverQuantity) {
+		this.silverQuantity = silverQuantity;
+	}
+
+
+
+	public int getPlatinumQuantity() {
+		return platinumQuantity;
+	}
+
+
+
+	public void setPlatinumQuantity(int platinumQuantity) {
+		this.platinumQuantity = platinumQuantity;
+	}
+
+
+
 	public double getPurchasePrice() {
 		return purchasePrice;
 	}
@@ -206,9 +290,14 @@ public class Jewellery {
 		return userName;
 	}
 
+
+
 	public void setUserName(String userName) {
 		this.userName = userName;
 	}
+
+
+
 	
 	
 	

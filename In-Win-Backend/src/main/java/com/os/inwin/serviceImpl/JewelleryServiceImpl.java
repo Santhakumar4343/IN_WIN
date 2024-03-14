@@ -25,6 +25,8 @@ import org.springframework.stereotype.Service;
 import com.os.inwin.entity.Diamond;
 import com.os.inwin.entity.Gold;
 import com.os.inwin.entity.Jewellery;
+import com.os.inwin.entity.Silver;
+import com.os.inwin.entity.SilverPriceResponse;
 import com.os.inwin.goldapi.GoldPriceResponse;
 import com.os.inwin.repository.JewelleryRepository;
 import com.os.inwin.service.JewelleryService;
@@ -66,12 +68,15 @@ public class JewelleryServiceImpl implements JewelleryService {
 		if (optionalJewellery.isPresent()) {
 			Jewellery existingJewellery = optionalJewellery.get();
 			existingJewellery.setName(updatedJewellery.getName());
+			existingJewellery.setMetal(updatedJewellery.getMetal());
+			existingJewellery.setStone(updatedJewellery.getStone());
 			existingJewellery.setGoldCarat(updatedJewellery.getGoldCarat());
 			existingJewellery.setGoldQuantity(updatedJewellery.getGoldQuantity());
 			existingJewellery.setDiamondShape(updatedJewellery.getDiamondShape());
 			existingJewellery.setDiamondCarat(updatedJewellery.getDiamondCarat());
 			existingJewellery.setDiamondQuantity(updatedJewellery.getDiamondQuantity());
-
+            existingJewellery.setSilverQuantity(updatedJewellery.getSilverQuantity());
+            existingJewellery.setPlatinumQuantity(updatedJewellery.getPlatinumQuantity());
 			existingJewellery.setPurchasePrice(updatedJewellery.getPurchasePrice());
 			existingJewellery.setBuyDate(updatedJewellery.getBuyDate());
 			existingJewellery.setLastUpdateDate(LocalDate.now());
@@ -146,6 +151,7 @@ public class JewelleryServiceImpl implements JewelleryService {
 	    List<Jewellery> jewelleryList = jewelleryRepository.findAll();
 	    for (Jewellery jewellery : jewelleryList) {
 	        // Check the carat and update the current price accordingly
+	    	if(jewellery.getMetal().equals("gold")){
 	        if ("24".equals(jewellery.getGoldCarat())) {
 	        	jewellery.setGoldCurrentPrice(price24K);
 	        } else if ("22".equals(jewellery.getGoldCarat())) {
@@ -155,6 +161,7 @@ public class JewelleryServiceImpl implements JewelleryService {
 	        jewellery.setLastUpdateDate(LocalDate.now());
 	        // Save the updated gold entry
 	        jewelleryRepository.save(jewellery);
+	    	}
 	    }
 	}
 	
@@ -264,8 +271,10 @@ public class JewelleryServiceImpl implements JewelleryService {
 	                    if (prices.containsKey(carat)) {
 	                        double priceInUSD = prices.get(carat);
 	                        double priceInINR = priceInUSD * exchangeRate;
+	                        if(jewellery.getStone().equals("diamond")) {
 	                        jewellery.setDiamondCurrentPrice(priceInINR);
 	                        jewellery.setLastUpdateDate(LocalDate.now());
+	                        }
 	                        // Save the updated diamond entry
 	                        jewelleryRepository.save(jewellery);
 	                    } else {
@@ -280,6 +289,58 @@ public class JewelleryServiceImpl implements JewelleryService {
 	        }
 	    }
 	
+	    public SilverPriceResponse getPlatinumPricePerKgInIndia() {
+	        String url = "https://www.goldpriceindia.com/silver-price-india.php";
+	        try {
+	            // Fetch the HTML content of the URL
+	            Document doc = Jsoup.connect(url).get();
+	            // Extract the table containing silver prices
+	            Element table = doc.select("table").first(); // Assuming the first table on the page contains the prices
+	            // Extract the rows of the table
+	            Elements rows = table.select("tr");
+	            // Find the row containing the silver price per kilogram
+	            Element row = null;
+	            for (Element r : rows) {
+	                if (r.text().contains("1 gram")) {
+	                    row = r;
+	                    break;
+	                }
+	            }
+	            // Ensure the row is found
+	            if (row == null) {
+	                throw new RuntimeException("Row containing silver price per kilogram not found.");
+	            }
+	            // Extract the price for 1 kilogram from the third column
+	            Elements columns = row.select("td");
+	            double pricePerKg = parsePriceSilver(columns.get(1).text());
+	            // Update silver price in the database
+	            updateSilverPrices(pricePerKg);
+	            // Create a SilverPriceResponse object
+	            return new SilverPriceResponse(pricePerKg);
+	        } catch (IOException e) {
+	            throw new RuntimeException("Error fetching silver price", e);
+	        }
+	    }
+
+    private double parsePriceSilver(String priceString) {
+        String cleanPrice = priceString.replaceAll("[^\\d.]+", "");
+        return Double.parseDouble(cleanPrice);
+    }
+
+    @Transactional
+    private void updateSilverPrices(double pricePerKg) {
+        // Retrieve all silver entries from the database
+        List<Jewellery> jewelleryList = jewelleryRepository.findAll();
+        for (Jewellery jewellery : jewelleryList) {
+            // Update the current price
+        	if(jewellery.getMetal().equals("silver"))
+        	jewellery.setSilverCurrentPrice(pricePerKg);
+            // Update the last update date
+        	jewellery.setLastUpdateDate(LocalDate.now());
+        }
+        // Save the updated silver entries
+        jewelleryRepository.saveAll(jewelleryList);
+    }
 	
 	
 	

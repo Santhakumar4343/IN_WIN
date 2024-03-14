@@ -37,6 +37,7 @@ public class JewelleryController {
 	  }
 	  @GetMapping("/jewellery-price")
 	  public GoldPriceResponse getGoldPrice() {
+		  jewelleryService.getPlatinumPricePerKgInIndia();  
 		  jewelleryService.updateDiamondPrices();
 	      return jewelleryService.getGoldPricePerGramInHyderabad();
 	  }
