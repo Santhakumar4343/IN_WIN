@@ -1,6 +1,8 @@
 package com.os.inwin.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -24,7 +26,13 @@ public class SilverController {
 	@Autowired
 	private SilverServiceImpl silverService;
 	
-	
+	@GetMapping("/totalSilverPrice/{userName}")
+	  public Map<String, Double> getTotalSilverPrice(@PathVariable String userName) {
+	      double totalPrice = silverService.calculateTotalCurrentValue(userName);
+	      Map<String, Double> response = new HashMap<>();
+	      response.put("totalSilverPrice", totalPrice);
+	      return response;
+	  }
 	@GetMapping("/silver-price")
 	  public SilverPriceResponse getGoldPrice() {
 	      return silverService.getPlatinumPricePerKgInIndia();

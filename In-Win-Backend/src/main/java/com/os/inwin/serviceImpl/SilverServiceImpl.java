@@ -24,6 +24,18 @@ public class SilverServiceImpl implements SilverService{
 
 	@Autowired
 	private SilverRepository silverRepository;
+	
+	
+	public double calculateTotalCurrentValue(String userName) {
+        Iterable<Silver> silvers = silverRepository.findByUserName(userName);
+        double totalValue = 0.0;
+
+        for (Silver silver : silvers) {
+            totalValue += silver.getCurrentPrice() * (silver.getQuantity()*1000);
+        }
+
+        return totalValue;
+    }
 	@Override
 	public List<Silver> getAllSilvers() {
 		
@@ -32,6 +44,7 @@ public class SilverServiceImpl implements SilverService{
 
 	@Override
 	public Silver saveSilver(Silver silver) {
+		
 		silver.setLastUpdateDate(LocalDate.now());
 		return silverRepository.save(silver);
 	}
@@ -50,7 +63,7 @@ public class SilverServiceImpl implements SilverService{
 	    if (optionalSilver.isPresent()) {
 	    	Silver existingSilver= optionalSilver.get();
 	    	existingSilver.setName(silver.getName());
-	    	existingSilver.setQuantity(silver.getQuantity());
+	    	existingSilver.setQuantity(silver.getQuantity()*1000);
 	    	existingSilver.setBuyDate(silver.getBuyDate());
 	    	existingSilver.setPurchasePrice(silver.getPurchasePrice());
 	    	existingSilver.setLastUpdateDate(LocalDate.now());

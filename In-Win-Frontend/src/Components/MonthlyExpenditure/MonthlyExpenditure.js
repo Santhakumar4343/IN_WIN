@@ -162,14 +162,14 @@ function Bills() {
             <div className="row row-cols-1 row-cols-md-3 g-4 mt-2">
                 {bills.map((bill, index) => (
                     <div className="col-md-4 mb-3" key={bill.id}>
-                        <div className="card h-100 d-flex flex-column border border-dark" style={{ backgroundImage: `url(${StockImage})`, backgroundSize: 'cover' }}>
+                        <div className="card h-100 d-flex flex-column border border-dark" style={{ backgroundColor: index < titleColors.length ? titleColors[index] : titleColors[index % titleColors.length] }}>
                             <div className="card-body">
-                                <p style={{ color: "white" }}><strong>Bill Name:</strong> {bill.name}</p>
-                                <p style={{ color: "white" }}><strong>Bill Amount:</strong> {renderPrice(bill.amount) }  {currency}</p>
+                                <p style={{ color: "black" }}><strong>Bill Name:</strong> {bill.name}</p>
+                                <p style={{ color: "black" }}><strong>Bill Amount:</strong> {renderPrice(bill.amount) }  {currency}</p>
                             </div>
                             <div className="card-footer d-flex justify-content-center align-items-center border border-dark ">
-                                <EditIcon className='fs-4 m-2' style={{ color: "white" }} onClick={() => { handleEdit(bill) }}></EditIcon>
-                                <DeleteForeverIcon className='fs-4' style={{ color: "white" }} onClick={() => { handleDeleteStock(bill.id) }}></DeleteForeverIcon>
+                                <EditIcon className='fs-4 m-2' style={{ color: "black" }} onClick={() => { handleEdit(bill) }}></EditIcon>
+                                <DeleteForeverIcon className='fs-4' style={{ color: "black" }} onClick={() => { handleDeleteStock(bill.id) }}></DeleteForeverIcon>
                             </div>
                         </div>
                     </div>

@@ -29,12 +29,12 @@ public class JewelleryController {
 
 	
 	@GetMapping("/totalJewelleryPrice/{userName}")
-	  public Map<String, Double> getTotalJewelleryPrice(@PathVariable String userName) {
-	      double totalPrice = jewelleryService.calculateTotalCurrentValue(userName);
-	      Map<String, Double> response = new HashMap<>();
-	      response.put("totalPrice", totalPrice);
-	      return response;
-	  }
+	public Map<String, Double> getTotalJewelleryPrice(@PathVariable String userName) {
+	    double totalPrice = jewelleryService.calculateTotalCurrentValue(userName);
+	    Map<String, Double> response = new HashMap<>();
+	    response.put("totalPrice", totalPrice);
+	    return response;
+	}
 	  @GetMapping("/jewellery-price")
 	  public GoldPriceResponse getGoldPrice() {
 		  jewelleryService.getPlatinumPricePerKgInIndia();  

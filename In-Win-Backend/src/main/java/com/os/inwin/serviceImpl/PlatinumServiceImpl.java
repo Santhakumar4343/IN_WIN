@@ -12,10 +12,9 @@ import org.jsoup.select.Elements;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.os.inwin.entity.Gold;
 import com.os.inwin.entity.Platinum;
 import com.os.inwin.entity.PlatinumResponse;
-import com.os.inwin.entity.Silver;
-import com.os.inwin.entity.SilverPriceResponse;
 import com.os.inwin.repository.PlatinumRepository;
 import com.os.inwin.service.PlatinumService;
 
@@ -26,7 +25,16 @@ public class PlatinumServiceImpl implements PlatinumService{
 	@Autowired
 	private PlatinumRepository platinumRepository;
 	
+	public double calculateTotalCurrentValue(String userName) {
+        Iterable<Platinum> platinums = platinumRepository.findByUserName(userName);
+        double totalValue = 0.0;
 
+        for (Platinum platinum : platinums) {
+            totalValue += platinum.getCurrentPrice() * platinum.getQuantity();
+        }
+
+        return totalValue;
+    }
 	@Override
 	public List<Platinum> getAllPlatinums() {
 		

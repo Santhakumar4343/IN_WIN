@@ -38,6 +38,7 @@ import NomineeVehicles from "../Vehicles/NomineeVehicles.js"
 import NomineeLoans from "../Loans/NomineeLoans.js"
 import NomineeBACs from "../Bank ACs/NomineeBAC.js"
 import NomineeMB from "../MonthlyExpenditure/NomineeMonthyBills.js"
+import NomineeSummary from "../Summary/NomineeSummary.js"
 function UserDashboard() {
 
 
@@ -85,7 +86,7 @@ function UserDashboard() {
       case "banka/cs":
         return <NomineeBACs />;
       case "summary":
-        return <Summary />;
+        return < NomineeSummary/>;
       case "profile":
         return <Profile />;
         case "monthlyExpenditure":

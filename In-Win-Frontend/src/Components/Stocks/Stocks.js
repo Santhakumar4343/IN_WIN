@@ -168,19 +168,19 @@ const renderPrice = (price) => {
       <div className="row row-cols-1 row-cols-md-3 g-4 mt-2">
         {stocks.map((stock, index) => (
           <div className="col-md-4 mb-3" key={stock.id}>
-            <div className="card h-100 d-flex flex-column border border-dark" style={{ backgroundImage: `url(${StockImage})`, backgroundSize: 'cover' }}>
+            <div className="card h-100 d-flex flex-column border border-dark" style={{ backgroundColor: index < titleColors.length ? titleColors[index] : titleColors[index % titleColors.length] }}>
               <div className="card-body">
-                <h5 className="card-title text-center" style={{color:"white"}}>{stock.name}</h5>
-                <p style={{color:"white"}}><strong >Symbol:</strong> {stock.symbol}</p>
-                <p style={{color:"white"}}><strong>Purchase Price:</strong> {renderPrice(stock.purchasePrice)} {currency}</p>
-                <p style={{color:"white"}}><strong>Buy Date:</strong> {moment(stock.buyDate).format("DD-MM-YYYY")}</p>
-                <p style={{color:"white"}}><strong>Quantity:</strong> {stock.quantity}</p>
-                <p style={{color:"white"}}><strong>Current Price:</strong> {renderPrice(stock.currentPrice)} {currency}</p>
-                <p style={{color:"white"}}><strong>Last Update Date:</strong> {moment(stock.lastUpdateDate).format("DD-MM-YYYY")}</p>
+                <h5 className="card-title text-center" style={{color:"black"}}>{stock.name}</h5>
+                <p style={{color:"black"}}><strong >Symbol:</strong> {stock.symbol}</p>
+                <p style={{color:"black"}}><strong>Purchase Price:</strong> {renderPrice(stock.purchasePrice)} {currency}</p>
+                <p style={{color:"black"}}><strong>Buy Date:</strong> {moment(stock.buyDate).format("DD-MM-YYYY")}</p>
+                <p style={{color:"black"}}><strong>Quantity:</strong> {stock.quantity}</p>
+                <p style={{color:"black"}}><strong>Current Price:</strong> {renderPrice(stock.currentPrice)} {currency}</p>
+                <p style={{color:"black"}}><strong>Last Update Date:</strong> {moment(stock.lastUpdateDate).format("DD-MM-YYYY")}</p>
               </div>
               <div className="card-footer d-flex justify-content-center align-items-center border border-dark ">
-                <EditIcon className='fs-4 m-2' style={{color:"white"}}  onClick={() => {handleEdit(stock)}}></EditIcon>
-                <DeleteForeverIcon className='fs-4' style={{color:"white"}} onClick={() => {handleDeleteStock(stock.id)}}></DeleteForeverIcon>
+                <EditIcon className='fs-4 m-2' style={{color:"black"}}  onClick={() => {handleEdit(stock)}}></EditIcon>
+                <DeleteForeverIcon className='fs-4' style={{color:"black"}} onClick={() => {handleDeleteStock(stock.id)}}></DeleteForeverIcon>
               </div>
             </div>
           </div>

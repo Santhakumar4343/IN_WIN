@@ -173,7 +173,7 @@ function UserDashboard() {
         </ul>
       </div>
       <div className="main-content" style={{ padding: "20px" }}>
-      <h5 className="text-center" style={{  fontWeight: 700, fontFamily: "Segoe UI, Tahoma, Geneva, Verdana, sans-serif" ,color:"black"}}>In-Win: ONiE Soft Wealth Management System</h5>
+      <h4 className="text-center" style={{  fontWeight: 700, fontFamily: "Segoe UI, Tahoma, Geneva, Verdana, sans-serif" ,color:"black"}}>In-Win: ONiE Soft Wealth Management System</h4>
 
         <div className="d-flex justify-content-end">
           {/* <Dropdown style={{color:"black"}}>

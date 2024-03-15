@@ -35,7 +35,16 @@ public class DiamondServiceImpl implements DiamondService {
 
 	@Autowired
 	private DiamondRepository diamondRepository;
+	public double calculateTotalCurrentValue(String userName) {
+        Iterable<Diamond> diamonds = diamondRepository.findByUserName(userName);
+        double totalValue = 0.0;
 
+        for (Diamond diamond : diamonds) {
+            totalValue += diamond.getCurrentPrice() ;
+        }
+
+        return totalValue;
+    }
 	@Override
 	public List<Diamond> getAllDiamonds() {
 		return diamondRepository.findAll();

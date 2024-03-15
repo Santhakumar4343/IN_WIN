@@ -269,7 +269,7 @@ function Silver() {
                             <Col md={8}>
                                 <Form.Control
                                     type="number"
-                                    placeholder='In grams'
+                                    placeholder='In Kgs'
                                     name="quantity"
                                     className='border border-dark mb-2'
                                     value={newSilverData.quantity}

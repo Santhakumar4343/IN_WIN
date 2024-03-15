@@ -167,11 +167,11 @@ function Insurance() {
           <div className="col-md-4 mb-3" key={insurance.id}>
             <div className="card h-100 d-flex flex-column border border-dark" style={{ backgroundColor: index < titleColors.length ? titleColors[index] : titleColors[index % titleColors.length] }}>
               <div className="card-body">
-                <h5 className="card-title text-center" style={{ color: "white" }}>{insurance.name}</h5>
-                <p style={{ color: "white" }}><strong>Premium:</strong> {renderPrice(insurance.premium)} {currency}</p>
-                <p style={{ color: "white" }}><strong>Buy Date:</strong> {moment(insurance.buyDate).format("DD-MM-YYYY")}</p>
-                <p style={{ color: "white" }}><strong>Total Price:</strong> {renderPrice(insurance.totalAmount)} {currency}</p>
-                <p style={{ color: "white" }}><strong>Last Update Date:</strong> {moment(insurance.lastUpdateDate).format("DD-MM-YYYY")}</p>
+                <h5 className="card-title text-center" style={{ color: "black" }}>{insurance.name}</h5>
+                <p style={{ color: "black" }}><strong>Premium:</strong> {renderPrice(insurance.premium)} {currency}</p>
+                <p style={{ color: "black" }}><strong>Buy Date:</strong> {moment(insurance.buyDate).format("DD-MM-YYYY")}</p>
+                <p style={{ color: "black" }}><strong>Total Price:</strong> {renderPrice(insurance.totalAmount)} {currency}</p>
+                <p style={{ color: "black" }}><strong>Last Update Date:</strong> {moment(insurance.lastUpdateDate).format("DD-MM-YYYY")}</p>
               </div>
               <div className="card-footer d-flex justify-content-center align-items-center border border-dark ">
                 <EditIcon className='fs-4 m-2' onClick={() => { handleEdit(insurance) }}></EditIcon>

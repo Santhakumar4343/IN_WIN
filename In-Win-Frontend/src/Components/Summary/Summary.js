@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { BASE_URl } from '../API/Api';
 import { CurrencyState } from '../../CurrencyContext';
-import { useLocation } from "react-router-dom";
+import { useAsyncError, useLocation } from "react-router-dom";
 import "../Summary/Summary.css";
+import { useScrollTrigger } from '@mui/material';
 function Summary() {
   const location = useLocation();
   const { state: { userData } = {} } = location;
@@ -22,6 +23,11 @@ function Summary() {
   const [bills, setBills] = useState(0);
   const [monthlyExpenses,setMonthlyExpenses ] = useState(0);
   const [pfAmount,setPFAmount ] = useState(0);
+  const [jewelleryPrice,setJewelleryPrice ] = useState(0);
+  const [metalPrices,setMetalPrices]=useState(0);
+  const [silverPrice,setSilverPrice]=useState(0);
+  const[platinumPrice,setPlatinumPrice]=useState(0);
+  const[diamondPrice,setDiamondPrice]=useState(0);
   const renderPrice = (price) => {
     return (price / exchangeRate).toFixed(2);
   };
@@ -31,6 +37,8 @@ function Summary() {
     // Calculate total property value
     const totalAssets = totalPrice + goldPrice + realestatePrice + antiquePieces + vehicles+pfAmount+loansPaid;
     const totalLiabilities = loans + insurances + bills;
+    const totalMetalPrices=jewelleryPrice+goldPrice+silverPrice+platinumPrice+diamondPrice;
+    setMetalPrices(totalMetalPrices);
     setMonthlyExpenses(userData.ctc-bills);
     setAssets(totalAssets);
     setLiabilities(totalLiabilities);
@@ -39,6 +47,62 @@ function Summary() {
     setTotalPropertyValue(totalMinusLoansAndInsurances);
   }, [totalPrice, goldPrice, realestatePrice, antiquePieces, vehicles, loans, insurances]);
 
+  //for DiamondPirce
+useEffect(() => {
+  fetch(`${BASE_URl}/api/diamond/totalDiamondPrice/${userData.userName}`)
+    .then(response => response.json())
+    .then(data => {
+      setDiamondPrice(data.totalDiamondPrice);
+    })
+    .catch(error => {
+      console.error('Error fetching PF amount :', error);
+    });
+}, []);
+//for Platinum Price
+useEffect(() => {
+  fetch(`${BASE_URl}/api/platinum/totalPlatinumPrice/${userData.userName}`)
+    .then(response => response.json())
+    .then(data => {
+      setPlatinumPrice(data.totalPlatinumPrice);
+    })
+    .catch(error => {
+      console.error('Error fetching PF amount :', error);
+    });
+}, []);
+  //for silverPrice
+  useEffect(() => {
+    fetch(`${BASE_URl}/api/silver/totalSilverPrice/${userData.userName}`)
+      .then(response => response.json())
+      .then(data => {
+        setSilverPrice(data.totalSilverPrice);
+      })
+      .catch(error => {
+        console.error('Error fetching Silver amount :', error);
+      });
+  }, []);
+  //for jewelleryPrice
+useEffect(() => {
+  fetch(`${BASE_URl}/api/jewellery/totalJewelleryPrice/${userData.userName}`)
+    .then(response => response.json())
+    .then(data => {
+      setJewelleryPrice(data.totalPrice);
+    })
+    .catch(error => {
+      console.error('Error fetching Jewellery amount :', error);
+    });
+}, []);
+//for gold
+useEffect(() => {
+  // Fetch total stocks price when component mounts
+  fetch(`${BASE_URl}/api/gold/totalGoldPrice/${userData.userName}`)
+    .then(response => response.json())
+    .then(data => {
+      setGoldPrice(data.totalPrice);
+    })
+    .catch(error => {
+      console.error('Error fetching total stocks price:', error);
+    });
+}, []);
 //for PF
 useEffect(() => {
   fetch(`${BASE_URl}/api/users/totalPFAmount/${userData.userName}`)
@@ -141,18 +205,7 @@ useEffect(() => {
         console.error('Error fetching total stocks price:', error);
       });
   }, []);
-  //for gold
-  useEffect(() => {
-    // Fetch total stocks price when component mounts
-    fetch(`${BASE_URl}/api/gold/totalGoldPrice/${userData.userName}`)
-      .then(response => response.json())
-      .then(data => {
-        setGoldPrice(data.totalPrice);
-      })
-      .catch(error => {
-        console.error('Error fetching total stocks price:', error);
-      });
-  }, []);
+  
 
 
   //for stocks
@@ -211,8 +264,8 @@ useEffect(() => {
               </tr>
 
               <tr className='border border-dark'>
-                <th className='border border-dark'>Gold</th>
-                <td className='border border-dark'>{renderPrice(goldPrice)}      </td>
+                <th className='border border-dark'>Metals</th>
+                <td className='border border-dark'>{renderPrice(metalPrices)}      </td>
               </tr>
               <tr className='border border-dark'>
                 <th className='border border-dark'>Realestate</th>

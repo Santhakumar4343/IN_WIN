@@ -32,6 +32,7 @@ public class Jewellery {
 	private LocalDate buyDate;
 	private LocalDate lastUpdateDate;
 	private String userName;
+	private Double totalPriceOfJewellery;
 	
 	
 	
@@ -45,7 +46,8 @@ public class Jewellery {
 	public Jewellery(long id, String name, String metal, String stone, String goldCarat, int goldQuantity,
 			double goldCurrentPrice, String diamondShape, String diamondCarat, int diamondQuantity,
 			double diamondCurrentPrice, double silverCurrentPrice, double platinumCurrentPrice, int silverQuantity,
-			int platinumQuantity, double purchasePrice, LocalDate buyDate, LocalDate lastUpdateDate, String userName) {
+			int platinumQuantity, double purchasePrice, LocalDate buyDate, LocalDate lastUpdateDate, String userName,
+			Double totalPriceOfJewellery) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -66,6 +68,7 @@ public class Jewellery {
 		this.buyDate = buyDate;
 		this.lastUpdateDate = lastUpdateDate;
 		this.userName = userName;
+		this.totalPriceOfJewellery = totalPriceOfJewellery;
 	}
 
 
@@ -295,6 +298,19 @@ public class Jewellery {
 	public void setUserName(String userName) {
 		this.userName = userName;
 	}
+
+
+
+	public Double getTotalPriceOfJewellery() {
+		return totalPriceOfJewellery;
+	}
+
+
+
+	public void setTotalPriceOfJewellery(Double totalPriceOfJewellery) {
+		this.totalPriceOfJewellery = totalPriceOfJewellery;
+	}
+
 
 
 

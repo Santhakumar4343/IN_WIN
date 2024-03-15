@@ -9,7 +9,10 @@
     text-align: center;
  
 }
-
+.capcha {
+   margin-left: 30px;
+   
+}
 .login > form input {
     border-radius: 20px;
     border: 2px solid rgb(41, 40, 40);
@@ -23,8 +26,22 @@
 
 .Login-Main {
     display: flex;
+   margin-top: -30px;
     width: 100vw;
     height: 100vh;
     justify-content: center;
     align-items: center;
     }
+
+    .password-input {
+        position: relative;
+      }
+      
+      .password-toggle-icon {
+        position: absolute;
+        top: 50%;
+        right: 30px; /* Adjust as needed */
+        transform: translateY(-50%);
+        cursor: pointer;
+      }
+      

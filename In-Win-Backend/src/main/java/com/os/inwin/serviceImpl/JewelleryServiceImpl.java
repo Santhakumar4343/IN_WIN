@@ -40,17 +40,27 @@ public class JewelleryServiceImpl implements JewelleryService {
 	private JewelleryRepository jewelleryRepository;
 
 	public double calculateTotalCurrentValue(String userName) {
-        Iterable<Jewellery> jewellerys= jewelleryRepository.findByUserName(userName);
-        double totalValue = 0.0;
+	    Iterable<Jewellery> jewellerys = jewelleryRepository.findByUserName(userName);
+	    double totalValue = 0.0;
 
-        for (Jewellery jewellery : jewellerys) {
-         double   goldValue= jewellery.getGoldCurrentPrice() * jewellery.getGoldQuantity();
-         double diamondValue=jewellery.getDiamondCurrentPrice();
-         totalValue=goldValue+diamondValue;
-        }
+	    for (Jewellery jewellery : jewellerys) {
+	        double goldValue = jewellery.getGoldCurrentPrice() * jewellery.getGoldQuantity();
+	        double diamondValue = jewellery.getDiamondCurrentPrice() * jewellery.getDiamondQuantity();
+	        double silverValue = jewellery.getSilverCurrentPrice() * (jewellery.getSilverQuantity()*1000);
+	        double platinumValue = jewellery.getPlatinumCurrentPrice() * jewellery.getPlatinumQuantity();
+	        double totalPriceOfJewellery = goldValue + diamondValue + silverValue + platinumValue;
+	        
+	        jewellery.setTotalPriceOfJewellery(totalPriceOfJewellery);
+	        
+	        // Save the updated jewellery entity
+	        jewelleryRepository.save(jewellery);
+	        
+	        // Add the total price of this jewellery item to the overall total
+	        totalValue += totalPriceOfJewellery;
+	    }
 
-        return totalValue;
-    }
+	    return totalValue;
+	}
 	@Override
 	public Jewellery saveJewellery(Jewellery jewellery) {
 		jewellery.setLastUpdateDate(LocalDate.now());

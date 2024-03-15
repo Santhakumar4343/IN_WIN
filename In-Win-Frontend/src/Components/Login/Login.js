@@ -30,6 +30,7 @@ const Login = ({ }) => {
           <MenuItem value={"Admin"}>Admin</MenuItem>
         </Select>
       </div>
+      <h1></h1>
       <div className="Register-Main">
         {role === "User" && <UserLogin />}
         {role === "Nominee" && <NomineeLogin />}
