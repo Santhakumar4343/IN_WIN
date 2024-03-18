@@ -1,0 +1,6 @@
+2024-03-18T12:09:16.969+05:30 ERROR 14920 --- [http-nio-8081-exec-3] com.profile.controller.UserController    : log from the Greet method in UserController
+2024-03-18T12:25:00.192+05:30  WARN 14920 --- [HikariPool-2 housekeeper] com.zaxxer.hikari.pool.HikariPool        : HikariPool-2 - Thread starvation or clock leap detected (housekeeper delta=7m4s399ms691µs900ns).
+2024-03-18T12:32:43.777+05:30  INFO 14920 --- [RMI TCP Connection(29)-127.0.0.1] inMXBeanRegistrar$SpringApplicationAdmin : Application shutdown requested.
+2024-03-18T12:32:43.790+05:30  INFO 14920 --- [RMI TCP Connection(29)-127.0.0.1] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2024-03-18T12:32:43.790+05:30  INFO 14920 --- [RMI TCP Connection(29)-127.0.0.1] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Shutdown initiated...
+2024-03-18T12:32:44.034+05:30  INFO 14920 --- [RMI TCP Connection(29)-127.0.0.1] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Shutdown completed.

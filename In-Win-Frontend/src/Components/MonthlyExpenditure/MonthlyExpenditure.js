@@ -10,6 +10,7 @@ import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import { useLocation } from "react-router-dom";
 import StockImage from "../../../src/assets/stockmarket.jpg";
 import { BASE_URl } from '../API/Api';
+import BillsImage from "../../assets/bills.jpg"
 import { CurrencyState } from '../../CurrencyContext';
 
 function Bills() {
@@ -162,7 +163,7 @@ function Bills() {
             <div className="row row-cols-1 row-cols-md-3 g-4 mt-2">
                 {bills.map((bill, index) => (
                     <div className="col-md-4 mb-3" key={bill.id}>
-                        <div className="card h-100 d-flex flex-column border border-dark" style={{ backgroundColor: index < titleColors.length ? titleColors[index] : titleColors[index % titleColors.length] }}>
+                        <div className="card h-100 d-flex flex-column border border-dark" style={{ backgroundImage: `url(${BillsImage})`, backgroundSize: 'cover' }}>
                             <div className="card-body">
                                 <p style={{ color: "black" }}><strong>Bill Name:</strong> {bill.name}</p>
                                 <p style={{ color: "black" }}><strong>Bill Amount:</strong> {renderPrice(bill.amount) }  {currency}</p>

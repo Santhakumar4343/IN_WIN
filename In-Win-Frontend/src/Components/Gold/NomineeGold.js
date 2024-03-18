@@ -11,7 +11,7 @@ import { useLocation } from "react-router-dom";
 
 import { BASE_URl } from '../API/Api';
 import { CurrencyState } from '../../CurrencyContext';
-import GoldImage from  "../../../src/assets/GoldBakcGround.jpg";
+
 function Gold() {
   const location = useLocation();
   const { state: { userData } = {} } = location;

@@ -11,7 +11,7 @@ import { useLocation } from "react-router-dom";
 
 import { BASE_URl } from '../API/Api';
 import { CurrencyState } from '../../CurrencyContext';
-import GoldImage from "../../../src/assets/GoldBakcGround.jpg";
+import PlatinumImage  from '../../assets/platinum.jpg';
 function Platinum() {
     const location = useLocation();
     const { state: { userData } = {} } = location;
@@ -194,14 +194,14 @@ function Platinum() {
             <div className="row row-cols-1 row-cols-md-3 g-4 " style={{ marginTop: "1px" }}>
                 {platinum.map((platinum, index) => (
                     <div className="col-md-4 mb-3" key={platinum.id}>
-                        <div className="card h-100 d-flex flex-column border border-dark" style={{ backgroundColor: index < titleColors.length ? titleColors[index] : titleColors[index % titleColors.length] }}>
+                        <div className="card h-100 d-flex flex-column border border-dark" style={{ backgroundImage: `url(${PlatinumImage})`, backgroundSize: 'cover' }}>
                             <div className="card-body">
                                 <h5 className="card-title text-center" style={{ color: "black" }}>{platinum.name}</h5>
-                                <p style={{ color: "black" }}><strong>Purchase Price:</strong> {renderPrice(platinum.purchasePrice)} {currency}</p>
-                                <p style={{ color: "black" }}><strong>Buy Date:</strong> {moment(platinum.buyDate).format("DD-MM-YYYY")}</p>
-                                <p style={{ color: "black" }}><strong>Quantity:</strong> {platinum.quantity}</p>
-                                <p style={{ color: "black" }}><strong>Current Price:</strong> {renderPrice(platinumPrice)} {currency} <strong>/per gram</strong></p>
-                                <p style={{ color: "black" }}><strong>Last Update Date:</strong> {moment(platinum.lastUpdateDate).format("DD-MM-YYYY")}</p>
+                                <p style={{ color: "black" }}>Purchase Price:<strong> {renderPrice(platinum.purchasePrice)} {currency} </strong></p>
+                                <p style={{ color: "black" }}>Buy Date:<strong>{moment(platinum.buyDate).format("DD-MM-YYYY")}</strong></p>
+                                <p style={{ color: "black" }}>Quantity:<strong> {platinum.quantity}</strong></p>
+                                <p style={{ color: "black" }}>Current Price:<strong> {renderPrice(platinumPrice)} {currency}</strong> <strong>/per gram</strong></p>
+                                <p style={{ color: "black" }}>Last Update Date:<strong> {moment(platinum.lastUpdateDate).format("DD-MM-YYYY")}</strong></p>
 
                             </div>
                             <div className="card-footer d-flex justify-content-center align-items-center border border-dark ">

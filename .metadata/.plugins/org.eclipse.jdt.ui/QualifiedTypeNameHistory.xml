@@ -20,21 +20,17 @@
     <fullyQualifiedTypeName name="com.os.inwin.service.SilverService"/>
     <fullyQualifiedTypeName name="com.os.inwin.repository.SilverRepository"/>
     <fullyQualifiedTypeName name="com.os.inwin.serviceImpl.SilverServiceImpl"/>
-    <fullyQualifiedTypeName name="com.os.inwin.entity.Silver"/>
     <fullyQualifiedTypeName name="com.os.inwin.entity.SilverPriceResponse"/>
     <fullyQualifiedTypeName name="com.os.inwin.service.PlatinumService"/>
     <fullyQualifiedTypeName name="com.os.inwin.controller.PlatinumController"/>
     <fullyQualifiedTypeName name="com.os.inwin.repository.PlatinumRepository"/>
     <fullyQualifiedTypeName name="com.os.inwin.serviceImpl.PlatinumServiceImpl"/>
     <fullyQualifiedTypeName name="com.os.inwin.entity.PlatinumResponse"/>
-    <fullyQualifiedTypeName name="com.os.inwin.entity.Platinum"/>
     <fullyQualifiedTypeName name="com.os.inwin.service.DiamondService"/>
     <fullyQualifiedTypeName name="com.os.inwin.repository.DiamondRepository"/>
     <fullyQualifiedTypeName name="com.os.inwin.serviceImpl.DiamondServiceImpl"/>
-    <fullyQualifiedTypeName name="com.os.inwin.entity.Diamond"/>
     <fullyQualifiedTypeName name="java.util.Arrays"/>
     <fullyQualifiedTypeName name="java.util.List"/>
-    <fullyQualifiedTypeName name="java.util.Map"/>
     <fullyQualifiedTypeName name="org.json.JSONObject"/>
     <fullyQualifiedTypeName name="org.jsoup.nodes.Element"/>
     <fullyQualifiedTypeName name="org.jsoup.nodes.Document"/>
@@ -60,4 +56,8 @@
     <fullyQualifiedTypeName name="org.springframework.beans.factory.annotation.Autowired"/>
     <fullyQualifiedTypeName name="com.os.inwin.serviceImpl.JewelleryServiceImpl"/>
     <fullyQualifiedTypeName name="com.os.inwin.entity.Jewellery"/>
+    <fullyQualifiedTypeName name="com.os.inwin.entity.Silver"/>
+    <fullyQualifiedTypeName name="com.os.inwin.entity.Platinum"/>
+    <fullyQualifiedTypeName name="com.os.inwin.entity.Diamond"/>
+    <fullyQualifiedTypeName name="java.util.Map"/>
 </qualifiedTypeNameHistroy>

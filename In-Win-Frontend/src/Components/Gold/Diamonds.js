@@ -11,7 +11,7 @@ import { useLocation } from "react-router-dom";
 
 import { BASE_URl } from '../API/Api';
 import { CurrencyState } from '../../CurrencyContext';
-import GoldImage from  "../../../src/assets/GoldBakcGround.jpg";
+import DiamondImage from "../../assets/diamond.jpg"
 function Diamonds() {
   const location = useLocation();
   const { state: { userData } = {} } = location;
@@ -186,21 +186,21 @@ const fetchGoldPrice = async () => {
       <div className="row row-cols-1 row-cols-md-3 g-4 " style={{marginTop:"1px"}}>
         {diamond.map((diamond, index) => (
           <div className="col-md-4 mb-3" key={diamond.id}>
-            <div className="card h-100 d-flex flex-column border border-dark" style={{ backgroundColor: index < titleColors.length ? titleColors[index] : titleColors[index % titleColors.length] }}>
+            <div className="card h-100 d-flex flex-column border border-dark" style={{ backgroundImage: `url(${DiamondImage})`, backgroundSize: 'cover' }}>
               <div className="card-body">
-                <h5 className="card-title text-center" style={{color:"black"}}>{diamond.name}</h5>
-                <p style={{color:"black"}}><strong >Shape:</strong> {diamond.shape}</p>
-                <p style={{color:"black"}}><strong >Carat:</strong> {diamond.carat}</p>
-                <p style={{color:"black"}}><strong>Purchase Price:</strong> {renderPrice(diamond.purchasePrice)} {currency}</p>
-                <p style={{color:"black"}}><strong>Buy Date:</strong> {moment(diamond.buyDate).format("DD-MM-YYYY")}</p>
-                <p style={{color:"black"}}><strong>Quantity:</strong> {diamond.quantity}</p>
-                <p style={{color:"black"}}><strong>Current Price:</strong> {renderPrice(diamond.currentPrice)} {currency} </p>
-                <p style={{color:"black"}}><strong>Last Update Date:</strong> {moment(diamond.lastUpdateDate).format("DD-MM-YYYY")}</p>
+                <h5 className="card-title text-center" style={{color:"white"}}>{diamond.name}</h5>
+                <p style={{color:"white"}}>Shape:<strong> {diamond.shape}</strong></p>
+                <p style={{color:"white"}}>Carat:<strong> {diamond.carat}</strong></p>
+                <p style={{color:"white"}}>Purchase Price:<strong> {renderPrice(diamond.purchasePrice)} {currency}</strong></p>
+                <p style={{color:"white"}}>Buy Date:<strong> {moment(diamond.buyDate).format("DD-MM-YYYY")}</strong></p>
+                <p style={{color:"white"}}>Quantity:<strong> {diamond.quantity}</strong></p>
+                <p style={{color:"white"}}>Current Price:<strong> {renderPrice(diamond.currentPrice)} {currency}</strong> </p>
+                <p style={{color:"white"}}>Last Update Date:<strong> {moment(diamond.lastUpdateDate).format("DD-MM-YYYY")}</strong></p>
              
               </div>
               <div className="card-footer d-flex justify-content-center align-items-center border border-dark ">
-                <EditIcon className='fs-4 m-2' onClick={() => {handleEdit(diamond)}}></EditIcon>
-                <DeleteForeverIcon className='fs-4' onClick={() => {handleDeleteGold(diamond.id)}}></DeleteForeverIcon>
+                <EditIcon className='fs-4 m-2' onClick={() => {handleEdit(diamond)}} style={{color:"white"}}></EditIcon>
+                <DeleteForeverIcon className='fs-4' onClick={() => {handleDeleteGold(diamond.id)}} style={{color:"white"}}></DeleteForeverIcon>
               </div>
             </div>
           </div>
