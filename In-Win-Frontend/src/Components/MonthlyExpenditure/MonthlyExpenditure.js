@@ -8,7 +8,7 @@ import '../Stocks/Stock.css';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import { useLocation } from "react-router-dom";
-import StockImage from "../../../src/assets/stockmarket.jpg";
+
 import { BASE_URl } from '../API/Api';
 import BillsImage from "../../assets/bills.jpg"
 import { CurrencyState } from '../../CurrencyContext';
@@ -165,8 +165,8 @@ function Bills() {
                     <div className="col-md-4 mb-3" key={bill.id}>
                         <div className="card h-100 d-flex flex-column border border-dark" style={{ backgroundImage: `url(${BillsImage})`, backgroundSize: 'cover' }}>
                             <div className="card-body">
-                                <p style={{ color: "black" }}><strong>Bill Name:</strong> {bill.name}</p>
-                                <p style={{ color: "black" }}><strong>Bill Amount:</strong> {renderPrice(bill.amount) }  {currency}</p>
+                                <p style={{ color: "black" }}>Bill Name:<strong> {bill.name}</strong></p>
+                                <p style={{ color: "black" }}>Bill Amount:<strong> {renderPrice(bill.amount) }  {currency}</strong></p>
                             </div>
                             <div className="card-footer d-flex justify-content-center align-items-center border border-dark ">
                                 <EditIcon className='fs-4 m-2' style={{ color: "black" }} onClick={() => { handleEdit(bill) }}></EditIcon>

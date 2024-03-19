@@ -8,7 +8,7 @@ import '../Stocks/Stock.css';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import { useLocation } from "react-router-dom";
-import SilverImage from "../../assets/silver_.jpg"
+import SilverImage from "../../assets/silver1.jpg"
 import { BASE_URl } from '../API/Api';
 import { CurrencyState } from '../../CurrencyContext';
 
@@ -197,11 +197,11 @@ function Silver() {
                         <div className="card h-100 d-flex flex-column border border-dark" style={{ backgroundImage: `url(${SilverImage})`, backgroundSize: 'cover' }}>
                             <div className="card-body">
                                 <h5 className="card-title text-center" style={{ color: "black" }}>{silver.name}</h5>
-                                <p style={{ color: "black" }}><strong>Purchase Price:</strong> {renderPrice(silver.purchasePrice)} {currency}</p>
-                                <p style={{ color: "black" }}><strong>Buy Date:</strong> {moment(silver.buyDate).format("DD-MM-YYYY")}</p>
-                                <p style={{ color: "black" }}><strong>Quantity:</strong> {silver.quantity}</p>
-                                <p style={{ color: "black" }}><strong>Current Price:</strong> {renderPrice(silverPrice)} {currency} <strong>/per gram</strong></p>
-                                <p style={{ color: "black" }}><strong>Last Update Date:</strong> {moment(silver.lastUpdateDate).format("DD-MM-YYYY")}</p>
+                                <p style={{ color: "black" }}>Purchase Price:<strong> {renderPrice(silver.purchasePrice)} {currency}</strong></p>
+                                <p style={{ color: "black" }}>Buy Date:<strong> {moment(silver.buyDate).format("DD-MM-YYYY")}</strong></p>
+                                <p style={{ color: "black" }}>Quantity:<strong> {silver.quantity}</strong></p>
+                                <p style={{ color: "black" }}>Current Price:<strong> {renderPrice(silverPrice)} {currency} /per gram</strong></p>
+                                <p style={{ color: "black" }}>Last Update Date:<strong> {moment(silver.lastUpdateDate).format("DD-MM-YYYY")}</strong></p>
 
                             </div>
                             <div className="card-footer d-flex justify-content-center align-items-center border border-dark ">

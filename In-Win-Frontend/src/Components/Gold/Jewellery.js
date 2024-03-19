@@ -9,6 +9,8 @@ import EditIcon from '@mui/icons-material/Edit';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import { useLocation } from "react-router-dom";
 import JewelleryImage from '../../assets/jewelry.jpg';
+import JewelleryImage1 from '../../assets/Jewellery2.jpg';
+import JewelleryImage2 from '../../assets/Jewellery3.jpg';
 import { BASE_URl } from '../API/Api';
 import { CurrencyState } from '../../CurrencyContext';
 
@@ -23,8 +25,14 @@ function Jewellery() {
   const titleColors = ["#42ff75", "#3ba3ed", "#fc47ed", "#e82e44", "#f5c802", "#f2a04e"];
   const [selectedMetal, setSelectedMetal] = useState('');
   const [selectedStone, setSelectedStone] = useState('');
+  const jewelleryPics = [JewelleryImage, JewelleryImage1, JewelleryImage2];
+  const backgroundImageStyle = (index) => {
+    return {
+      backgroundImage: `url(${jewelleryPics[index % jewelleryPics.length]})`,
+      backgroundSize: 'cover',
 
-
+    };
+  };
   const populateModal = () => {
     if (!selectedJewellery) return; // Add null check
     setNewJewelleryData({
@@ -200,21 +208,20 @@ function Jewellery() {
       <div className="row row-cols-1 row-cols-md-3 g-4 " style={{ marginTop: "1px" }}>
         {jewellery.map((jewellery, index) => (
           <div className="col-md-4 mb-3" key={jewellery.id}>
-            <div className="card h-100 d-flex flex-column border border-dark"  style={{ backgroundImage: `url(${JewelleryImage})`, backgroundSize: 'cover' }}>
+            <div className="card h-100 d-flex flex-column border border-dark" style={backgroundImageStyle(index)}>
               <div className="card-body">
                 <h5 className="card-title text-center" style={{ color: "white" }}>{jewellery.name}</h5>
                 {jewellery.goldCarat && jewellery.goldCarat !== "" && jewellery.goldCarat !== 0 && (
                   <p style={{ color: "white" }}>Gold Carat:<strong> {jewellery.goldCarat}</strong></p>
                 )}
-
                 {parseInt(jewellery.goldQuantity) !== 0 && (
                   <p style={{ color: "white" }}>Gold Quantity:<strong> {jewellery.goldQuantity}</strong></p>
                 )}
 
-{parseInt(jewellery.silverQuantity) !== 0 && (
+                {parseInt(jewellery.silverQuantity) !== 0 && (
                   <p style={{ color: "white" }}>Silver Quantity:<strong> {jewellery.silverQuantity}</strong></p>
                 )}
-                 {parseInt(jewellery.platinumQuantity) !== 0 && (
+                {parseInt(jewellery.platinumQuantity) !== 0 && (
                   <p style={{ color: "white" }}>Platinum Quantity:<strong> {jewellery.platinumQuantity}</strong></p>
                 )}
                 {jewellery.diamondShape && jewellery.diamondShape !== "" && jewellery.diamondShape !== 0 && (
@@ -234,8 +241,8 @@ function Jewellery() {
 
               </div>
               <div className="card-footer d-flex justify-content-center align-items-center border border-dark ">
-                <EditIcon className='fs-4 m-2' onClick={() => { handleEdit(jewellery) }} style={{color:"white"}}></EditIcon>
-                <DeleteForeverIcon className='fs-4' onClick={() => { handleDeleteGold(jewellery.id) }} style={{color:"white"}}></DeleteForeverIcon>
+                <EditIcon className='fs-4 m-2' onClick={() => { handleEdit(jewellery) }} style={{ color: "white" }}></EditIcon>
+                <DeleteForeverIcon className='fs-4' onClick={() => { handleDeleteGold(jewellery.id) }} style={{ color: "white" }}></DeleteForeverIcon>
               </div>
             </div>
           </div>

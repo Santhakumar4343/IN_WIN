@@ -11,7 +11,7 @@ import { useLocation } from "react-router-dom";
 
 import { BASE_URl } from '../API/Api';
 import { CurrencyState } from '../../CurrencyContext';
-import GoldImage from  "../../assets/gold123456.jpeg";
+import GoldImage from  "../../assets/gold.jpeg";
 function Gold() {
   const location = useLocation();
   const { state: { userData } = {} } = location;
@@ -188,21 +188,21 @@ const fetchGoldPrice = async () => {
             <div className="card h-100 d-flex flex-column border border-dark" style={{ backgroundImage: `url(${GoldImage})`, backgroundSize: 'cover' }}>
               <div className="card-body">
                 <h5 className="card-title text-center" style={{color:"black"}}>{goldItem.name}</h5>
-                <p style={{color:"black"}}><strong >Symbol:</strong> {goldItem.symbol}</p>
-                <p style={{color:"black"}}><strong >Carat:</strong> {goldItem.carat}</p>
-                <p style={{color:"black"}}><strong>Purchase Price:</strong> {renderPrice(goldItem.purchasePrice)} {currency}</p>
-                <p style={{color:"black"}}><strong>Buy Date:</strong> {moment(goldItem.buyDate).format("DD-MM-YYYY")}</p>
-                <p style={{color:"black"}}><strong>Quantity:</strong> {goldItem.quantity}</p>
+                <p style={{color:"black"}}>Symbol: <strong>{goldItem.symbol}</strong></p>
+                <p style={{color:"black"}}>Carat: <strong>{goldItem.carat}</strong></p>
+                <p style={{color:"black"}}>Purchase Price:<strong> {renderPrice(goldItem.purchasePrice)} {currency}</strong></p>
+                <p style={{color:"black"}}>Buy Date:<strong> {moment(goldItem.buyDate).format("DD-MM-YYYY")}</strong></p>
+                <p style={{color:"black"}}>Quantity:<strong> {goldItem.quantity}</strong></p>
                 <p style={{color:"black"}}>
-                <strong>Current Price:</strong> 
-                {goldPrice  && goldItem.carat == 22 ? renderPrice(goldPrice.perGramPrice22K) : renderPrice(goldPrice.perGramPrice24K)} {currency}  <strong>/gram</strong>
+                Current Price:
+               <strong> {goldPrice  && goldItem.carat == 22 ? renderPrice(goldPrice.perGramPrice22K) : renderPrice(goldPrice.perGramPrice24K)} {currency}  /gram</strong>
             </p>
-                <p style={{color:"black"}}><strong>Last Update Date:</strong> {moment(goldItem.lastUpdateDate).format("DD-MM-YYYY")}</p>
+                <p style={{color:"black"}}>Last Update Date:<strong> {moment(goldItem.lastUpdateDate).format("DD-MM-YYYY")}</strong></p>
              
               </div>
               <div className="card-footer d-flex justify-content-center align-items-center border border-dark ">
-                <EditIcon className='fs-4 m-2' onClick={() => {handleEdit(goldItem)}}></EditIcon>
-                <DeleteForeverIcon className='fs-4' onClick={() => {handleDeleteGold(goldItem.id)}}></DeleteForeverIcon>
+                <EditIcon className='fs-4 m-2' onClick={() => {handleEdit(goldItem)}} style={{color:"black"}}></EditIcon>
+                <DeleteForeverIcon className='fs-4' onClick={() => {handleDeleteGold(goldItem.id)}} style={{color:"black"}}></DeleteForeverIcon>
               </div>
             </div>
           </div>

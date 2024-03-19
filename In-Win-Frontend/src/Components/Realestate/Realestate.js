@@ -8,6 +8,8 @@ import '../Stocks/Stock.css';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import { useLocation } from "react-router-dom";
+import RealestateImage from "../../assets/Realestate.jpg"
+import RealestateImage1 from "../../assets/Realestate1.jpg"
 
 import { BASE_URl } from '../API/Api';
 import { CurrencyState } from '../../CurrencyContext';
@@ -21,6 +23,14 @@ function Realestate() {
   const { exchangeRate,currency } = CurrencyState();
   console.log(exchangeRate)
   const titleColors = ["#42ff75", "#3ba3ed", "#fc47ed", "#e82e44", "#f5c802", "#f2a04e"];
+  const realestateImages=[RealestateImage,RealestateImage1];
+  const backgroundImageStyle = (index) => {
+    return {
+        backgroundImage: `url(${realestateImages[index % realestateImages.length]})`,
+        backgroundSize: 'cover',
+      
+    };
+  };
   const handleEdit = (realestate) => {
     setSelectedRealestate(realestate);
     setShowModal(true);
@@ -168,18 +178,18 @@ function Realestate() {
       <div className="row row-cols-1 row-cols-md-3 g-4 mt-2">
         {realestate.map((realestate, index) => (
           <div className="col-md-4 mb-3" key={realestate.id}>
-            <div className="card h-100 d-flex flex-column border border-dark" style={{ backgroundColor: index < titleColors.length ? titleColors[index] : titleColors[index % titleColors.length] }}>
+            <div className="card h-100 d-flex flex-column border border-dark" style={backgroundImageStyle(index)}>
               <div className="card-body">
-                <h5 className="card-title text-center" style={{ color: "black" }}>{realestate.name}</h5>
-                <p style={{ color: "black" }}><strong>Purchase Price:</strong> {renderPrice(realestate.purchasePrice)} {currency}</p>
-                <p style={{ color: "black" }}><strong>Buy Date:</strong> {moment(realestate.buyDate).format("DD-MM-YYYY")}</p>
-                <p style={{ color: "black" }}><strong>Quantity:</strong> {realestate.quantity}</p>
-                <p style={{ color: "black" }}><strong>Current Price:</strong> {renderPrice(realestate.currentPrice)} {currency}</p>
-                <p style={{ color: "black" }}><strong>Last Update Date:</strong> {moment(realestate.lastUpdateDate).format("DD-MM-YYYY")}</p>
+                <h5 className="card-title text-center" style={{ color: "white" }}>{realestate.name}</h5>
+                <p style={{ color: "white" }}>Purchase Price:<strong> {renderPrice(realestate.purchasePrice)} {currency}</strong></p>
+                <p style={{ color: "white" }}>Buy Date:<strong> {moment(realestate.buyDate).format("DD-MM-YYYY")}</strong></p>
+                <p style={{ color: "white" }}>Quantity:<strong> {realestate.quantity}</strong></p>
+                <p style={{ color: "white" }}>Current Price:<strong> {renderPrice(realestate.currentPrice)} {currency}</strong></p>
+                <p style={{ color: "white" }}>Last Update Date:<strong> {moment(realestate.lastUpdateDate).format("DD-MM-YYYY")}</strong></p>
               </div>
               <div className="card-footer d-flex justify-content-center align-items-center border border-dark ">
-                <EditIcon className='fs-4 m-2' onClick={() => { handleEdit(realestate) }}></EditIcon>
-                <DeleteForeverIcon className='fs-4' onClick={() => { handleDeleteStock(realestate.id) }}></DeleteForeverIcon>
+                <EditIcon className='fs-4 m-2' onClick={() => { handleEdit(realestate) }} style={{ color: "white" }}></EditIcon>
+                <DeleteForeverIcon className='fs-4' onClick={() => { handleDeleteStock(realestate.id) }} style={{ color: "white" }}></DeleteForeverIcon>
               </div>
             </div>
           </div>

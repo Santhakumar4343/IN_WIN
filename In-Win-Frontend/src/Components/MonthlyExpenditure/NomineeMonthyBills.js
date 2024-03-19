@@ -8,7 +8,7 @@ import '../Stocks/Stock.css';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import { useLocation } from "react-router-dom";
-import StockImage from "../../../src/assets/stockmarket.jpg";
+
 import { BASE_URl } from '../API/Api';
 import { CurrencyState } from '../../CurrencyContext';
 
@@ -161,7 +161,7 @@ function Bills() {
             <div className="row row-cols-1 row-cols-md-3 g-4 mt-2">
                 {bills.map((bill, index) => (
                     <div className="col-md-4 mb-3" key={bill.id}>
-                        <div className="card h-100 d-flex flex-column border border-dark" style={{ backgroundImage: `url(${StockImage})`, backgroundSize: 'cover' }}>
+                        <div className="card h-100 d-flex flex-column border border-dark" style={{}}>
                             <div className="card-body">
                                 <p style={{ color: "white" }}><strong>Bill Name:</strong> {bill.name}</p>
                                 <p style={{ color: "white" }}><strong>Bill Amount:</strong> {renderPrice(bill.amount) }  {currency}</p>

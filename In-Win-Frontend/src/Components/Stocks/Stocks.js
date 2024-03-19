@@ -8,7 +8,9 @@ import '../Stocks/Stock.css';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import { useLocation } from "react-router-dom";
-import StockImage from  "../../../src/assets/stockmarket.jpg";
+import StockImage1 from  "../../../src/assets/Stocks1.jpg";
+import StockImage2 from  "../../../src/assets/Stocks2.jpg";
+import StockImage3 from  "../../../src/assets/Stocks3.jpg";
 import { BASE_URl } from '../API/Api';
 import { CurrencyState } from '../../CurrencyContext';
 
@@ -21,6 +23,14 @@ function Stocks() {
   const { exchangeRate,currency } = CurrencyState(); 
   console.log(exchangeRate)
   const titleColors = ["#42ff75", "#3ba3ed", "#fc47ed", "#e82e44", "#f5c802","#f2a04e"];
+  const stockImages=[StockImage1,StockImage3,StockImage2];
+  const backgroundImageStyle = (index) => {
+    return {
+        backgroundImage: `url(${stockImages[index % stockImages.length]})`,
+        backgroundSize: 'cover',
+      
+    };
+};
   const handleEdit = (stock) => {
     setSelectedStock(stock);
     setShowModal(true);
@@ -168,15 +178,15 @@ const renderPrice = (price) => {
       <div className="row row-cols-1 row-cols-md-3 g-4 mt-2">
         {stocks.map((stock, index) => (
           <div className="col-md-4 mb-3" key={stock.id}>
-            <div className="card h-100 d-flex flex-column border border-dark" style={{ backgroundImage: `url(${StockImage})`, backgroundSize: 'cover' }}>
+            <div className="card h-100 d-flex flex-column border border-dark" style={backgroundImageStyle(index)}>
               <div className="card-body">
                 <h5 className="card-title text-center" style={{color:"white"}}>{stock.name}</h5>
-                <p style={{color:"white"}}><strong >Symbol:</strong> {stock.symbol}</p>
-                <p style={{color:"white"}}><strong>Purchase Price:</strong> {renderPrice(stock.purchasePrice)} {currency}</p>
-                <p style={{color:"white"}}><strong>Buy Date:</strong> {moment(stock.buyDate).format("DD-MM-YYYY")}</p>
-                <p style={{color:"white"}}><strong>Quantity:</strong> {stock.quantity}</p>
-                <p style={{color:"white"}}><strong>Current Price:</strong> {renderPrice(stock.currentPrice)} {currency}</p>
-                <p style={{color:"white"}}><strong>Last Update Date:</strong> {moment(stock.lastUpdateDate).format("DD-MM-YYYY")}</p>
+                <p style={{color:"white"}}>Symbol:<strong> {stock.symbol}</strong></p>
+                <p style={{color:"white"}}>Purchase Price:<strong> {renderPrice(stock.purchasePrice)} {currency}</strong></p>
+                <p style={{color:"white"}}>Buy Date:<strong> {moment(stock.buyDate).format("DD-MM-YYYY")}</strong></p>
+                <p style={{color:"white"}}>Quantity:<strong> {stock.quantity}</strong></p>
+                <p style={{color:"white"}}>Current Price:<strong> {renderPrice(stock.currentPrice)} {currency}</strong></p>
+                <p style={{color:"white"}}>Last Update Date:<strong> {moment(stock.lastUpdateDate).format("DD-MM-YYYY")}</strong></p>
               </div>
               <div className="card-footer d-flex justify-content-center align-items-center border border-dark ">
                 <EditIcon className='fs-4 m-2' style={{color:"white"}}  onClick={() => {handleEdit(stock)}}></EditIcon>

@@ -11,7 +11,9 @@ import { useLocation } from "react-router-dom";
 
 import { BASE_URl } from '../API/Api';
 import { CurrencyState } from '../../CurrencyContext';
-import DiamondImage from "../../assets/diamond.jpg"
+import DiamondImage from "../../assets/Diamond1.jpg"
+import DiamondImage2 from "../../assets/diamond.jpg"
+import DiamondImage3 from "../../assets/Diamond2.jpg"
 function Diamonds() {
   const location = useLocation();
   const { state: { userData } = {} } = location;
@@ -20,7 +22,15 @@ function Diamonds() {
   const [selectedDiamond, setSelectedDiamond] = useState(null);
   const { exchangeRate ,currency} = CurrencyState(); 
   const titleColors = ["#42ff75", "#3ba3ed", "#fc47ed", "#e82e44", "#f5c802","#f2a04e"];
- 
+ const diamondPics=[DiamondImage, DiamondImage2,DiamondImage3];
+ const backgroundImageStyle = (index) => {
+  return {
+      backgroundImage: `url(${diamondPics[index % diamondPics.length]})`,
+      backgroundSize: 'cover',
+      backgroundColor: titleColors[index % titleColors.length], 
+     
+  };
+};
   const populateModal = () => {
     if (!selectedDiamond) return; 
     setNewDiamondData({
@@ -186,7 +196,7 @@ const fetchGoldPrice = async () => {
       <div className="row row-cols-1 row-cols-md-3 g-4 " style={{marginTop:"1px"}}>
         {diamond.map((diamond, index) => (
           <div className="col-md-4 mb-3" key={diamond.id}>
-            <div className="card h-100 d-flex flex-column border border-dark" style={{ backgroundImage: `url(${DiamondImage})`, backgroundSize: 'cover' }}>
+            <div className="card h-100 d-flex flex-column border border-dark"  style={backgroundImageStyle(index)}>
               <div className="card-body">
                 <h5 className="card-title text-center" style={{color:"white"}}>{diamond.name}</h5>
                 <p style={{color:"white"}}>Shape:<strong> {diamond.shape}</strong></p>
