@@ -10,7 +10,7 @@ import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import { useLocation } from "react-router-dom";
 import RealestateImage from "../../assets/Realestate.jpg"
 import RealestateImage1 from "../../assets/Realestate1.jpg"
-
+import RealestateImage2 from "../../assets/Realestate4.jpeg"
 import { BASE_URl } from '../API/Api';
 import { CurrencyState } from '../../CurrencyContext';
 
@@ -23,7 +23,7 @@ function Realestate() {
   const { exchangeRate,currency } = CurrencyState();
   console.log(exchangeRate)
   const titleColors = ["#42ff75", "#3ba3ed", "#fc47ed", "#e82e44", "#f5c802", "#f2a04e"];
-  const realestateImages=[RealestateImage,RealestateImage1];
+  const realestateImages=[RealestateImage,RealestateImage1,RealestateImage2];
   const backgroundImageStyle = (index) => {
     return {
         backgroundImage: `url(${realestateImages[index % realestateImages.length]})`,

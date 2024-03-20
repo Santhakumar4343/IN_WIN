@@ -8,7 +8,9 @@ import '../Stocks/Stock.css';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import { useLocation } from "react-router-dom";
-
+import InsuranceImage from "../../assets/Insurance.jpg"
+import InsuranceImage1 from "../../assets/Insurance_1.jpg"
+import InsuranceImage2 from "../../assets/Insurance_2.jpg"
 import { BASE_URl } from '../API/Api';
 import { CurrencyState } from '../../CurrencyContext';
 
@@ -19,6 +21,14 @@ function Insurance() {
   const [insurance, setInsurance] = useState([]);
   const [selectedInsurance, setSelectedInsurance] = useState(null);
   const { exchangeRate ,currency} = CurrencyState();
+  const InsurancePics=[InsuranceImage,InsuranceImage1,InsuranceImage2];
+  const backgroundImageStyle = (index) => {
+    return {
+        backgroundImage: `url(${InsurancePics[index % InsurancePics.length]})`,
+        backgroundSize: 'cover',
+      
+    };
+};
   console.log(exchangeRate)
   const titleColors = ["#42ff75", "#3ba3ed", "#fc47ed", "#e82e44", "#f5c802", "#f2a04e"];
   const handleEdit = (insurance) => {
@@ -165,17 +175,17 @@ function Insurance() {
       <div className="row row-cols-1 row-cols-md-3 g-4 mt-2">
         {insurance.map((insurance, index) => (
           <div className="col-md-4 mb-3" key={insurance.id}>
-            <div className="card h-100 d-flex flex-column border border-dark" style={{ backgroundColor: index < titleColors.length ? titleColors[index] : titleColors[index % titleColors.length] }}>
+            <div className="card h-100 d-flex flex-column border border-dark" style={backgroundImageStyle(index)}>
               <div className="card-body">
-                <h5 className="card-title text-center" style={{ color: "black" }}>{insurance.name}</h5>
-                <p style={{ color: "black" }}><strong>Premium:</strong> {renderPrice(insurance.premium)} {currency}</p>
-                <p style={{ color: "black" }}><strong>Buy Date:</strong> {moment(insurance.buyDate).format("DD-MM-YYYY")}</p>
-                <p style={{ color: "black" }}><strong>Total Price:</strong> {renderPrice(insurance.totalAmount)} {currency}</p>
-                <p style={{ color: "black" }}><strong>Last Update Date:</strong> {moment(insurance.lastUpdateDate).format("DD-MM-YYYY")}</p>
+                <h5 className="card-title text-center" style={{ color: "white" }}>{insurance.name}</h5>
+                <p style={{ color: "white" }}>Premium:<strong> {renderPrice(insurance.premium)} {currency}</strong></p>
+                <p style={{ color: "white" }}>Buy Date:<strong> {moment(insurance.buyDate).format("DD-MM-YYYY")}</strong></p>
+                <p style={{ color: "white" }}>Total Price:<strong> {renderPrice(insurance.totalAmount)} {currency}</strong></p>
+                <p style={{ color: "white" }}>Last Update Date:<strong> {moment(insurance.lastUpdateDate).format("DD-MM-YYYY")}</strong></p>
               </div>
               <div className="card-footer d-flex justify-content-center align-items-center border border-dark ">
-                <EditIcon className='fs-4 m-2' onClick={() => { handleEdit(insurance) }}></EditIcon>
-                <DeleteForeverIcon className='fs-4' onClick={() => { handleDeleteStock(insurance.id) }}></DeleteForeverIcon>
+                <EditIcon className='fs-4 m-2' onClick={() => { handleEdit(insurance) }} style={{ color: "white" }}></EditIcon>
+                <DeleteForeverIcon className='fs-4' onClick={() => { handleDeleteStock(insurance.id) }} style={{ color: "white" }}></DeleteForeverIcon>
               </div>
             </div>
           </div>

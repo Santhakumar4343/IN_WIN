@@ -8,7 +8,10 @@ import '../Stocks/Stock.css';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import { useLocation } from "react-router-dom";
-
+import BikeImage from "../../assets/Bike.jpg"
+import BikeImage2 from "../../assets/Bike_1.jpg"
+import CarImage from "../../assets/Car.jpg"
+import CarImage2 from "../../assets/Car_1.jpg"
 import { BASE_URl } from '../API/Api';
 import { CurrencyState } from '../../CurrencyContext';
 
@@ -21,6 +24,14 @@ function Vehicles() {
     const { exchangeRate ,currency} = CurrencyState();
     console.log(exchangeRate)
     const titleColors = ["#42ff75", "#3ba3ed", "#fc47ed", "#e82e44", "#f5c802", "#f2a04e"];
+    const VehicleImages=[BikeImage,CarImage,BikeImage2,CarImage2];
+    const backgroundImageStyle = (index) => {
+        return {
+            backgroundImage: `url(${VehicleImages[index % VehicleImages.length]})`,
+            backgroundSize: 'cover',
+          
+        };
+    };
     const handleEdit = (vehicle) => {
         setSelectedVehicle(vehicle);
         setShowModal(true);
@@ -164,18 +175,18 @@ function Vehicles() {
             <div className="row row-cols-1 row-cols-md-3 g-4 mt-2">
                 {vehicle.map((vehicle, index) => (
                     <div className="col-md-4 mb-3" key={vehicle.id}>
-                        <div className="card h-100 d-flex flex-column border border-dark" style={{ backgroundColor: index < titleColors.length ? titleColors[index] : titleColors[index % titleColors.length] }}>
+                        <div className="card h-100 d-flex flex-column border border-dark" style={backgroundImageStyle(index)}>
                             <div className="card-body">
-                                <h5 className="card-title text-center" style={{ color: "black" }}>{vehicle.vehicleName}</h5>
-                                <p style={{ color: "black" }}><strong>Vehicle Number:</strong>{vehicle.vehicleNumber}</p>
-                                <p style={{ color: "black" }}><strong>Purchase Price:</strong> {renderPrice(vehicle.purchasePrice)} {currency}</p>
-                                <p style={{ color: "black" }}><strong>Buy Date:</strong> {moment(vehicle.buyDate).format("DD-MM-YYYY")}</p>
-                                <p style={{ color: "black" }}><strong>Quantity :</strong>{vehicle.quantity}</p>
-                                <p style={{ color: "black" }}><strong>Last Update Date:</strong> {moment(vehicle.lastUpdateDate).format("DD-MM-YYYY")}</p>
+                                <h5 className="card-title text-center" style={{ color: "white" }}>{vehicle.vehicleName}</h5>
+                                <p style={{ color: "white" }}><strong>Vehicle Number:</strong>{vehicle.vehicleNumber}</p>
+                                <p style={{ color: "white" }}><strong>Purchase Price:</strong> {renderPrice(vehicle.purchasePrice)} {currency}</p>
+                                <p style={{ color: "white" }}><strong>Buy Date:</strong> {moment(vehicle.buyDate).format("DD-MM-YYYY")}</p>
+                                <p style={{ color: "white" }}><strong>Quantity :</strong>{vehicle.quantity}</p>
+                                <p style={{ color: "white" }}><strong>Last Update Date:</strong> {moment(vehicle.lastUpdateDate).format("DD-MM-YYYY")}</p>
                             </div>
                             <div className="card-footer d-flex justify-content-center align-items-center border border-dark ">
-                                <EditIcon className='fs-4 m-2' onClick={() => { handleEdit(vehicle) }}></EditIcon>
-                                <DeleteForeverIcon className='fs-4' onClick={() => { handleDeleteStock(vehicle.id) }}></DeleteForeverIcon>
+                                <EditIcon className='fs-4 m-2' onClick={() => { handleEdit(vehicle) }} style={{ color: "white" }}></EditIcon>
+                                <DeleteForeverIcon className='fs-4' onClick={() => { handleDeleteStock(vehicle.id) }} style={{ color: "white" }}></DeleteForeverIcon>
                             </div>
                         </div>
                     </div>

@@ -30,6 +30,7 @@ import Profile from "../Profile/Profile.js";
 import MonthlyExpenditure from "../MonthlyExpenditure/MonthlyExpenditure.js"
 import HouseIcon from '@mui/icons-material/House';
 import Metal from "../Gold/Metal.js";
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 function UserDashboard() {
 
 
@@ -88,7 +89,36 @@ function UserDashboard() {
     }
   };
 
-
+  const renderHeaderContent = () => {
+    switch (selectedNavLink) {
+      case "stocks":
+        return "Stocks";
+      case "metal":
+        return "Metal";
+      case "realestate":
+        return "Real Estate";
+      case "fixeddeposits":
+        return "Fixed Deposits";
+      case "insurances":
+        return "Insurances";
+      case "antiquepieces":
+        return "Antique Pieces";
+      case "vehicles":
+        return "Vehicles";
+      case "loans":
+        return "Loans";
+      case "banka/cs":
+        return "Bank A/Cs";
+      case "summary":
+        return "Summary";
+      case "profile":
+        return "Profile";
+      case "monthlyExpenditure":
+        return "Monthly Expenditure";
+      default:
+        return "";
+    }
+  };
 
   return (
     <div className="dashboard-container">
@@ -97,94 +127,88 @@ function UserDashboard() {
         <ul className="list-unstyled">
         <li style={{ marginBottom: "5px" ,marginTop: "70px"}}>
             <BalanceIcon style={{ color: "white", fontSize: "18px", marginLeft: "10px", marginBottom: "8px" }} />
-            <Link onClick={(e) => handleNavLinkClick("summary", e)} style={{ color: "white", marginLeft: "10px", fontSize: "20px", marginTop: "20px", textDecoration: "none" }}>
+            <Link onClick={(e) => handleNavLinkClick("summary", e)} style={{ color: "white", marginLeft: "10px", fontSize: "20px", marginTop: "20px", textDecoration: "none" ,fontWeight: selectedNavLink === "summary" ? "bold" : "normal" }}>
               Summary
+              {selectedNavLink === "summary" && <ArrowBackIcon style={{ color: "orange", fontSize: "28px", marginLeft: "5px" }} />}
             </Link>
           </li>
           <li style={{ marginBottom: "5px" }}>
             <HouseIcon style={{ color: "white", fontSize: "18px", marginLeft: "10px", marginBottom: "8px" }} />
-            <Link onClick={(e) => handleNavLinkClick("monthlyExpenditure", e)} style={{ color: "white", marginLeft: "10px", fontSize: "20px", marginTop: "20px", textDecoration: "none" }}>
-            Monthly Bills
+            <Link onClick={(e) => handleNavLinkClick("monthlyExpenditure", e)} style={{ color: "white", marginLeft: "10px", fontSize: "20px", marginTop: "20px", textDecoration: "none", fontWeight: selectedNavLink === "monthlyExpenditure" ? "bold" : "normal" }}>
+            Monthly Bills {selectedNavLink === "monthlyExpenditure" && <ArrowBackIcon style={{ color: "orange", fontSize: "28px", marginLeft: "5px" }} />}
             </Link>
           </li>
           <li style={{ marginBottom: "5px",  }}>
             <CandlestickChartIcon style={{ color: "white", fontSize: "18px", marginLeft: "10px", marginBottom: "7px" }} />
-            <Link onClick={(e) => handleNavLinkClick("stocks", e)} style={{ color: "white", marginLeft: "5px", fontSize: "20px", marginTop: "20px", textDecoration: "none", }}>
-              Stocks
+            <Link onClick={(e) => handleNavLinkClick("stocks", e)} style={{ color: "white", marginLeft: "5px", fontSize: "20px", marginTop: "20px", textDecoration: "none",fontWeight: selectedNavLink === "stocks" ? "bold" : "normal" }}>
+              Stocks  {selectedNavLink === "stocks" && <ArrowBackIcon style={{ color: "orange", fontSize: "28px", marginLeft: "5px" }} />}
             </Link>
           </li>
           <li style={{ marginBottom: "5px" }}>
             <ViewAgendaSharpIcon style={{ color: "white", fontSize: "18px", marginLeft: "10px", marginBottom: "8px" }} />
-            <Link onClick={(e) => handleNavLinkClick("metal", e)} style={{ color: "white", marginLeft: "10px", fontSize: "20px", marginTop: "20px", textDecoration: "none" }}>
-             Metal
+            <Link onClick={(e) => handleNavLinkClick("metal", e)} style={{ color: "white", marginLeft: "10px", fontSize: "20px", marginTop: "20px", textDecoration: "none" ,fontWeight: selectedNavLink === "metal" ? "bold" : "normal" }}>
+             Metals {selectedNavLink === "metal" && <ArrowBackIcon style={{ color: "orange", fontSize: "28px", marginLeft: "5px" }} />}
             </Link>
           </li>
           <li style={{ marginBottom: "5px" }}>
             <CorporateFareRoundedIcon style={{ color: "white", fontSize: "18px", marginLeft: "10px", marginBottom: "8px" }} />
-            <Link onClick={(e) => handleNavLinkClick("realestate", e)} style={{ color: "white", marginLeft: "10px", fontSize: "20px", marginTop: "20px", textDecoration: "none" }}>
-              Realestate
+            <Link onClick={(e) => handleNavLinkClick("realestate", e)} style={{ color: "white", marginLeft: "10px", fontSize: "20px", marginTop: "20px", textDecoration: "none" ,fontWeight: selectedNavLink === "realestate" ? "bold" : "normal" }}>
+              Realestate {selectedNavLink === "realestate" && <ArrowBackIcon style={{ color: "orange", fontSize: "28px", marginLeft: "5px" }} />}
             </Link>
           </li>
 
           <li style={{ marginBottom: "5px" }}>
             <SavingsIcon style={{ color: "white", fontSize: "18px", marginLeft: "10px", marginBottom: "8px" }} />
-            <Link onClick={(e) => handleNavLinkClick("fixeddeposits", e)} style={{ color: "white", marginLeft: "10px", fontSize: "20px", marginTop: "20px", textDecoration: "none" }}>
-              Fixed Deposits
+            <Link onClick={(e) => handleNavLinkClick("fixeddeposits", e)} style={{ color: "white", marginLeft: "10px", fontSize: "18px", marginTop: "20px", textDecoration: "none" ,fontWeight: selectedNavLink === "fixeddeposits" ? "bold" : "normal" }}>
+              Fixed Deposits {selectedNavLink === "fixeddeposits" && <ArrowBackIcon style={{ color: "orange", fontSize: "28px", marginLeft: "5px" }} />}
             </Link>
           </li>
 
           <li style={{ marginBottom: "5px" }}>
             <HealthAndSafetyIcon style={{ color: "white", fontSize: "18px", marginLeft: "10px", marginBottom: "8px" }} />
-            <Link onClick={(e) => handleNavLinkClick("insurances", e)} style={{ color: "white", marginLeft: "10px", fontSize: "20px", marginTop: "20px", textDecoration: "none" }}>
-              Insurances
+            <Link onClick={(e) => handleNavLinkClick("insurances", e)} style={{ color: "white", marginLeft: "10px", fontSize: "20px", marginTop: "20px", textDecoration: "none" ,fontWeight: selectedNavLink === "insurances" ? "bold" : "normal" }}>
+              Insurances {selectedNavLink === "insurances" && <ArrowBackIcon style={{ color: "orange", fontSize: "28px", marginLeft: "5px" }} />}
             </Link>
           </li>
           <li style={{ marginBottom: "5px" }}>
             <MuseumIcon style={{ color: "white", fontSize: "18px", marginLeft: "10px", marginBottom: "8px" }} />
-            <Link onClick={(e) => handleNavLinkClick("antiquepieces", e)} style={{ color: "white", marginLeft: "10px", fontSize: "20px", marginTop: "20px", textDecoration: "none" }}>
-              Antique Pieces
+            <Link onClick={(e) => handleNavLinkClick("antiquepieces", e)} style={{ color: "white", marginLeft: "10px", fontSize: "18px", marginTop: "20px", textDecoration: "none" ,fontWeight: selectedNavLink === "antiquepieces" ? "bold" : "normal" }}>
+              Antique Pieces {selectedNavLink === "antiquepieces" && <ArrowBackIcon style={{ color: "orange", fontSize: "28px", marginLeft: "5px" }} />}
             </Link>
           </li>
           <li style={{ marginBottom: "5px" }}>
             <DirectionsCarFilledIcon style={{ color: "white", fontSize: "18px", marginLeft: "10px", marginBottom: "8px" }} />
-            <Link onClick={(e) => handleNavLinkClick("vehicles", e)} style={{ color: "white", marginLeft: "10px", fontSize: "20px", marginTop: "20px", textDecoration: "none" }}>
-              Vehicles
+            <Link onClick={(e) => handleNavLinkClick("vehicles", e)} style={{ color: "white", marginLeft: "10px", fontSize: "20px", marginTop: "20px", textDecoration: "none" ,fontWeight: selectedNavLink === "vehicles" ? "bold" : "normal" }}>
+              Vehicles {selectedNavLink === "vehicles" && <ArrowBackIcon style={{ color: "orange", fontSize: "28px", marginLeft: "5px" }} />}
             </Link>
           </li>
           <li style={{ marginBottom: "5px" }}>
             <AccountBalanceIcon style={{ color: "white", fontSize: "18px", marginLeft: "10px", marginBottom: "8px" }} />
-            <Link onClick={(e) => handleNavLinkClick("loans", e)} style={{ color: "white", marginLeft: "10px", fontSize: "20px", marginTop: "20px", textDecoration: "none" }}>
-              Loans
+            <Link onClick={(e) => handleNavLinkClick("loans", e)} style={{ color: "white", marginLeft: "10px", fontSize: "20px", marginTop: "20px", textDecoration: "none", fontWeight: selectedNavLink === "loans" ? "bold" : "normal" }}>
+              Loans {selectedNavLink === "loans" && <ArrowBackIcon style={{ color: "orange", fontSize: "28px", marginLeft: "5px" }} />}
             </Link>
           </li>
           <li style={{ marginBottom: "5px" }}>
             <AccountBalanceIcon style={{ color: "white", fontSize: "18px", marginLeft: "10px", marginBottom: "8px" }} />
-            <Link onClick={(e) => handleNavLinkClick("banka/cs", e)} style={{ color: "white", marginLeft: "10px", fontSize: "20px", marginTop: "20px", textDecoration: "none" }}>
-              Bank A/Cs
+            <Link onClick={(e) => handleNavLinkClick("banka/cs", e)} style={{ color: "white", marginLeft: "10px", fontSize: "20px", marginTop: "20px", textDecoration: "none", fontWeight: selectedNavLink === "banka/cs" ? "bold" : "normal" }}>
+              Bank A/Cs  {selectedNavLink === "banka/cs" && <ArrowBackIcon style={{ color: "orange", fontSize: "28px", marginLeft: "5px" }} />}
             </Link>
           </li>
          
           <li style={{ marginBottom: "5px" }}>
             <AccountCircleIcon style={{ color: "white", fontSize: "18px", marginLeft: "10px", marginBottom: "8px" }} />
-            <Link onClick={(e) => handleNavLinkClick("profile", e)} style={{ color: "white", marginLeft: "10px", fontSize: "20px", marginTop: "20px", textDecoration: "none" }}>
-              Profile
+            <Link onClick={(e) => handleNavLinkClick("profile", e)} style={{ color: "white", marginLeft: "10px", fontSize: "20px", marginTop: "20px", textDecoration: "none", fontWeight: selectedNavLink === "profile" ? "bold" : "normal" }}>
+              Profile {selectedNavLink === "profile" && <ArrowBackIcon style={{ color: "orange", fontSize: "28px", marginLeft: "5px" }} />}
             </Link>
           </li>
         </ul>
       </div>
       <div className="main-content" style={{ padding: "20px" }}>
-      <h4 className="text-center" style={{  fontWeight: 700, fontFamily: "Segoe UI, Tahoma, Geneva, Verdana, sans-serif" ,color:"black"}}>In-Win: ONiE Soft Wealth Management System</h4>
+      <h4 className="text-center" style={{ fontWeight: 700, fontFamily: "Segoe UI, Tahoma, Geneva, Verdana, sans-serif", color: "black" }}>
+          {renderHeaderContent()}
+        </h4>
 
         <div className="d-flex justify-content-end">
-          {/* <Dropdown style={{color:"black"}}>
-              <Dropdown.Toggle  id="userDropdown">
-                <CurrencyExchangeIcon ></CurrencyExchangeIcon>
-              </Dropdown.Toggle>
-              <Dropdown.Menu>
-                <Dropdown.Item onClick={{}} style={{ fontSize: '14px', color: "black" }}>USD</Dropdown.Item>
-                <Dropdown.Item onClick={{}} style={{ fontSize: '14px', color: "black" }}>INR</Dropdown.Item>
-              </Dropdown.Menu>
-            </Dropdown> */}
            
           <Select
             variant="outlined"

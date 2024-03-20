@@ -8,9 +8,9 @@ import '../Stocks/Stock.css';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import { useLocation } from "react-router-dom";
-import StockImage1 from  "../../../src/assets/Stocks1.jpg";
-import StockImage2 from  "../../../src/assets/Stocks2.jpg";
-import StockImage3 from  "../../../src/assets/Stocks3.jpg";
+import StockImage1 from  "../../../src/assets/Sotck.jpg";
+import StockImage2 from  "../../../src/assets/Stock_2.jpg";
+import StockImage3 from  "../../../src/assets/Stock_3.jpg";
 import { BASE_URl } from '../API/Api';
 import { CurrencyState } from '../../CurrencyContext';
 

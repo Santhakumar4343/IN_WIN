@@ -7,6 +7,9 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import '../Stocks/Stock.css';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
+import APImage from "../../assets/Ap.jpg"
+import APImage1 from "../../assets/Ap_1.jpg"
+import APImage2 from "../../assets/Ap_2.jpg"
 import { useLocation } from "react-router-dom";
 
 import { BASE_URl } from '../API/Api';
@@ -21,6 +24,14 @@ function AntiquePieces() {
   const { exchangeRate,currency } = CurrencyState();
   console.log(exchangeRate)
   const titleColors = ["#42ff75", "#3ba3ed", "#fc47ed", "#e82e44", "#f5c802", "#f2a04e"];
+  const ApImages=[APImage,APImage1,APImage2];
+  const backgroundImageStyle = (index) => {
+    return {
+        backgroundImage: `url(${ApImages[index % ApImages.length]})`,
+        backgroundSize: 'cover',
+      
+    };
+};
   const handleEdit = (antiquePiece) => {
     setSelectedAntiquePiece(antiquePiece);
     setShowModal(true);
@@ -166,18 +177,18 @@ function AntiquePieces() {
       <div className="row row-cols-1 row-cols-md-3 g-4 mt-2">
         {antiquePiece.map((antiquePiece, index) => (
           <div className="col-md-4 mb-3" key={antiquePiece.id}>
-            <div className="card h-100 d-flex flex-column border border-dark" style={{ backgroundColor: index < titleColors.length ? titleColors[index] : titleColors[index % titleColors.length] }}>
+            <div className="card h-100 d-flex flex-column border border-dark" style={backgroundImageStyle(index)}>
               <div className="card-body">
-                <h5 className="card-title text-center" style={{ color: "black" }}>{antiquePiece.name}</h5>
+                <h5 className="card-title text-center" style={{ color: "white" }}>{antiquePiece.name}</h5>
     
-                <p style={{ color: "black" }}><strong>Years old:</strong> {antiquePiece.years}</p>
-                <p style={{ color: "black" }}><strong>Buy Date:</strong> {moment(antiquePiece.buyDate).format("DD-MM-YYYY")}</p>
-                <p style={{ color: "black" }}><strong>Price:</strong> {renderPrice(antiquePiece.price)} {currency}</p>
-                <p style={{ color: "black" }}><strong>Last Update Date:</strong> {moment(antiquePiece.lastUpdateDate).format("DD-MM-YYYY")}</p>
+                <p style={{ color: "white" }}>Years old:<strong> {antiquePiece.years}</strong></p>
+                <p style={{ color: "white" }}>Buy Date:<strong> {moment(antiquePiece.buyDate).format("DD-MM-YYYY")}</strong></p>
+                <p style={{ color: "white" }}>Price:<strong> {renderPrice(antiquePiece.price)} {currency}</strong></p>
+                <p style={{ color: "white" }}>Last Update Date:<strong> {moment(antiquePiece.lastUpdateDate).format("DD-MM-YYYY")}</strong></p>
               </div>
               <div className="card-footer d-flex justify-content-center align-items-center border border-dark ">
-                <EditIcon className='fs-4 m-2' onClick={() => { handleEdit(antiquePiece) }}></EditIcon>
-                <DeleteForeverIcon className='fs-4' onClick={() => { handleDeleteStock(antiquePiece.id) }}></DeleteForeverIcon>
+                <EditIcon className='fs-4 m-2' onClick={() => { handleEdit(antiquePiece) }} style={{ color: "white" }}></EditIcon>
+                <DeleteForeverIcon className='fs-4' onClick={() => { handleDeleteStock(antiquePiece.id) }} style={{ color: "white" }}></DeleteForeverIcon>
               </div>
             </div>
           </div>

@@ -8,6 +8,9 @@ import '../Stocks/Stock.css';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import { useLocation } from "react-router-dom";
+import LoanImage from "../../assets/Loan.jpg"
+import LoanImage1 from "../../assets/Loan_1.jpg"
+import LoanImage2 from "../../assets/Loan_2.jpg"
 
 import { BASE_URl } from '../API/Api';
 import { CurrencyState } from '../../CurrencyContext';
@@ -21,6 +24,14 @@ function Loans() {
   const { exchangeRate,currency } = CurrencyState();
   console.log(exchangeRate)
   const titleColors = ["#42ff75", "#3ba3ed", "#fc47ed", "#e82e44", "#f5c802", "#f2a04e"];
+  const loanImages=[LoanImage,LoanImage1,LoanImage2];
+  const backgroundImageStyle = (index) => {
+    return {
+        backgroundImage: `url(${loanImages[index % loanImages.length]})`,
+        backgroundSize: 'cover',
+      
+    };
+};
   const handleEdit = (loan) => {
     setSelectedLoan(loan);
     setShowModal(true);
@@ -173,17 +184,18 @@ function Loans() {
       <div className="row row-cols-1 row-cols-md-3 g-4 mt-0">
         {loan.map((loan, index) => (
           <div className="col-md-4 mb-3" key={loan.id}>
-            <div className="card h-100 d-flex flex-column border border-dark" style={{ backgroundColor: index < titleColors.length ? titleColors[index] : titleColors[index % titleColors.length] }}>
+            <div className="card h-100 d-flex flex-column border border-dark" style={backgroundImageStyle(index)}>
               <div className="card-body">
                 <h5 className="card-title text-center" style={{ color: "black" }}>{loan.loanName}</h5>
-                <p style={{ color: "black" }}><strong> Loan type:</strong>{loan.loanType}</p>
-                <p style={{ color: "black" }}><strong>Bank Name:</strong>{loan.bankName}</p>
-                <p style={{ color: "black" }}><strong>Rate Of Interest:</strong>{loan.rateOfInterest} <strong>%</strong></p>
-                <p style={{ color: "black" }}><strong>Tenure In Years:</strong>{loan.tenureInYears}</p>
-                <p style={{ color: "black" }}><strong>Loan Amount:</strong> {renderPrice(loan.loanAmount)} {currency}</p>
-                <p style={{ color: "black" }}><strong>Take Date:</strong> {moment(loan.buyDate).format("DD-MM-YYYY")}</p>
-                <p style={{ color: "black" }}><strong>Monthly EMI:</strong> {renderPrice(loan.monthlyEMI)} {currency}</p>
-                <p style={{ color: "black" }}><strong>Last Update Date:</strong> {moment(loan.lastUpdateDate).format("DD-MM-YYYY")}</p>
+                <p style={{ color: "black" }}> Loan type:<strong>{loan.loanType}</strong></p>
+                <p style={{ color: "black" }}>Bank Name:<strong>{loan.bankName}</strong></p>
+                <p style={{ color: "black" }}>Rate Of Interest:<strong>{loan.rateOfInterest} %</strong></p>
+              
+                <p style={{ color: "black" }}>Loan Amount:<strong> {renderPrice(loan.loanAmount)} {currency}</strong></p>
+                <p style={{ color: "black" }}>Tenure In Years:<strong>{loan.tenureInYears}</strong></p>
+                <p style={{ color: "black" }}>Take Date:<strong> {moment(loan.buyDate).format("DD-MM-YYYY")}</strong></p>
+                <p style={{ color: "black" }}>Monthly EMI:<strong> {renderPrice(loan.monthlyEMI)} {currency}</strong></p>
+                <p style={{ color: "black" }}>Last Update Date:<strong> {moment(loan.lastUpdateDate).format("DD-MM-YYYY")}</strong></p>
               </div>
               <div className="card-footer d-flex justify-content-center align-items-center border border-dark ">
                 <EditIcon className='fs-4 m-2' onClick={() => { handleEdit(loan) }}></EditIcon>

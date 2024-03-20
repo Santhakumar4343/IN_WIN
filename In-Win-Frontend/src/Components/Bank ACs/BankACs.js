@@ -8,6 +8,8 @@ import '../Stocks/Stock.css';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import { useLocation } from "react-router-dom";
+import BankImage from  "../../assets/Bank.jpeg"
+import BankImage1 from  "../../assets/Bank_1.jpeg"
 
 import { BASE_URl } from '../API/Api';
 import { CurrencyState } from '../../CurrencyContext';
@@ -21,6 +23,14 @@ function BankACs() {
   const { exchangeRate } = CurrencyState();
   console.log(exchangeRate)
   const titleColors = ["#42ff75", "#3ba3ed", "#fc47ed", "#e82e44", "#f5c802", "#f2a04e"];
+  const bankImages=[BankImage,BankImage1];
+  const backgroundImageStyle = (index) => {
+    return {
+        backgroundImage: `url(${bankImages[index % bankImages.length]})`,
+        backgroundSize: 'cover',
+      
+    };
+};
   const handleEdit = (insurance) => {
     setSelectedAccount(insurance);
     setShowModal(true);
@@ -168,14 +178,14 @@ function BankACs() {
       <div className="row row-cols-1 row-cols-md-3 g-4 mt-2">
         {account.map((account, index) => (
           <div className="col-md-4 mb-3" key={account.id}>
-            <div className="card h-100 d-flex flex-column border border-dark" style={{ backgroundColor: index < titleColors.length ? titleColors[index] : titleColors[index % titleColors.length] }}>
+            <div className="card h-100 d-flex flex-column border border-dark" style={backgroundImageStyle(index)}>
               <div className="card-body">
-                <h5 className="card-title text-center" style={{ color: "black" }}>{account.bankName}</h5>
-                <p style={{ color: "black" }}><strong>Account Type:</strong> {account.accountType}</p>
-                <p style={{ color: "black" }}><strong>A/C Holder Name:</strong> {account.accountHolderName}</p>
-                <p style={{ color: "black" }}><strong>A/C Number  :</strong> {account.accountNumber}</p>
-                <p style={{ color: "black" }}><strong>IFSC Code:</strong> {account.ifscCode}</p>
-                <p style={{ color: "black" }}><strong>Branch:</strong> {account.branch}</p>
+                <h5 className="card-title text-center" style={{ color: "white" }}>{account.bankName}</h5>
+                <p style={{ color: "white" }}>Account Type:<strong> {account.accountType}</strong></p>
+                <p style={{ color: "white" }}>A/C Holder Name:<strong> {account.accountHolderName}</strong></p>
+                <p style={{ color: "white" }}>A/C Number  :<strong> {account.accountNumber}</strong></p>
+                <p style={{ color: "white" }}>IFSC Code:<strong> {account.ifscCode}</strong></p>
+                <p style={{ color: "white" }}>Branch:<strong> {account.branch}</strong></p>
                  </div>
               <div className="card-footer d-flex justify-content-center align-items-center border border-dark ">
                 <EditIcon className='fs-4 m-2' onClick={() => { handleEdit(account) }}></EditIcon>
